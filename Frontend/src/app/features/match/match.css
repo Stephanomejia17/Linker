@@ -1,0 +1,25 @@
+section {
+    background-image: url("/assets/img/match-background.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    padding: 10px;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+app-sidebar {
+    flex: 1;
+}
+
+app-swipe {
+    flex: 2;
+}
+
+app-filter {
+    flex: 3;
+}
