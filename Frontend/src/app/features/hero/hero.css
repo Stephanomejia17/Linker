@@ -1,3 +1,21 @@
+
+
+.btn-login {
+  background-color: var(--coral);
+  color: var(--white);
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: var(--blue);
+}
+
 .section-1 {
   background: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f") center/cover no-repeat;
   color: var(--white);
@@ -5,104 +23,174 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 80vh;
 }
+
+
 
 .section-1-content {
   display: flex;
   align-items: center;
   max-width: 1200px;
+  gap: 2rem;
 }
 
 .section-1 .text-content {
   flex: 1;
-  margin-right: 2rem;
 }
 
 .section-1 h1 {
   font-size: 2.5rem;
+  font-family: 'Syne';
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; 
 }
 
 .section-1 p {
   margin-bottom: 2rem;
+    font-family: "Raleway";
 }
 
 .section-1 .btn-primary {
-  background-color: var(--color-secondary);
-  color: var(--color-white);
+  background-color: var(--coral);
+  color: var(--white);
   padding: 0.8rem 1.5rem;
   border-radius: 25px;
   text-decoration: none;
   font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 .section-1 .btn-primary:hover {
-  background-color: var(--color-primary);
+  background-color: var(--blue);
 }
 
-.section-1-image img {
-  max-width: 400px;
-  border-radius: 12px;
+.section-1 img{
+  width: 40%;
+  height: auto;
 }
 
-
-.section-2-info {
-  background-color: var(--color-white);
-  padding: 4rem 3rem;
-  display: grid;
-  gap: 3rem;
-}
-
-.section-2-info h2 {
-  color: var(--color-primary);
-}
-
-.section-2-info p {
-  max-width: 600px;
-}
-
-.feature-1, .feature-2, .feature-3 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.feature-2, .feature-3 {
-  flex-direction: row-reverse;
-}
-
-.feature-1 img, .feature-2 img, .feature-3 img {
-  max-width: 120px;
-}
-
-
-.section-3-pasos {
-  background-color: var(--color-soft);
-  padding: 4rem 3rem;
+.feature-1{
+  background-color: var(--color-light);
+  padding: 3% 20%;
   text-align: center;
 }
 
-.section-3-pasos h2 {
-  color: var(--color-primary);
-  margin-bottom: 2rem;
+.feature-1 img{
+  margin-top: 1rem;
+  width: 70%;
+  height: 50%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.testimonial {
-  background: var(--color-white);
-  border-radius: 12px;
+.feature-3, .feature-2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  width: 100%;
+  margin: 0; 
+  padding: 0;
+}
+
+.feature-2 .image-content img, .feature-3 .image-content img{
+  width: 100%;
+  height:auto;
+  display: block;
+}
+
+.feature-2 .text-content, .feature-3 .text-content{ 
+  width: 50%;
+  padding: 2% 5%;
+}
+
+.feature-2 .text-content h2, .feature-3 .text-content h2 , .feature-1 h2 {
+  font-size: 2.5rem;
+  font-family: "Syne", sans-serif;
+  margin-bottom: 1.5rem; 
+  overflow: hidden;
+  animation: typing 4s steps(40, end) forwards, blink .75s step-end infinite;
+}
+
+
+.feature-2 .text-content p, .feature-3 .text-content p , .feature-1 p {
+  color: var(--gray);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  font-family: "Rubik", sans-serif;
+}
+
+.feature-2 {
+  background-color: var(--coral);
+}
+
+.feature-3 {
+  background-color: var(--soft-blue);
+}
+
+.feature-2 .image-content , .feature-3 .image-content{
+ width: 50%;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid black; 
+  width: 100%; 
+  margin: 30px 0px;
+}
+
+
+.section-3-steps{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gray);
+  padding: 4rem 3rem;
+}
+
+.steps-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.steps{
+  border-radius: 20px;
   padding: 2rem;
-  margin: 1rem auto;
-  max-width: 600px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  background: rgba(255,255,255,0.05);
 }
 
-.testimonial p {
-  font-style: italic;
+.steps:hover{
+  background-color: #414141;
+}
+
+
+.steps img {
+  width: 90px;
+  height: 90px;
   margin-bottom: 1rem;
 }
 
-.testimonial span {
-  font-weight: 600;
-  color: var(--color-dark);
+.steps h3 {
+  color: var(--white);
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-family: "Raleway", sans-serif;
 }
+
+.steps p {
+  color: var(--white);
+  font-family: "Rubik", sans-serif;
+  line-height: 1.4;
+}
+
+.section-3-steps h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: "Syne", sans-serif;  
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
