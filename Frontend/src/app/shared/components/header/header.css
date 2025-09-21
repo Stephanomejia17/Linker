@@ -1,12 +1,11 @@
 .logo {
-  height: 120px;
+  height:105px;
   width: auto;
 }
 
 header {
   background-color: #000000;
   color: white;
-  padding: 10px;
   font-family: 'Rubik', sans-serif;
   position: sticky;
   width: 100%;
