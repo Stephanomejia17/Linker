@@ -4,6 +4,7 @@ import { Hero } from './features/hero/hero';
 import { Signin } from './features/signin/signin';
 import { Login } from './features/login/login';
 import { PerfilPostulante } from './features/perfil-postulante/perfil-postulante';
+import { PerfilEmpresa } from './features/perfil-empresa/perfil-empresa';
 
 export const routes: Routes = [
     {
@@ -29,6 +30,11 @@ export const routes: Routes = [
     {
         path: "postulante",
         component: PerfilPostulante,
+        pathMatch: 'full'
+    },
+    {
+        path: "empresa",
+        component: PerfilEmpresa,
         pathMatch: 'full'
     },
     {
