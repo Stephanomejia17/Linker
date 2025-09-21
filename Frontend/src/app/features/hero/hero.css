@@ -1,7 +1,7 @@
 .section-1 {
   background: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f") center/cover no-repeat;
   color: var(--white);
-  padding: 5rem 3rem;
+  padding: 12rem 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
