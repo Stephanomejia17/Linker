@@ -3,6 +3,7 @@ import { Match } from './features/match/match';
 import { Hero } from './features/hero/hero';
 import { Signin } from './features/signin/signin';
 import { Login } from './features/login/login';
+import { PerfilPostulante } from './features/perfil-postulante/perfil-postulante';
 
 export const routes: Routes = [
     {
@@ -23,6 +24,11 @@ export const routes: Routes = [
     {
         path: "signin",
         component: Signin,
+        pathMatch: 'full'
+    },
+    {
+        path: "postulante",
+        component: PerfilPostulante,
         pathMatch: 'full'
     },
     {

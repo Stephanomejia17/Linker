@@ -1,0 +1,91 @@
+<section>
+<div class="perfil-container">
+  <h2>PERFIL POSTULANTE</h2>
+
+  <div class="perfil-header">
+    <img src="assets/img/match-user-icon.webp" class="foto" />
+    <span class="nombre">Stiven Ramos Correa</span>
+  </div>
+
+  <hr />
+
+  <div class="campo">
+    <div class="mini-titulo">
+      <img src="assets/img/icono-cv.png" class="icon" />
+      <label>Mi CV</label>
+    </div>
+    <select>
+      <option value="">Experiencia</option>
+      <option value="junior">Junior</option>
+      <option value="semi-senior">Semi-Senior</option>
+      <option value="senior">Senior</option>
+    </select>
+    <input type="file" id="cv" style="display: none;"/>
+    <label for="cv">
+        Seleccionar currículum
+    </label>
+  </div>
+
+  <div *ngFor="let estudio of estudios; let i = index" class="campo">
+    <div class="mini-titulo">
+      <img src="assets/img/icono-libros.png" class="icon" />
+      <label>Estudio {{ i + 1 }}</label>
+    </div>
+    <input type="text" [(ngModel)]="estudio.titulo" placeholder="Título" />
+    <select [(ngModel)]="estudio.nivel">
+      <option value="">Nivel</option>
+      <option value="bachiller">bachiller</option>
+      <option value="tecnico">Técnico</option>
+      <option value="tecnologo">Tecnólogo</option>
+      <option value="profesional">Profesional</option>
+      <option value="posgrado">Posgrado</option>
+      <option value="magister">Magister</option>
+      <option value="doctorado">Doctorado</option>
+    </select>
+    <input type="file" [(ngModel)]="estudio.certificado" id="certificado-estudios" style="display: none;"/>
+    <label for="certificado-estudios">
+        Seleccionar certificado estudio
+    </label>
+  </div>
+  <button class="agregar" (click)="agregarEstudio()">AGREGAR</button>
+
+  <div *ngFor="let habilidad of habilidades; let i = index" class="campo">
+    <div class="mini-titulo">
+      <img src="assets/img/icono-bombilla.png" class="icon" />
+      <label>Habilidad {{ i + 1 }}</label>
+    </div>
+    <select [(ngModel)]="habilidad.nombre">
+      <option value="">Selecciona una habilidad</option>
+      <option value="Excel">Excel</option>
+      <option value="Python">Python</option>
+    </select>
+    <input type="file" [(ngModel)]="habilidad.certificado" id="certificado-habilidades" style="display: none;"/>
+    <label for="certificado-habilidades">
+        Seleccionar certificado habilidad
+    </label>
+  </div>
+  <button class="agregar" (click)="agregarHabilidad()">AGREGAR</button>
+
+  <div *ngFor="let idioma of idiomas; let i = index" class="campo">
+    <div class="mini-titulo">
+      <img src="assets/img/icono-idioma.png" class="icon" />
+      <label>Idioma {{ i + 1 }}</label>
+    </div>
+    <select [(ngModel)]="idioma.nombre">
+      <option value="">Selecciona una habilidad</option>
+      <option value="Español">Español</option>
+      <option value="Inglés">Inglés</option>
+      <option value="Italiano">Italiano</option>
+      <option value="Francés">Francés</option>
+      <option value="Alemán">Alemán</option>
+    </select>
+    <input type="file" [(ngModel)]="idioma.certificado" id="certificado-idiomas" style="display: none;"/>
+    <label for="certificado-idiomas">
+        Seleccionar certificado idioma
+    </label>
+  </div>
+  <button class="agregar" (click)="agregarIdioma()">AGREGAR</button>
+
+  <button class="btn-guardar">Guardar</button>
+</div>
+</section>
