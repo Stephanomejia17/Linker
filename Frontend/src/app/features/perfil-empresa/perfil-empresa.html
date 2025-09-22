@@ -1,0 +1,71 @@
+<section>
+<div class="perfil-container">
+  <h2>PERFIL EMPRESA</h2>
+
+  <div class="perfil-header">
+    <img src="assets/img/match-user-icon.webp" class="foto" />
+    <span class="nombre">Johnson & Johnson</span>
+  </div>
+  <hr/>
+
+  <div class="campo">
+    <div class="mini-titulo">
+      <img src="assets/img/icono-lapiz.png" class="icon" />
+      <label>Descripción de la empresa</label>
+    </div>
+    <input placeholder="Descripción de la empresa">
+  </div>
+
+  <div *ngFor="let vacante of vacantes; let i = index" class="campo">
+    <div class="mini-titulo">
+      <img src="assets/img/icono-lupa.png" class="icon" />
+      <label>Vacante {{ i + 1 }}</label>
+    </div>
+    <input type="text" placeholder="Título" />
+    <input placeholder="Descripción">
+    <input type="number" placeholder="Salario" />
+    <select>
+        <option value="">Modalidad</option>
+        <option value="Presencial">Presencial</option>
+        <option value="Remoto">Remoto</option>
+        <option value="Híbrido">Remoto</option>
+    </select>
+    <select>
+        <option value="">Tipo de tabajo</option>
+        <option value="Practicante">Practicante</option>
+        <option value="Auxiliar">Auxiliar</option>
+        <option value="Junior">Junior</option>
+        <option value="Trainee">Trainee</option>
+        <option value="Voluntario">Voluntario</option>
+    </select>
+    <input type="text" placeholder="Ubicación" />
+    <select>
+        <option value="">Habilidad requerida</option>
+        <option value="Excel">Excel</option>
+        <option value="Python">Python</option>
+    </select>
+    <select>
+        <option value="">Idioma requerido</option>
+        <option value="Español">Español</option>
+        <option value="Inglés">Inglés</option>
+        <option value="Italiano">Italiano</option>
+        <option value="Francés">Francés</option>
+        <option value="Alemán">Alemán</option>
+    </select>
+  </div>
+  <button class="agregar" (click)="agregarVacante()">AGREGAR</button>
+
+  <div class="campo">
+    <div class="mini-titulo">
+      <img src="assets/img/icono-certificado.png" class="icon" />
+      <label>Certificados</label>
+    </div>
+    <input type="text" placeholder="Nombre" />
+    <input type="text" placeholder="Entidad emisora" />
+    <input type="date" placeholder="Fecha de emisión" />
+    <input type="date" placeholder="Fecha de caducidad" />
+  </div>
+
+  <button class="btn-guardar">Guardar</button>
+</div>
+</section>
