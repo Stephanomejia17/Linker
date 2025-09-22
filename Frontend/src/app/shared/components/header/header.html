@@ -6,16 +6,20 @@
         <h1>Linker</h1>
       </li>
 
-      <li class="SectionBar">
-        <a routerLink="">Inicio</a>
-        <a routerLink="postulante">Perfil Postulante</a>
-        <a routerLink="empresa">Perfil Empresa</a>
-        <a routerLink="match">Match</a>
-        <a routerLink="">Bienvenido</a>
+      <li class="menu-icon" (click)="toggleMenu()">
+        <i class="fa-solid fa-bars hamburguer-icon"></i>
+      </li>
+
+      <li class="SectionBar" [class.active]="isMenuOpen">
+        <a routerLink="" (click)="closeMenu()">Inicio</a>
+        <a routerLink="postulante" (click)="closeMenu()">Perfil Postulante</a>
+        <a routerLink="empresa" (click)="closeMenu()">Perfil Empresa</a>
+        <a routerLink="match" (click)="closeMenu()">Match</a>
+        <a routerLink="" (click)="closeMenu()">Bienvenido</a>
       </li>
 
       <li>
-        <button class="LoginButton" routerLink="login">Iniciar Sesión</button>
+        <button class="LoginButton" routerLink="login" (click)="closeMenu()">Iniciar Sesión</button>
       </li>
     </ul>
   </nav>

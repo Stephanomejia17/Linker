@@ -80,6 +80,7 @@ nav a:hover::after {
     width: 10rem;
     border: none;
     padding: 10px 20px;
+    margin-right: 3rem;
     border-radius: 30px;
     cursor: pointer;
     font-weight: 500;
@@ -101,3 +102,74 @@ nav a:hover::after {
   font-family: 'Syne', sans-serif !important;
 
 }
+
+.menu-icon {
+  display: none !important;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.hamburguer-icon {
+  transition: color 0.3s ease;
+}
+
+.hamburguer-icon::after {
+  transition: width 0.3s ease;
+  -webkit-transition: width 0.3s ease;
+}
+
+.SectionBar {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-wrap: wrap;
+  }
+
+  header {
+    width: 100%;
+    height: 5rem;
+    top: 0;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .logo {
+    height: 5rem;
+  }
+
+  .menu-icon {
+    display: flex !important;
+    margin-left: auto; 
+    margin-right: 2rem;
+  }
+
+  .SectionBar {
+    display: none !important;
+    flex-direction: column;
+    background: #111;
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 1000;
+    width: 200px;
+    height: auto;
+  }
+
+  .SectionBar.active {
+    display: flex !important;
+  }
+
+  .LoginButton {
+    display: none;
+    margin-top: 10px;
+    width: 7rem;
+  }
+}
+
