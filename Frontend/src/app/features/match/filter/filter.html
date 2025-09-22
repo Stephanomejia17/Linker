@@ -1,3 +1,18 @@
 <section>
-    Aplicar Filtros
+    <h2>Aplicar filtros</h2>
+  <form>
+    <div *ngFor="let opcion of opciones" class="options">
+      <label>
+        <input
+          type="checkbox"
+          [value]="opcion"
+          [(ngModel)]="seleccionados[opcion]"
+          name="opcion-{{ opcion }}"
+        />
+        {{ opcion }}
+      </label>
+    </div>
+  </form>
+
+  <button (click)="borrarFiltros()">Borrar filtros</button>
 </section>
