@@ -1,5 +1,10 @@
 <section>
     <app-sidebar></app-sidebar>
-    <app-swipe></app-swipe>
-    <app-filter></app-filter>
+    <div class="main-content">
+        <app-swipe></app-swipe>
+
+        @if(filterService.isActivate()){
+            <app-filter></app-filter>
+        }
+    </div>
 </section>

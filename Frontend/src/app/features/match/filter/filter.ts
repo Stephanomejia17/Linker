@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-filter',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './filter.css'
 })
 export class Filter {
-
+  
 }
