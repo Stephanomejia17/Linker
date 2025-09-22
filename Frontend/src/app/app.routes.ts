@@ -1,9 +1,26 @@
 import { Routes } from '@angular/router';
+import { Match } from './features/match/match';
+import { Hero } from './features/hero/hero';
+import { Signin } from './features/signin/signin';
 
 export const routes: Routes = [
     {
         path:"",
-        pathMatch:"full",
-        redirectTo:"/home"
+        component: Hero,
+        pathMatch:"full"
+    },
+    {
+        path: "match",
+        component: Match,
+        pathMatch: 'full'
+    },
+    {
+        path: "signin",
+        component: Signin,
+        pathMatch: 'full'
+    },
+    {
+        path: "**",
+        redirectTo: ""
     }
 ];

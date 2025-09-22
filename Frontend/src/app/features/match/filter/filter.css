@@ -1,0 +1,32 @@
+section {
+    background-color: rgba(0, 0, 0, 0.6);
+    min-height: 25vh;
+    max-width: 20vh;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+h2 {
+    font-size: 18px;
+}
+button {
+    margin: 10px;
+    padding: 3px;
+    width: 70%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.options {
+    margin: 10px;
+    font-size: 14px;
+}
