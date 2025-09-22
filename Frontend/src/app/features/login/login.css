@@ -54,6 +54,8 @@ a {
     text-decoration: underline;
     font-size: 16px;
     justify-self: center;
+    cursor: pointer;
+    color: white;
 }
 
 input {
