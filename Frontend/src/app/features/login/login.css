@@ -8,6 +8,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+
   --bg-gradient: radial-gradient(
       circle at 94.35384114583333% 89.61588541666666%,
       #84affb 0%,
@@ -34,6 +35,10 @@ section {
     ),
     radial-gradient(circle at 48.9013671875% 49.521484375%, #000000 0%, 100%, rgba(0, 0, 0, 0) 100%);
   --bg-overlay-color: transparent;
+}
+
+.loginForm{
+  border-radius: 20px;
 }
 
 h2 {
