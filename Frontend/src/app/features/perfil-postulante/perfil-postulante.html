@@ -42,12 +42,15 @@
       <option value="magister">Magister</option>
       <option value="doctorado">Doctorado</option>
     </select>
-    <input type="file" [(ngModel)]="estudio.certificado" id="certificado-estudios" style="display: none;"/>
-    <label for="certificado-estudios">
+    <input type="file" [(ngModel)]="estudio.certificado" id="certificado-estudios-{{i}}" style="display: none;"/>
+    <label for="certificado-estudios-{{i}}">
         Seleccionar certificado estudio
     </label>
   </div>
-  <button class="agregar" (click)="agregarEstudio()">AGREGAR</button>
+  <div class="botones-container">
+    <button class="agregar" (click)="agregarEstudio()" *ngIf="estudios.length < 5">AGREGAR</button>
+    <button class="eliminar" (click)="eliminarEstudio(estudios.length - 1)" *ngIf="estudios.length > 1">ELIMINAR</button>
+  </div>
 
   <div *ngFor="let habilidad of habilidades; let i = index" class="campo">
     <div class="mini-titulo">
@@ -59,12 +62,15 @@
       <option value="Excel">Excel</option>
       <option value="Python">Python</option>
     </select>
-    <input type="file" [(ngModel)]="habilidad.certificado" id="certificado-habilidades" style="display: none;"/>
-    <label for="certificado-habilidades">
+    <input type="file" [(ngModel)]="habilidad.certificado" id="certificado-habilidades-{{i}}" style="display: none;"/>
+    <label for="certificado-habilidades-{{i}}">
         Seleccionar certificado habilidad
     </label>
   </div>
-  <button class="agregar" (click)="agregarHabilidad()">AGREGAR</button>
+  <div class="botones-container">
+    <button class="agregar" (click)="agregarHabilidad()" *ngIf="habilidades.length < 5">AGREGAR</button>
+    <button class="eliminar" (click)="eliminarHabilidad(habilidades.length - 1)" *ngIf="habilidades.length > 1">ELIMINAR</button>
+  </div>
 
   <div *ngFor="let idioma of idiomas; let i = index" class="campo">
     <div class="mini-titulo">
@@ -79,12 +85,15 @@
       <option value="Francés">Francés</option>
       <option value="Alemán">Alemán</option>
     </select>
-    <input type="file" [(ngModel)]="idioma.certificado" id="certificado-idiomas" style="display: none;"/>
-    <label for="certificado-idiomas">
-        Seleccionar certificado idioma
+    <input type="file" [(ngModel)]="idioma.certificado" id="certificado-idiomas-{{i}}" style="display: none;"/>
+    <label for="certificado-idiomas-{{i}}">
+        Seleccionar certificado de idioma
     </label>
   </div>
-  <button class="agregar" (click)="agregarIdioma()">AGREGAR</button>
+  <div class="botones-container">
+    <button class="agregar" (click)="agregarIdioma()" *ngIf="idiomas.length < 5">AGREGAR</button>
+    <button class="eliminar" (click)="eliminarIdioma(idiomas.length - 1)" *ngIf="idiomas.length > 1">ELIMINAR</button>
+  </div>
 
   <button class="btn-guardar">Guardar</button>
 </div>

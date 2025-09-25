@@ -293,6 +293,14 @@ section {
   background-color: var(--color-light);
 }
 
+.botones-container {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+}
+
 .agregar {
   width: 140px;
   height: 56px;
@@ -314,6 +322,32 @@ section {
 }
 
 .agregar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 15px 40px rgba(132, 175, 251, 0.4);
+  background-color: var(--color-light);
+}
+
+.eliminar {
+  width: 140px;
+  height: 56px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #dbd4d2, #F5F6FA);
+  backdrop-filter: blur(10px);
+  color: #2E2E2E;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-sizing: border-box;
+}
+
+.eliminar:hover {
   transform: translateY(-3px);
   box-shadow: 0px 15px 40px rgba(132, 175, 251, 0.4);
   background-color: var(--color-light);
@@ -391,7 +425,14 @@ section {
       width: 100%;
   }
   
-  .agregar {
-      width: 100%;
+  .botones-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+  }
+  
+  .agregar,
+  .eliminar {
+      width: 50%;
   }
 }

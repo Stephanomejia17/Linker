@@ -62,8 +62,10 @@
       </select>
     </div>
   </div>
-  
-  <button class="agregar" (click)="agregarVacante()">AGREGAR</button>
+  <div class="botones-container">
+    <button class="agregar" (click)="agregarVacante()" *ngIf="vacantes.length < 5">AGREGAR</button>
+    <button class="eliminar" (click)="eliminarVacante(vacantes.length - 1)" *ngIf="vacantes.length > 1">ELIMINAR</button>
+  </div>
 
   <div class="mini-titulo">
     <img src="assets/img/icono-certificado.png" class="icon" />
