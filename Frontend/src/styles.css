@@ -13,10 +13,32 @@ html, body {
   overflow-x: hidden;
 }
 
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Raleway", "Inter", sans-serif;
 }
+
+.swal-custom {
+    background: rgba(0, 0, 0, 0.733);
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--white);
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+
+.swal-title {
+  font-size: 1.2rem;
+  font-weight: 800 ;
+}
+
+.swal2-timer-progress-bar {
+  background: linear-gradient(90deg, var(--blue), var(--soft-blue)) !important;
+  height: 5px ;
+  border-radius: 6pxt;
+}
+
+

@@ -1,13 +1,17 @@
 section {
-  justify-self: center;
-  align-self: center;
   min-height: 85vh;
-  background-color: #333;
-  grid-area: 1 / 1 / 2 / 2;
-  pointer-events: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.loginForm {
+  border-radius: 20px;
+  background: var(--bg-gradient);
+  height: auto;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 
   --bg-gradient: radial-gradient(
       circle at 94.35384114583333% 89.61588541666666%,
@@ -37,90 +41,107 @@ section {
   --bg-overlay-color: transparent;
 }
 
-.loginForm{
-  border-radius: 20px;
-}
-
 h2 {
-    font-size: 40px;
-    font-family: 'Syne', sans-serif !important;
-    font-weight: 700;
-    letter-spacing: normal;
-    margin-bottom: 20px;
+  color: var(--white);
+  justify-self: center;
+  font-size: 40px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: normal;
+  margin-bottom: 1rem;
 }
 
 label {
-    font-family: 'Raleway',  sans-serif !important;
-    font-weight: 400;
-    font-size: 16px;
+  font-family: 'Raleway', sans-serif !important;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--white);
 }
 
 a {
-    text-decoration: underline;
-    font-size: 16px;
-    justify-self: center;
-    cursor: pointer;
-    color: white;
+  display: block;
+  text-decoration: underline;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s;
+  margin-top: 1rem;
+}
+
+a:hover {
+  color: var(--gray);
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(132, 175, 251, 0.4);
+  background-color: var(--color-light);
 }
 
 input {
-    background-color: #222;
-    border: 1px solid white;
-    color: white;
-    padding: 10px 40px;
-    font-size: 16px;
-    border-radius: 8px;
-    width: 100%;
-    box-sizing: border-box;
+  background-color: #222;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 40px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+input:hover {
+  background-color: #000000;
 }
 
 button {
-    padding: 14px 20px;
-    background-color: white;
-    border-radius: 5px;
-    border: white;
-    font-weight: 800;
-    font-size: 14px;
+  padding: 14px 20px;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--gray);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.loginForm {
-  position: relative;
-  color: white;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30px;
-  width: 50vh;
-  height: 60vh;
-  border-radius: 0;
-  background: var(--bg-gradient);
-  background-repeat: no-repeat;
-  background-size: cover;
   flex-direction: column;
-}
-
-.loginForm form {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    padding: 0 20px;
+  justify-content: center;
+  margin-bottom: 18px;
+  margin-top: 0.5rem;
 }
 
 .icons {
-    display:flex; 
-    flex-direction: row; 
-    justify-content: center; 
-    margin: 20px;
-    gap: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
+  gap: 40px;
 }
 
 .icons i {
-    font-size: 25px;
-    cursor: pointer;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+  .loginForm {
+    border-radius: 0%;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
 }
