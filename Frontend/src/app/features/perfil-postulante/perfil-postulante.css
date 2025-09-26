@@ -164,7 +164,9 @@ section {
 }
 
 .campo label[for^="cv"],
-.campo label[for^="certificado"] {
+.campo label[for^="certificado-estudios"],
+.campo label[for^="certificado-habilidades"], 
+.campo label[for^="certificado-idiomas"] {
     background: linear-gradient(135deg, #dbd4d2, #F5F6FA);
     color: #2E2E2E;
     padding: 12px 20px;
@@ -180,7 +182,9 @@ section {
 }
 
 .campo label[for^="cv"]:hover,
-.campo label[for^="certificado"]:hover {
+.campo label[for^="certificado-estudios"]:hover,
+.campo label[for^="certificado-habilidades"]:hover, 
+.campo label[for^="certificado-idiomas"]:hover {
     transform: translateY(-3px);
     box-shadow: 0px 15px 40px rgba(132, 175, 251, 0.4);
     background-color: var(--color-light);

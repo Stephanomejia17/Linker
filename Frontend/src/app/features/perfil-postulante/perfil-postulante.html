@@ -1,100 +1,108 @@
 <section>
 <div class="perfil-container">
-  <h2>PERFIL POSTULANTE</h2>
+  <form [formGroup]="postulanteForm" (ngSubmit)="OnPostulante()">
+    <h2>PERFIL POSTULANTE</h2>
 
-  <div class="perfil-header">
-    <img src="assets/img/match-user-icon.webp" class="foto" />
-    <span class="nombre">Stiven Ramos Correa</span>
-  </div>
-
-  <hr />
-
-  <div class="campo">
-    <div class="mini-titulo">
-      <img src="assets/img/icono-cv.png" class="icon" />
-      <label>Mi CV</label>
+    <div class="perfil-header">
+      <img src="assets/img/match-user-icon.webp" class="foto" />
+      <span class="nombre">Stiven Ramos Correa</span>
     </div>
-    <select>
-      <option value="">Experiencia</option>
-      <option value="junior">Junior</option>
-      <option value="semi-senior">Semi-Senior</option>
-      <option value="senior">Senior</option>
-    </select>
-    <input type="file" id="cv" style="display: none;"/>
-    <label for="cv">
-        Seleccionar currículum
-    </label>
-  </div>
 
-  <div *ngFor="let estudio of estudios; let i = index" class="campo">
-    <div class="mini-titulo">
-      <img src="assets/img/icono-libros.png" class="icon" />
-      <label>Estudio {{ i + 1 }}</label>
+    <hr />
+
+    <div class="campo">
+      <div class="mini-titulo">
+        <img src="assets/img/icono-cv.png" class="icon" />
+        <label>Mi CV</label>
+      </div>
+      <select formControlName="experiencia">
+        <option value="">Experiencia</option>
+        <option value="junior">Junior</option>
+        <option value="semi-senior">Semi-Senior</option>
+        <option value="senior">Senior</option>
+      </select>
+      <input type="file" id="cv" formControlName="cv" style="display: none;"/>
+      <label for="cv">
+          Seleccionar currículum
+      </label>
     </div>
-    <input type="text" [(ngModel)]="estudio.titulo" placeholder="Título" />
-    <select [(ngModel)]="estudio.nivel">
-      <option value="">Nivel</option>
-      <option value="bachiller">bachiller</option>
-      <option value="tecnico">Técnico</option>
-      <option value="tecnologo">Tecnólogo</option>
-      <option value="profesional">Profesional</option>
-      <option value="posgrado">Posgrado</option>
-      <option value="magister">Magister</option>
-      <option value="doctorado">Doctorado</option>
-    </select>
-    <input type="file" [(ngModel)]="estudio.certificado" id="certificado-estudios-{{i}}" style="display: none;"/>
-    <label for="certificado-estudios-{{i}}">
-        Seleccionar certificado estudio
-    </label>
-  </div>
-  <div class="botones-container">
-    <button class="agregar" (click)="agregarEstudio()" *ngIf="estudios.length < 5">AGREGAR</button>
-    <button class="eliminar" (click)="eliminarEstudio(estudios.length - 1)" *ngIf="estudios.length > 1">ELIMINAR</button>
-  </div>
 
-  <div *ngFor="let habilidad of habilidades; let i = index" class="campo">
-    <div class="mini-titulo">
-      <img src="assets/img/icono-bombilla.png" class="icon" />
-      <label>Habilidad {{ i + 1 }}</label>
+    <div formArrayName="estudios">
+      <div *ngFor="let estudio of estudiosForm.controls; let i = index" [formGroupName]="i" class="campo">
+        <div class="mini-titulo">
+          <img src="assets/img/icono-libros.png" class="icon" />
+          <label>Estudio {{ i + 1 }}</label>
+        </div>
+        <input type="text" placeholder="Título" formControlName="titulo"/>
+        <select formControlName="nivel">
+          <option value="">Nivel</option>
+          <option value="bachiller">bachiller</option>
+          <option value="tecnico">Técnico</option>
+          <option value="tecnologo">Tecnólogo</option>
+          <option value="profesional">Profesional</option>
+          <option value="posgrado">Posgrado</option>
+          <option value="magister">Magister</option>
+          <option value="doctorado">Doctorado</option>
+        </select>
+        <input type="file" id="certificado-estudios-{{i}}" formControlName="certificado" style="display: none;"/>
+        <label for="certificado-estudios-{{i}}">
+            Seleccionar certificado estudio
+        </label>
+      </div>
     </div>
-    <select [(ngModel)]="habilidad.nombre">
-      <option value="">Selecciona una habilidad</option>
-      <option value="Excel">Excel</option>
-      <option value="Python">Python</option>
-    </select>
-    <input type="file" [(ngModel)]="habilidad.certificado" id="certificado-habilidades-{{i}}" style="display: none;"/>
-    <label for="certificado-habilidades-{{i}}">
-        Seleccionar certificado habilidad
-    </label>
-  </div>
-  <div class="botones-container">
-    <button class="agregar" (click)="agregarHabilidad()" *ngIf="habilidades.length < 5">AGREGAR</button>
-    <button class="eliminar" (click)="eliminarHabilidad(habilidades.length - 1)" *ngIf="habilidades.length > 1">ELIMINAR</button>
-  </div>
-
-  <div *ngFor="let idioma of idiomas; let i = index" class="campo">
-    <div class="mini-titulo">
-      <img src="assets/img/icono-idioma.png" class="icon" />
-      <label>Idioma {{ i + 1 }}</label>
+    <div class="botones-container">
+      <button type="button" class="agregar" (click)="agregarEstudio()" *ngIf="estudiosForm.length < 5">AGREGAR</button>
+      <button type="button" class="eliminar" (click)="eliminarEstudio(estudiosForm.length - 1)" *ngIf="estudiosForm.length > 1">ELIMINAR</button>
     </div>
-    <select [(ngModel)]="idioma.nombre">
-      <option value="">Selecciona un idoma</option>
-      <option value="Español">Español</option>
-      <option value="Inglés">Inglés</option>
-      <option value="Italiano">Italiano</option>
-      <option value="Francés">Francés</option>
-      <option value="Alemán">Alemán</option>
-    </select>
-    <input type="file" [(ngModel)]="idioma.certificado" id="certificado-idiomas-{{i}}" style="display: none;"/>
-    <label for="certificado-idiomas-{{i}}">
-        Seleccionar certificado de idioma
-    </label>
-  </div>
-  <div class="botones-container">
-    <button class="agregar" (click)="agregarIdioma()" *ngIf="idiomas.length < 5">AGREGAR</button>
-    <button class="eliminar" (click)="eliminarIdioma(idiomas.length - 1)" *ngIf="idiomas.length > 1">ELIMINAR</button>
-  </div>
 
-  <button class="btn-guardar">Guardar</button>
+    <div formArrayName="habilidades">
+      <div *ngFor="let habilidad of habilidadesForm.controls; let i = index" [formGroupName]="i" class="campo">
+        <div class="mini-titulo">
+          <img src="assets/img/icono-bombilla.png" class="icon" />
+          <label>Habilidad {{ i + 1 }}</label>
+        </div>
+        <select formControlName="nombre">
+          <option value="">Selecciona una habilidad</option>
+          <option value="Excel">Excel</option>
+          <option value="Python">Python</option>
+        </select>
+        <input type="file" id="certificado-habilidades-{{i}}" formControlName="certificado" style="display: none;"/>
+        <label for="certificado-habilidades-{{i}}">
+            Seleccionar certificado habilidad
+        </label>
+      </div>
+    </div>
+    <div class="botones-container">
+      <button type="button" class="agregar" (click)="agregarHabilidad()" *ngIf="habilidadesForm.length < 5">AGREGAR</button>
+      <button type="button" class="eliminar" (click)="eliminarHabilidad(habilidadesForm.length - 1)" *ngIf="habilidadesForm.length > 1">ELIMINAR</button>
+    </div>
+
+    <div formArrayName="idiomas">
+      <div *ngFor="let idioma of idiomasForm.controls; let i = index" [formGroupName]="i" class="campo">
+        <div class="mini-titulo">
+          <img src="assets/img/icono-idioma.png" class="icon" />
+          <label>Idioma {{ i + 1 }}</label>
+        </div>
+        <select formControlName="nombre">
+          <option value="">Selecciona un idoma</option>
+          <option value="Español">Español</option>
+          <option value="Inglés">Inglés</option>
+          <option value="Italiano">Italiano</option>
+          <option value="Francés">Francés</option>
+          <option value="Alemán">Alemán</option>
+        </select>
+        <input type="file" id="certificado-idiomas-{{i}}" formControlName="certificado" style="display: none;"/>
+        <label for="certificado-idiomas-{{i}}">
+            Seleccionar certificado de idioma
+        </label>
+      </div>
+    </div>
+    <div class="botones-container">
+      <button type="button" class="agregar" (click)="agregarIdioma()" *ngIf="idiomasForm.length < 5">AGREGAR</button>
+      <button type="button" class="eliminar" (click)="eliminarIdioma(idiomasForm.length - 1)" *ngIf="idiomasForm.length > 1">ELIMINAR</button>
+    </div>
+
+    <button class="btn-guardar">Guardar</button>
+  </form>
 </div>
 </section>

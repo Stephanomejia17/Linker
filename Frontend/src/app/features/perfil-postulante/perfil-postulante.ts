@@ -1,52 +1,110 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
+import { Alerts } from '../../shared/services/alerts';
+import { Postulante } from '../../shared/services/postulante';
 
 @Component({
   selector: 'app-perfil-postulante',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
+  imports: [NgFor, NgIf, ReactiveFormsModule],
   templateUrl: './perfil-postulante.html',
   styleUrls: ['./perfil-postulante.css']
 })
 export class PerfilPostulante {
-  estudios = [{ titulo: '', nivel: '' , certificado: ''}];
-  habilidades = [{ nombre: '', certificado: '' }];
-  idiomas = [{ nombre: '', certificado: '' }];
+  alert=inject(Alerts);
+  postulante = inject(Postulante);
+  fb=inject(FormBuilder);
+  router=inject(Router);
+
+  postulanteForm = this.fb.group({
+    experiencia: ['', Validators.required],
+    cv: [''],
+    estudios: this.fb.array([this.crearEstudio()]),
+    habilidades: this.fb.array([this.crearHabilidad()]),
+    idiomas: this.fb.array([this.crearIdioma()])
+  });
+
+  get estudiosForm(): FormArray {
+    return this.postulanteForm.get('estudios') as FormArray;
+  }
+  get habilidadesForm(): FormArray {
+    return this.postulanteForm.get('habilidades') as FormArray;
+  }
+  get idiomasForm(): FormArray {
+    return this.postulanteForm.get('idiomas') as FormArray;
+  }
+
+  crearEstudio() {
+    return this.fb.group({
+      titulo: ['', Validators.required], nivel: ['', Validators.required], certificado: ''
+    });
+  }
+
+  crearHabilidad() {
+    return this.fb.group({
+      nombre: ['', Validators.required], certificado: ''
+    });
+  }
+
+  crearIdioma() {
+    return this.fb.group({
+      nombre: ['', Validators.required], certificado: ''
+    });
+  }
 
   agregarEstudio() {
-    if (this.estudios.length < 5) {
-      this.estudios.push({ titulo: '', nivel: '' , certificado: ''});
+    if (this.estudiosForm.length < 5) {
+      this.estudiosForm.push(this.crearEstudio());
     }
   }
 
   agregarHabilidad() {
-    if (this.habilidades.length < 5) {
-      this.habilidades.push({ nombre: '', certificado: '' });
+    if (this.habilidadesForm.length < 5) {
+      this.habilidadesForm.push(this.crearHabilidad());
     }
   }
 
   agregarIdioma() {
-    if (this.idiomas.length < 5) {
-      this.idiomas.push({ nombre: '', certificado: '' });
+    if (this.idiomasForm.length < 5) {
+      this.idiomasForm.push(this.crearIdioma());
     }
   }
 
   eliminarEstudio(index: number) {
-    if (this.estudios.length > 1) {
-      this.estudios.splice(index, 1);
+    if (this.estudiosForm.length > 1) {
+      this.estudiosForm.removeAt(index);
     }
   }
 
   eliminarHabilidad(index: number) {
-    if (this.habilidades.length > 1) {
-      this.habilidades.splice(index, 1);
+    if (this.habilidadesForm.length > 1) {
+      this.habilidadesForm.removeAt(index);
     }
   }
 
   eliminarIdioma(index: number) {
-    if (this.idiomas.length > 1) {
-      this.idiomas.splice(index, 1);
+    if (this.idiomasForm.length > 1) {
+      this.idiomasForm.removeAt(index);
+    }
+  }
+
+  OnPostulante() {
+    if (this.postulanteForm.invalid) {
+      this.alert.error('Campos incorrectos');
+      return;
+    }
+
+    // @ts-ignore
+    const perfil = this.postulanteForm.value as PerfilPostulanteModel;
+    const response = this.postulante.guardarPerfil(perfil);
+
+    if (!!response.success) {
+      this.alert.success(response.message);
+      this.router.navigate(['/match']);
+    } else {
+      this.alert.error(response.message);
     }
   }
 }
