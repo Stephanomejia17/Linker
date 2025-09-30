@@ -1,0 +1,32 @@
+section {
+  display: none;
+}
+@media (max-width: 768px) {
+  section {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    min-height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .optionButton {
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .icons {
+    font-size: 40px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}

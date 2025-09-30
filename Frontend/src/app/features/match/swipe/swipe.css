@@ -1,49 +1,49 @@
 section {
-    background-color: rgba(0, 0, 0, 0.7);
-    width: 45%;
-    height: 75% !important;
-    min-width: 50vh;
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 10px;
-    padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 45%;
+  height: 75% !important;
+  min-width: 50vh;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 section div {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
 .vacant-image {
-    border-radius: 10px;
-    width: 100%;
-    height: 95%;
-    max-height: 63vh;
-    object-fit: cover;
+  border-radius: 10px;
+  width: 100%;
+  height: 95%;
+  max-height: 63vh;
+  object-fit: cover;
 }
 
 h4 {
-    position: absolute;
-    color: white;
-    font-weight: 500;
-    top: 72%;
-    left: 10px;
+  position: absolute;
+  color: white;
+  font-weight: 500;
+  top: 72%;
+  left: 10px;
 }
 
 p {
-    position: absolute;
-    color: white;
-    font-weight: 300;
-    width: 75%;
-    overflow: hidden;
-    top: 78%;
-    left: 10px;
+  position: absolute;
+  color: white;
+  font-weight: 300;
+  width: 75%;
+  overflow: hidden;
+  top: 78%;
+  left: 10px;
 }
 
 .image-container {
@@ -66,14 +66,14 @@ p {
 }
 
 .filter {
-    position: absolute;
-    background-color: rgba(163, 162, 160, 0.7);
-    border-radius: 0px;
-    padding: 3px;
+  position: absolute;
+  background-color: rgba(163, 162, 160, 0.7);
+  border-radius: 0px;
+  padding: 3px;
 
-    top: 10px; 
-    right: 10px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+  top: 10px;
+  right: 10px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .filter:active {
@@ -82,23 +82,23 @@ p {
 }
 
 .black-row {
-    position: absolute;
-    top: 50%;
-    left: 10px;
+  position: absolute;
+  top: 50%;
+  left: 10px;
 }
 
 .black-row-mirror {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: scaleX(-1);
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: scaleX(-1);
 }
 
 .up-row {
-    position: absolute;
-    top: 70%;
-    right: 10px;
-    transform: translateX(-50%) rotate(90deg);
+  position: absolute;
+  top: 70%;
+  right: 10px;
+  transform: translateX(-50%) rotate(90deg);
 }
 
 .floating-icons img {
@@ -109,20 +109,26 @@ p {
 }
 
 .option-buttons {
-    background-color: #495a79;
-    justify-content: space-between !important;
-    display: flex;
-    border-radius: 100px;
-    width: 85% !important;
-    height: 15% !important;
-    align-items: center;
-    flex-direction: row;
+  background-color: #495a79;
+  justify-content: space-between !important;
+  display: flex;
+  border-radius: 100px;
+  width: 85% !important;
+  height: 15% !important;
+  align-items: center;
+  flex-direction: row;
 }
 
 .option-buttons img {
-    width: 85px !important;
-    height: 85px !important;
-    margin: 10px;
-    object-fit: contain;
-    cursor: pointer;
+  width: 85px !important;
+  height: 85px !important;
+  margin: 10px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  section {
+    width: 40% !important;
+  }
 }

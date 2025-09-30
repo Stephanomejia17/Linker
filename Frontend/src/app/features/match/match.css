@@ -1,5 +1,5 @@
 section {
-  background-image: url("/assets/img/match-background.webp");
+  background-image: url('/assets/img/match-background.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -17,8 +17,8 @@ app-sidebar {
 }
 
 app-filter {
-    max-width: 900px;
-    width: 100%;
+  max-width: 900px;
+  width: 100%;
 }
 
 .main-content {
@@ -28,4 +28,39 @@ app-filter {
   gap: 20px;
 }
 
+@media (max-width: 768px) {
+  app-sidebar {
+    position: absolute;
+    z-index: 1000;
+    scale: 0.8;
+    top: 0;
+    margin-top: 15%;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
 
+  app-filter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100vh;
+    z-index: 1000;
+    top: 4%;
+    left: 45%;
+  }
+
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 0px;
+  }
+
+  .main-content {
+    flex: 1;
+    scale: 0.9;
+    flex-direction: column;
+  }
+}
