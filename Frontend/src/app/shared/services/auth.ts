@@ -34,4 +34,13 @@ export class Auth {
     this.isLogged.set(false);
     sessionStorage.clear();
   }
+  
+  getUser(): string|null{
+    let user = sessionStorage.getItem('user');
+    if (user) {
+      return user;
+    }
+    return null
+  }
+
 }

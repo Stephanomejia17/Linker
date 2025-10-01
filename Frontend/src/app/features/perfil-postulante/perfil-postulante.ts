@@ -3,7 +3,8 @@ import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { Alerts } from '../../shared/services/alerts';
-import { Postulante } from '../../shared/services/postulante';
+import { Perfil } from '../../shared/services/perfil';
+
 
 @Component({
   selector: 'app-perfil-postulante',
@@ -14,7 +15,7 @@ import { Postulante } from '../../shared/services/postulante';
 })
 export class PerfilPostulante {
   alert=inject(Alerts);
-  postulante = inject(Postulante);
+  postulante = inject(Perfil);
   fb=inject(FormBuilder);
   router=inject(Router);
 

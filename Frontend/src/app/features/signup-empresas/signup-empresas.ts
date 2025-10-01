@@ -25,6 +25,7 @@ export class SignupEmpresas {
     email:['',[Validators.required, Validators.email]],
     password:['',[Validators.required,Validators.minLength(6)]],
     repassword:['',Validators.required],
+    perfil:{}
   },{validators: passwordValidator('password','repassword')})
 
   OnSignUpEmpresa(){

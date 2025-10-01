@@ -3,7 +3,8 @@ import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { Alerts } from '../../shared/services/alerts';
-import { Empresa } from '../../shared/services/empresa';
+import { Perfil } from '../../shared/services/perfil';
+
 
 @Component({
   selector: 'app-perfil-empresa',
@@ -14,7 +15,7 @@ import { Empresa } from '../../shared/services/empresa';
 })
 export class PerfilEmpresa {
     alert=inject(Alerts);
-    empresa=inject(Empresa)
+    empresa=inject(Perfil)
     fb=inject(FormBuilder);
     router=inject(Router);
 
@@ -83,7 +84,7 @@ export class PerfilEmpresa {
       const perfil = this.empresaForm.value as PerfilEmpresaModel;
       const response = this.empresa.guardarPerfil(perfil);
 
-      if (!!response.succes) {
+      if (!!response.success) {
         this.alert.success(response.message);
         this.router.navigate(['/match']);
       } else {

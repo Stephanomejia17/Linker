@@ -26,4 +26,5 @@ interface Empresa{
     NIT:string,
     email:string,
     password:string
+    perfil:PerfilEmpresaModel
 }
