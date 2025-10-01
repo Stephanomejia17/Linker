@@ -1,10 +1,14 @@
-<section>
-    <app-sidebar></app-sidebar>
-    <div class="main-content">
-        <app-swipe></app-swipe>
+<section class="layout-section">
+  @if(sidebarService.isActivate()){
+  <app-sidebar></app-sidebar>
+  }
+  <div class="main-content">
+    <app-swipe></app-swipe>
 
-        @if(filterService.isActivate()){
-            <app-filter></app-filter>
-        }
-    </div>
+    @if(filterService.isActivate()){
+    <app-filter></app-filter>
+    }
+  </div>
+
+  <app-bottombar></app-bottombar>
 </section>

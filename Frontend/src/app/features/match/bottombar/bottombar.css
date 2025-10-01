@@ -1,0 +1,30 @@
+.card-options {
+  display: none;
+}
+@media (max-width: 768px) {
+  .card-options {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    min-height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .optionButton {
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .icons {
+    font-size: 40px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
