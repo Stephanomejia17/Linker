@@ -149,12 +149,13 @@ p {
   }
 
   .option-buttons {
-    position: absolute;
+    display: none !important;
+    /* position: absolute;
     background-color: transparent;
     bottom: 20%;
     width: 100%;
     height: auto !important;
-    scale: 0.8;
+    scale: 0.8; */
   }
 
   .image-container {
@@ -169,8 +170,8 @@ p {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 50%; /* qué tan alto quieres el degradado */
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    height: 60%; /* qué tan alto quieres el degradado */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
     pointer-events: none; /* no bloquea clics */
     border-radius: inherit; /* respeta bordes si los hay */
   }
