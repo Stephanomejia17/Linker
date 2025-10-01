@@ -1,11 +1,11 @@
 <section>
   <div class="loginForm">
     <h2>Iniciar Sesión</h2>
-    <form>
+    <form [formGroup]="loginForm">
         <a routerLink="/signup">¿Es tu primera vez? Regístrate</a>
       <div class="form-group">
         <label for="email">Email *</label>
-        <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
+        <input type="email" id="email" name="email" placeholder="Ingresa tu email" formControlName="email"/>
       </div>
       <div class="form-group">
         <label for="password">Contraseña</label>
@@ -14,18 +14,20 @@
           id="password"
           name="password"
           placeholder="Ingresa tu contraseña"
-          required
+          formControlName="password"
         />
       </div>
+    </form>
+      
       <a>¿Olvidaste tu contraseña?</a>
       <div class="form-group">
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit" (click)="onLogin()">Iniciar sesión</button>
         <p>o conéctate con</p>
         <div class="icons">
             <i class="fab fa-google"></i>
             <i class="fab fa-facebook-f"></i>
         </div>
       </div>
-    </form>
+
   </div>
 </section>

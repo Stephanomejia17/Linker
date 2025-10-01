@@ -133,15 +133,19 @@ button {
 }
 
 @media (max-width: 768px) {
+  
+  section{height: 70vh;}
 
   .loginForm {
     border-radius: 0%;
+    height: 100%;
     width: 100%;
     padding: 2rem 1.5rem;
     margin: 0;
   }
 
   h2 {
+    margin-top: 2rem;
     font-size: 2rem;
   }
 }

@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../shared/services/auth';
 import { Alerts } from '../../shared/services/alerts';
+import { passwordValidator } from '../../validators/password-validator';
 
 @Component({
   selector: 'app-signup',
@@ -21,17 +22,21 @@ export class Signup {
   signupForm=this.fb.group({
     name:['',Validators.required],
     lastname:['',Validators.required],
-    email:['',Validators.required, Validators.email],
-    password:['',Validators.required],
-    repassword:['',Validators.required]
-  })
+    email:['',[Validators.required, Validators.email]],
+    password:['',[Validators.required,Validators.minLength(6)]],
+    repassword:['',[Validators.required]],
+  },{validators: passwordValidator('password','repassword')})
 
   OnSignUp(){
     let user= this.signupForm.value as User;
 
+    if(this.signupForm.hasError('passwordMismatch')){
+      this.alert.error("Las contraseñas no coinciden");
+      return
+    }
+
     if(this.signupForm.invalid){
       this.alert.error('Campos incorrectos');
-      console.log("no valido");
       return 
     }
 
