@@ -140,6 +140,16 @@ p {
     padding-right: 3%; */
   }
 
+  .black-row {
+    background-color: white;
+    border-radius: 100%;
+  }
+
+  .black-row-mirror {
+    background: white;
+    border-radius: 100%;
+  }
+
   .vacant-image {
     width: 100% !important;
     height: 100% !important;
