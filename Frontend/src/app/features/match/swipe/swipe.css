@@ -136,8 +136,8 @@ p {
     border-radius: 0px;
     min-height: 0vh;
     padding: 0px;
-    padding-left: 3%;
-    padding-right: 3%;
+    /* padding-left: 3%;
+    padding-right: 3%; */
   }
 
   .vacant-image {
