@@ -1,23 +1,21 @@
-section {
+.card-options {
   display: none;
 }
 @media (max-width: 768px) {
-  section {
+  .card-options {
     background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
     min-height: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
   }
 
   .options {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
   }
 
   .optionButton {

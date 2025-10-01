@@ -1,4 +1,4 @@
-section {
+.card-section {
   background-color: rgba(0, 0, 0, 0.7);
   width: 45%;
   height: 75% !important;
@@ -11,7 +11,7 @@ section {
   padding: 20px;
 }
 
-section div {
+.card-section div {
   display: flex;
   justify-content: center;
   height: 100%;
@@ -26,6 +26,7 @@ section div {
   height: 95%;
   max-height: 63vh;
   object-fit: cover;
+  margin-bottom: 2vh;
 }
 
 h4 {
@@ -128,7 +129,61 @@ p {
 }
 
 @media (max-width: 768px) {
-  section {
-    width: 40% !important;
+  .card-section {
+    background-color: transparent;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0px;
+    min-height: 0vh;
+    padding: 0px;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .vacant-image {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    border-radius: 0px !important;
+    margin-bottom: 0;
+  }
+
+  .option-buttons {
+    position: absolute;
+    background-color: transparent;
+    bottom: 20%;
+    width: 100%;
+    height: auto !important;
+    scale: 0.8;
+  }
+
+  .image-container {
+    height: 100% !important;
+    width: 100% !important;
+    top: 0 !important;
+  }
+
+  .image-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%; /* qué tan alto quieres el degradado */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    pointer-events: none; /* no bloquea clics */
+    border-radius: inherit; /* respeta bordes si los hay */
+  }
+
+  .floating-icons {
+    z-index: 1000;
+  }
+
+  .vacant-title {
+    z-index: 1000;
+  }
+
+  .vacant-descrip {
+    z-index: 1000;
   }
 }

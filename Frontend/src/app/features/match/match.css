@@ -1,4 +1,4 @@
-section {
+.layout-section {
   background-image: url('/assets/img/match-background.webp');
   background-size: cover;
   background-position: center;
@@ -29,7 +29,14 @@ app-filter {
 }
 
 @media (max-width: 768px) {
+  app-swipe {
+    width: 100%;
+    /* min-height: 100vh; */
+    flex: none;
+  }
+
   app-sidebar {
+    display: none; /*ELIMINAR*/
     position: absolute;
     z-index: 1000;
     scale: 0.8;
@@ -45,22 +52,29 @@ app-filter {
     width: 40%;
     height: 100vh;
     z-index: 1000;
-    top: 4%;
-    left: 45%;
+    top: 10%;
+    left: 50%;
   }
 
-  section {
+  app-bottombar {
+    display: none; /*CAMBIAR EN CASO DE MODIFICAR MENU HAMBURGUESA*/
+    width: 100%;
+  }
+
+  .layout-section {
     display: flex;
-    align-items: center;
     flex-direction: column;
     justify-content: center;
-    min-height: 60vh;
-    gap: 0px;
+    align-items: center;
+    min-height: 0vh !important;
+    /* height: auto; */
+    gap: 0;
+    padding: 0;
   }
 
   .main-content {
     flex: 1;
-    scale: 0.9;
     flex-direction: column;
+    gap: 0px;
   }
 }
