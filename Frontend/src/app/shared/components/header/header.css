@@ -139,6 +139,9 @@ nav a:hover::after {
     font-size: 2rem;
   }
 
+  .LoginButton-responsive {
+  }
+
   .logo {
     height: 5rem;
   }

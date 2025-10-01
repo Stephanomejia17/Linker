@@ -1,25 +1,33 @@
 <header>
   <nav>
     <ul>
-      <li routerLink="" style="cursor: pointer;">
+      <li routerLink="" style="cursor: pointer">
         <img src="assets/img/logo.png" alt="Logo" class="logo" />
         <h1>Linker</h1>
       </li>
-
-      <li class="menu-icon" (click)="toggleMenu()">
-        <i class="fa-solid fa-bars hamburguer-icon"></i>
-      </li>
-
+      @if(isLogged()) {
       <li class="SectionBar" [class.active]="isMenuOpen">
         <a routerLink="" (click)="closeMenu()">Inicio</a>
-        <a routerLink="postulante" (click)="closeMenu()">Perfil Postulante</a>
-        <a routerLink="empresa" (click)="closeMenu()">Perfil Empresa</a>
+        <a routerLink="postulante" (click)="closeMenu()">Perfil</a>
         <a routerLink="match" (click)="closeMenu()">Match</a>
-        <a routerLink="" (click)="closeMenu()">Bienvenido</a>
+        <button class="LoginButton" (click)="onLogout()">Cerrar Sesión</button>
+        <a class="LoginButton-responsive" (click)="onLogout()">Cerrar Sesión</a>
       </li>
-
-      <li>
+      } @else {
+      <li class="SectionBar" [class.active]="isMenuOpen">
+        <a href="#section-1" (click)="closeMenu()">Inicio</a>
+        <a href="#feature-1" (click)="closeMenu()">Nosotros</a>
+        <a href="#feature-2" (click)="closeMenu()">Matches</a>
+        <a href="#feature-3" (click)="closeMenu()">Empleos</a>
+        <a href="#section-3-steps" (click)="closeMenu()">Acerca de</a>
         <button class="LoginButton" routerLink="login" (click)="closeMenu()">Iniciar Sesión</button>
+        <a class="LoginButton-responsive" routerLink="login" (click)="closeMenu()"
+          >Iniciar Sesión</a
+        >
+      </li>
+      }
+      <li class="menu-icon" (click)="toggleMenu()">
+        <i class="fa-solid fa-bars hamburguer-icon"></i>
       </li>
     </ul>
   </nav>
