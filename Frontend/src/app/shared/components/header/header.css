@@ -124,6 +124,10 @@ nav a:hover::after {
   gap: 20px;
 }
 
+.LoginButton-responsive {
+  display: none;
+}
+
 @media (max-width: 768px) {
   nav ul {
     flex-wrap: wrap;
@@ -140,6 +144,7 @@ nav a:hover::after {
   }
 
   .LoginButton-responsive {
+    display: block;
   }
 
   .logo {

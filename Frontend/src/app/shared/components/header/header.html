@@ -10,8 +10,10 @@
         <a routerLink="" (click)="closeMenu()">Inicio</a>
         <a routerLink="postulante" (click)="closeMenu()">Perfil</a>
         <a routerLink="match" (click)="closeMenu()">Match</a>
-        <button class="LoginButton" (click)="onLogout()">Cerrar Sesión</button>
         <a class="LoginButton-responsive" (click)="onLogout()">Cerrar Sesión</a>
+      </li>
+      <li>
+        <button class="LoginButton" (click)="onLogout()">Cerrar Sesión</button>
       </li>
       } @else {
       <li class="SectionBar" [class.active]="isMenuOpen">
@@ -20,10 +22,12 @@
         <a href="#feature-2" (click)="closeMenu()">Matches</a>
         <a href="#feature-3" (click)="closeMenu()">Empleos</a>
         <a href="#section-3-steps" (click)="closeMenu()">Acerca de</a>
-        <button class="LoginButton" routerLink="login" (click)="closeMenu()">Iniciar Sesión</button>
         <a class="LoginButton-responsive" routerLink="login" (click)="closeMenu()"
           >Iniciar Sesión</a
         >
+      </li>
+      <li>
+        <button class="LoginButton" routerLink="login" (click)="closeMenu()">Iniciar Sesión</button>
       </li>
       }
       <li class="menu-icon" (click)="toggleMenu()">
