@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 interface Vacante {
   titulo: string;
   descripcion: string;
@@ -22,11 +21,9 @@ interface PerfilEmpresaModel {
   vacantes: Vacante[];
   certificados: CertificadoEmpresa[];
 }
-=======
 interface Empresa{
     name_empresa:string,
     NIT:string,
     email:string,
     password:string
 }
->>>>>>> b0598b6 (Autenticacion y Registro)
