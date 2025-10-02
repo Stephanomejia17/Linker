@@ -41,6 +41,7 @@ app-filter {
     z-index: 1000;
     top: 5rem;
     max-width: 100%;
+    width: 100%;
     /* margin-top: 1%; */
     height: 100%;
     /* max-height: 95vh  ; */
