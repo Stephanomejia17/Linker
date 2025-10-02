@@ -30,4 +30,17 @@ export class Header {
     this.router.navigateByUrl('');
     this.closeMenu();
   }
+
+  getUserType(): boolean {
+    const email = sessionStorage.getItem('user');
+    const data = localStorage.getItem(`${email}` || '');
+    console.log(`${email}`);
+    if (data) {
+      const user = JSON.parse(data);
+
+      return !!user['NIT'];
+    }
+
+    return false;
+  }
 }

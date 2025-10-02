@@ -8,7 +8,12 @@
       @if(isLogged()) {
       <li class="SectionBar" [class.active]="isMenuOpen">
         <a class="message-switch" (click)="sidebarService.Switch(); closeMenu()">Mensajes</a>
+        @if (getUserType()) {
+        <a routerLink="empresa" (click)="closeMenu()">Perfil</a>
+        } @else {
         <a routerLink="postulante" (click)="closeMenu()">Perfil</a>
+        }
+
         <a routerLink="match" (click)="closeMenu()">Match</a>
         <a class="LoginButton-responsive" (click)="onLogout()">Cerrar Sesión</a>
       </li>
