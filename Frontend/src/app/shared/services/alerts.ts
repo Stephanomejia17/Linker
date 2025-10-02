@@ -5,17 +5,16 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
   providedIn: 'root',
 })
 export class Alerts {
-
   private showAlert(icon: SweetAlertIcon, message: string, title: string) {
     Swal.fire({
       icon,
       title,
       text: message,
-      position:'top',
+      position: 'center',
       showConfirmButton: false,
-      timer: 3000,
+      timer: 1200,
       timerProgressBar: true,
-      animation:false,
+      animation: false,
       customClass: {
         popup: 'swal-custom',
         title: 'swal-title',

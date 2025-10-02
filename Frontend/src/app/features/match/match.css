@@ -12,9 +12,9 @@
   justify-content: center;
 }
 
-app-sidebar {
-  /* flex: 1; */
-}
+/* app-sidebar {
+  flex: 1;
+} */
 
 app-filter {
   max-width: 900px;
