@@ -6,7 +6,7 @@ footer {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 footer div {
@@ -27,8 +27,14 @@ footer div div {
 }
 
 i {
-    width: 10px;
-    height: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
+  width: 10px;
+  height: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+@media (max-width: 768px) {
+  footer {
+    height: 15rem;
+  }
 }

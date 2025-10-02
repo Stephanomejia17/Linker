@@ -4,7 +4,7 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class SidebarService {
-  isActivate = signal(true);
+  isActivate = signal(false);
 
   Switch() {
     this.isActivate.update((v) => !v);

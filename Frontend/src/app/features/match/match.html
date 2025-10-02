@@ -1,7 +1,7 @@
 <section class="layout-section">
   @if(sidebarService.isActivate()){
   <app-sidebar></app-sidebar>
-  }
+  } @else {
   <div class="main-content">
     <app-swipe></app-swipe>
 
@@ -9,6 +9,7 @@
     <app-filter></app-filter>
     }
   </div>
+  }
 
   <app-bottombar></app-bottombar>
 </section>

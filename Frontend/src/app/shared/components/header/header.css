@@ -129,9 +129,9 @@ nav a:hover::after {
   display: none;
 }
 
-.message-switch {
+/* .message-switch {
   display: none;
-}
+} */
 
 @media (max-width: 768px) {
   nav ul {
