@@ -36,11 +36,11 @@ app-filter {
   }
 
   app-sidebar {
-    display: none; /*ELIMINAR*/
+    /* display: none; ELIMINAR */
     position: absolute;
     z-index: 1000;
-    scale: 0.8;
-    top: 0;
+    top: 5rem;
+    max-width: 100%;
     margin-top: 15%;
     background-color: rgba(0, 0, 0, 0.8);
   }

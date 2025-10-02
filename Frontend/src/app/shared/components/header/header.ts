@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
+import { SidebarService } from '../../../services/sidebar/sidebar-service';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +13,9 @@ export class Header {
   router = inject(Router);
   private authService = inject(Auth);
   isLogged = this.authService.isLogged;
-
   isMenuOpen = false;
+
+  sidebarService = inject(SidebarService);
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;

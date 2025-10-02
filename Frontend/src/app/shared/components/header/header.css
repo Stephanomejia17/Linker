@@ -94,7 +94,7 @@ nav a:hover::after {
   width: 60%;
   height: 3rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   border-radius: 8px;
   padding-left: 20px;
@@ -102,6 +102,7 @@ nav a:hover::after {
   font-size: 1.125rem !important;
   font-family: 'Syne', sans-serif !important;
   z-index: 9999;
+  gap: 20px;
 }
 
 .menu-icon {
@@ -119,12 +120,16 @@ nav a:hover::after {
   -webkit-transition: width 0.3s ease;
 }
 
-.SectionBar {
+/* .SectionBar {
   display: flex;
   gap: 20px;
-}
+} */
 
 .LoginButton-responsive {
+  display: none;
+}
+
+.message-switch {
   display: none;
 }
 
@@ -144,6 +149,10 @@ nav a:hover::after {
   }
 
   .LoginButton-responsive {
+    display: block;
+  }
+
+  .message-switch {
     display: block;
   }
 

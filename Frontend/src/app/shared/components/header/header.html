@@ -7,7 +7,7 @@
       </li>
       @if(isLogged()) {
       <li class="SectionBar" [class.active]="isMenuOpen">
-        <a routerLink="" (click)="closeMenu()">Inicio</a>
+        <a class="message-switch" (click)="sidebarService.Switch(); closeMenu()">Mensajes</a>
         <a routerLink="postulante" (click)="closeMenu()">Perfil</a>
         <a routerLink="match" (click)="closeMenu()">Match</a>
         <a class="LoginButton-responsive" (click)="onLogout()">Cerrar Sesión</a>
