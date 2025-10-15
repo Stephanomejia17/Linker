@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { EmpresaModule } from './empresa/empresa.module';
+import { PostulanteModule } from './postulante/postulante.module';
 
 @Module({
   imports: [AuthModule, 
@@ -20,6 +22,9 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadEntities:true,
       synchronize: true,
     }),
+    EmpresaModule,
+    PostulanteModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],
