@@ -36,14 +36,6 @@ section {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.form {
-  margin-top: 10px;
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
 h2 {
   font-size: 40px;
   font-family: 'Syne', sans-serif;
@@ -60,13 +52,99 @@ a {
   font-size: 16px;
   justify-self: center;
   cursor: pointer;
-  transition: color 0.3s;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 a:hover {
   color: var(--gray);
   cursor: pointer;
+  text-decoration: underline;
 }
+
+/* Indicador de pasos */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+  gap: 10px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-number {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--white);
+  color: #685f5f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+  background:var(--gray);
+  color: white;
+  box-shadow: 0 4px 12px rgba(37, 38, 39, 0.4);
+}
+
+.step.completed .step-number {
+  background: #20b440;
+  color: white;
+}
+
+.step-label {
+  font-size: 13px;
+  color: #cacaca;
+  font-weight: 500;
+}
+
+.step.active .step-label {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.step-divider {
+  width: 60px;
+  height: 2px;
+  background: #e0e0e0;
+  margin-bottom: 25px;
+}
+
+
+.form {
+  margin: 30px 0;
+}
+
+.form-step {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
 
 label {
   font-family: 'Raleway', sans-serif;
@@ -76,7 +154,7 @@ label {
 }
 
 input {
-  background-color: #222;
+  background-color:  #161616;
   border: 1px solid white;
   color: white;
   padding: 10px 40px;
@@ -92,35 +170,64 @@ input:hover {
   background-color: #000000;
 }
 
-button {
-  width: 100%;
+/* Botones */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
   padding: 14px 20px;
-  background: var(--white);
-  border-radius: 5px;
   border: none;
-  font-weight: 800;
-  font-size: 14px;
-  color: var(--gray);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-button:hover {
+.btn-primary {
+  background: var(--white);
+  color: var(--gray);
+}
+
+.btn-primary:hover {
+  background: var(--white);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(132, 175, 251, 0.4);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
   background-color: var(--color-light);
 }
 
-.link {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
+.btn-primary:active {
+  transform: translateY(0);
 }
 
-@media (max-width: 768px) {
+.btn-secondary {
+  background: var(--gray);
+  color: white;
+}
 
+.btn-secondary:hover {
+  background: #161616;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.link {
+  text-align: center;
+}
+
+
+
+/* Responsive */
+@media (max-width: 768px) {
   .signupForm {
     border-radius: 0%;
     width: 100%;
@@ -131,5 +238,5 @@ button:hover {
   h2 {
     font-size: 2rem;
   }
-}
 
+}

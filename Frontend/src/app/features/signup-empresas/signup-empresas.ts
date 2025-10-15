@@ -4,11 +4,12 @@ import { Router, RouterLink } from '@angular/router';
 import { Alerts } from '../../shared/services/alerts';
 import { Auth } from '../../shared/services/auth';
 import { passwordValidator } from '../../validators/password-validator';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup-empresas',
   standalone:true,
-  imports: [RouterLink,ReactiveFormsModule],
+  imports: [RouterLink,ReactiveFormsModule,CommonModule],
   templateUrl: './signup-empresas.html',
   styleUrl: './signup-empresas.css'
 })
@@ -18,6 +19,22 @@ export class SignupEmpresas {
   auth= inject(Auth);
   fb=inject(FormBuilder);
   router=inject(Router);
+  currentStep: number = 1;
+
+  nextStep(): void {
+    const nameControl = this.signupEmpresasForm.get('name_empresa');
+    const nitControl = this.signupEmpresasForm.get('NIT');
+
+    if (nameControl?.valid && nitControl?.valid) {
+      this.currentStep = 2;
+    }
+  }
+
+  previousStep(): void {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
+  }
 
   signupEmpresasForm=this.fb.group({
     name_empresa:['',Validators.required],
