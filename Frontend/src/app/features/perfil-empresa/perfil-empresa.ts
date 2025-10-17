@@ -82,7 +82,7 @@ export class PerfilEmpresa {
       }
       // @ts-ignore
       const perfil = this.empresaForm.value as PerfilEmpresaModel;
-      const response = this.empresa.guardarPerfil(perfil);
+      /*const response = this.empresa.guardarPerfil(perfil);
 
       if (!!response.success) {
         this.alert.success(response.message);
@@ -90,5 +90,6 @@ export class PerfilEmpresa {
       } else {
         this.alert.error(response.message);
       }
+        */
     }
 }

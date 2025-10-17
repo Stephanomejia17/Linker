@@ -7,8 +7,8 @@ import { UpdatePostulanteDto } from './dto/update-postulante.dto';
 export class PostulanteController {
   constructor(private readonly postulanteService: PostulanteService) {}
 
-  /*@Post('registro')
+  @Post('registro')
   async register(@Body() dto: CreatePostulanteDto) {
     return this.postulanteService.createPostulante(dto);
-  }*/
+  }
 }

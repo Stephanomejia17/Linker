@@ -14,9 +14,9 @@
       </div>
     </div>
 
-    <form [formGroup]="signupEmpresasForm">
+    <form  *ngIf="currentStep === 1" [formGroup]="empresaForm">
 
-      <div class="form-step" *ngIf="currentStep === 1">
+      <div class="form-step">
         <div class="form-group">
           <label>Nombre Empresa</label>
           <input type="text" id="name_empresa" formControlName="name_empresa" />
@@ -26,7 +26,11 @@
         </div>
       </div>
 
-      <div class="form-step" *ngIf="currentStep === 2">
+    </form>
+
+    
+    <form  *ngIf="currentStep === 2" [formGroup]="signupEmpresasForm">
+      <div class="form-step">
         <div class="form-group">
           <label>Email</label>
           <input
@@ -56,6 +60,7 @@
           />
         </div>
       </div>
+    </form>
 
       <div class="link">
 
@@ -82,7 +87,7 @@
           type="submit" 
           class="btn-primary" 
           *ngIf="currentStep === 2"
-          (click)="OnSignUpEmpresa()"
+          (click)="onSignupEmpresa()"
         >
           Registrar
         </button>
@@ -93,6 +98,6 @@
           Inicia Sesión
         </a>
       </div>
-    </form>
+    
   </div>
 </section>

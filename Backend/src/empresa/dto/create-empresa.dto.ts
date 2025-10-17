@@ -3,5 +3,5 @@ export class CreateEmpresaDto {
   descripcion?: string;
   foto?: string;
   NIT: string;
-  id_perfil: string;
+  id_perfil?: string;
 }

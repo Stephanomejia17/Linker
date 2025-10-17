@@ -23,15 +23,24 @@ export class Login {
   });
 
   onLogin() {
-    let user = this.loginForm.value as User | Empresa;
+    let user = this.loginForm.value as User;
 
-    let response = this.auth.login(user);
-
-    if (response.success) {
-      this.alert.success(response.message);
-      this.router.navigateByUrl('match');
-    } else {
-      this.alert.error(response.message);
-    }
+    this.auth.login(user).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.alert.success(response.message);
+          this.auth.isLogged.set(true);
+          sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('userId', response.user.id);
+          this.router.navigate(['match']);
+        } else {
+          this.alert.error(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+        this.alert.error('Error en la solicitud');
+      },
+    });
   }
 }

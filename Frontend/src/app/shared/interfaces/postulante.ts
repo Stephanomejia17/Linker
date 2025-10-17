@@ -20,8 +20,7 @@ interface Idioma {
 }
 
 interface PerfilPostulanteModel {
-  cv: CV[];
-  estudios: Estudio[];
-  habilidades: Habilidad[];
-  idiomas: Idioma[];
+  idUser?: string;
+  name: string;
+  lastname: string;
 }

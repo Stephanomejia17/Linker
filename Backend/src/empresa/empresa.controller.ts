@@ -7,8 +7,8 @@ import { UpdateEmpresaDto } from './dto/update-empresa.dto';
 export class EmpresaController {
   constructor(private readonly empresaService: EmpresaService) {}
 
-  /*@Post('registro')
+  @Post('registro')
   async register(@Body() createEmpresaDto: CreateEmpresaDto) {
     return this.empresaService.createEmpresa(createEmpresaDto);
-  }*/
+  }
 }

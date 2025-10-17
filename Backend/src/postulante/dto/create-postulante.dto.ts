@@ -5,5 +5,5 @@ export class CreatePostulanteDto {
   curriculum?: string;
   foto?: string;
   ubicacion?: string;
-  id_perfil: string;
+  id_perfil?: string;
 }

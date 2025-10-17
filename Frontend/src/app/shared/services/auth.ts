@@ -1,4 +1,7 @@
-import { Injectable, signal } from '@angular/core';
+
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -6,41 +9,26 @@ import { Injectable, signal } from '@angular/core';
 export class Auth {
   isLogged = signal(false);
 
-  signUp(user: User | Empresa) {
-    if (localStorage.getItem(user.email)) {
-      return { succes: false, message: 'Usuario ya se encuentra registrado' };
-    }
+  http=inject(HttpClient)
 
-    localStorage.setItem(user.email, JSON.stringify(user));
-    return { succes: true, message: 'Usuario registrado exitosamente' };
+  signUp(user: User): Observable<any> {
+    return this.http.post('http://localhost:3000/user/registro', user);
   }
 
-  login(user: User | Empresa) {
-    console.log('user enviado', user);
-    let userSrt = localStorage.getItem(user.email);
+  signUpPostulante(postulante: PerfilPostulanteModel): Observable<any> {
+    return this.http.post('http://localhost:3000/postulante/registro', postulante);
+  }
 
-    console.log(userSrt);
+  signUpEmpresa(empresa: Empresa): Observable<any> {
+    return this.http.post('http://localhost:3000/empresa/registro', empresa);
+  }
 
-    if (userSrt && user.password === JSON.parse(userSrt)['password']) {
-      sessionStorage.setItem('user', user.email);
-      this.isLogged.set(true);
-      return { success: true, redirectTo: 'match', message: 'Autenticado exitosamente' };
-    }
-
-    return { success: false, message: 'Credenciales inválidas' };
+  login(user: User): Observable<any> {
+    return this.http.post('http://localhost:3000/user/login', user);
   }
 
   logout() {
     this.isLogged.set(false);
     sessionStorage.clear();
   }
-  
-  getUser(): string|null{
-    let user = sessionStorage.getItem('user');
-    if (user) {
-      return user;
-    }
-    return null
-  }
-
 }

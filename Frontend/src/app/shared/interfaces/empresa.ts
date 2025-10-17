@@ -22,9 +22,7 @@ interface PerfilEmpresaModel {
   certificados: CertificadoEmpresa[];
 }
 interface Empresa{
+    idUser:string,
     name_empresa:string,
     NIT:string,
-    email:string,
-    password:string
-    perfil:PerfilEmpresaModel
 }

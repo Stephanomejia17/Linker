@@ -99,13 +99,13 @@ export class PerfilPostulante {
 
     // @ts-ignore
     const perfil = this.postulanteForm.value as PerfilPostulanteModel;
-    const response = this.postulante.guardarPerfil(perfil);
+    /*const response = this.postulante.guardarPerfil(perfil);
 
     if (!!response.success) {
       this.alert.success(response.message);
       this.router.navigate(['/match']);
     } else {
       this.alert.error(response.message);
-    }
+    }*/
   }
 }

@@ -11,7 +11,7 @@ export class Perfil{
 
   auth=inject(Auth) 
   
-  guardarPerfil(perfil: PerfilPostulanteModel| PerfilEmpresaModel) {
+  /*guardarPerfil(perfil: PerfilPostulanteModel| PerfilEmpresaModel) {
     let user= this.auth.getUser()
     if(user){
       let userData= localStorage.getItem(user)
@@ -25,5 +25,5 @@ export class Perfil{
     }  
 
     return{success:false , message:'Usuario np encontrado :)'}
-  }
+  }*/
 }

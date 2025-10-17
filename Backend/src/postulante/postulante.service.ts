@@ -5,6 +5,7 @@ import { Postulante } from './entities/postulante.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
+import { Console } from 'console';
 
 @Injectable()
 export class PostulanteService {
@@ -15,24 +16,17 @@ export class PostulanteService {
     private readonly usuarioRepository: Repository<User>,
   ) {}
 
-  /*async createPostulante(dto: CreatePostulanteDto) {
+  async createPostulante(dto: CreatePostulanteDto) {
     const user = await this.usuarioRepository.findOne({ where: { id: dto.id_perfil } });
-
+    console.log(user);
+    
     if (!user) {
       throw new NotFoundException('No se encontró el perfil de usuario asociado.');
     }
-
-    const postulante = this.postulanteRepository.create ({
-      name: dto.name ||null,
-      lastname: dto.lastname,
-      años_experiencia: dto.años_experiencia || null,
-      curriculum: dto.curriculum || null,
-      foto: dto.foto || null,
-      ubicacion: dto.ubicacion,
-      user: user,
-    });
+    console.log(dto)
+    const postulante = this.postulanteRepository.create(dto);
 
     const registroPostulante = await this.postulanteRepository.save(postulante);
     return { message: 'Postulante registrado con éxito', postulante: registroPostulante };
-  }*/
+  }
 }
