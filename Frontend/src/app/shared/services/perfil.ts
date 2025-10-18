@@ -20,6 +20,10 @@ export class Perfil {
     return this.http.get<PerfilPostulanteResponse>(`http://localhost:3000/postulante/${id}`);
   }
 
+  getUserNameEmpresa(id: string): Observable<{ name: string }> {
+    return this.http.get<{ name: string }>(`http://localhost:3000/empresa/${id}`);
+  }
+
   /*guardarPerfil(perfil: PerfilPostulanteModel| PerfilEmpresaModel) {
     let user= this.auth.getUser()
     if(user){
