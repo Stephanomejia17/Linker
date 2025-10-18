@@ -24,4 +24,9 @@ export class EmpresaController {
   async getEmpresa(@Param('id') id: string) {
     return this.empresaService.getEmpresaById(id);
   }
+
+  @Get('isEmpresa/:id')
+  async isEmpresa(@Param('id') id: string) {
+    return this.empresaService.isEmpresa(id);
+  }
 }

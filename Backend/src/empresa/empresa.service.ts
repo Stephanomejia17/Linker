@@ -53,4 +53,11 @@ export class EmpresaService {
       name_empresa: empresa.name_empresa,
     };
   }
+
+  async isEmpresa(id: string) {
+    const empresa = await this.empresaRepository.findOne({
+      where: { user: { id } },
+    });
+    return empresa ? true : false;
+  }
 }

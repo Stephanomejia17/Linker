@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Alerts } from '../../shared/services/alerts';
 import { Auth } from '../../shared/services/auth';
+import { Perfil } from '../../shared/services/perfil';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class Login {
   auth = inject(Auth);
   fb = inject(FormBuilder);
   router = inject(Router);
+  profile = inject(Perfil);
 
   loginForm = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
@@ -36,6 +38,16 @@ export class Login {
         } else {
           this.alert.error(response.message);
         }
+
+        const id = sessionStorage.getItem('userId');
+
+        console.log('ID de usuario en sesión:', id);
+        this.profile.getIsEmpresa(id!).subscribe({
+          next: (data: any) => {
+            sessionStorage.setItem('isEmpresa', data);
+          },
+          error: (err) => console.error('Error al obtener la respuesta:', err),
+        });
       },
       error: (error) => {
         console.error(error);

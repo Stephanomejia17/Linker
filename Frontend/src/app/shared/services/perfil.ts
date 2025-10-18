@@ -16,6 +16,10 @@ export class Perfil {
   auth = inject(Auth);
   http = inject(HttpClient);
 
+  getIsEmpresa(id: string): Observable<{ isEmpresa: boolean }> {
+    return this.http.get<{ isEmpresa: boolean }>(`http://localhost:3000/empresa/isEmpresa/${id}`);
+  }
+
   getUserNamePostulante(id: string): Observable<PerfilPostulanteResponse> {
     return this.http.get<PerfilPostulanteResponse>(`http://localhost:3000/postulante/${id}`);
   }

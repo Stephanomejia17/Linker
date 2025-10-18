@@ -31,7 +31,7 @@ export class PerfilEmpresa {
     if (id) {
       this.empresa.getUserNameEmpresa(id).subscribe({
         next: (data: any) => {
-          this.name = `${data.name} ${data.lastname}`;
+          this.name = `${data.name_empresa}`;
         },
         error: (err) => console.error('Error al obtener nombre:', err),
       });
