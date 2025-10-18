@@ -2,6 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { v4 as uuid4 } from 'uuid';
 import { Auth } from './auth';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+interface PerfilPostulanteResponse {
+  name: string;
+  lastname: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +16,8 @@ export class Perfil {
   auth = inject(Auth);
   http = inject(HttpClient);
 
-  getUserNamePostulante(id: string) {
-    return this.http.post('http://localhost:3000/postulante/' + id, id);
+  getUserNamePostulante(id: string): Observable<PerfilPostulanteResponse> {
+    return this.http.get<PerfilPostulanteResponse>(`http://localhost:3000/postulante/${id}`);
   }
 
   /*guardarPerfil(perfil: PerfilPostulanteModel| PerfilEmpresaModel) {

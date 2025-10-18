@@ -48,8 +48,11 @@ export class PostulanteService {
       relations: ['user'],
     });
     if (!postulante) {
-      throw new NotFoundException('Postulante no encontrado');
+      return null;
     }
-    return postulante;
+    return {
+      name: postulante.name,
+      lastname: postulante.lastname,
+    };
   }
 }
