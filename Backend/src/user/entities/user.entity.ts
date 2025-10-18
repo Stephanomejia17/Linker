@@ -24,6 +24,6 @@ export class User {
   @OneToOne(() => Postulante, (postulante) => postulante.user)
   postulante: Postulante;
 
-  @OneToOne(() => Empresa, (empresa) => empresa.id)
+  @OneToOne(() => Empresa, (empresa) => empresa.user)
   empresa: Empresa;
 }

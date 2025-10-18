@@ -10,21 +10,47 @@ export class EmpresaService {
   constructor(
     @InjectRepository(Empresa)
     private empresaRepository: Repository<Empresa>,
-    
+
     @InjectRepository(User)
     private usuarioRepository: Repository<User>,
   ) {}
 
   async createEmpresa(dto: CreateEmpresaDto) {
-    const user = await this.usuarioRepository.findOne({ where: { id: dto.id_perfil } });
+    const user = await this.usuarioRepository.findOne({
+      where: { id: dto.id_perfil },
+    });
 
     if (!user) {
-      throw new NotFoundException('No se encontró el perfil de usuario asociado.');
+      throw new NotFoundException(
+        'No se encontró el perfil de usuario asociado.',
+      );
     }
 
-    const empresa = this.empresaRepository.create(dto);
+    console.log('DTO recibido:', dto);
+    console.log('Usuario encontrado:', user?.id);
+
+    const empresa = this.empresaRepository.create({
+      ...dto,
+      user,
+    });
 
     const registroEmpresa = await this.empresaRepository.save(empresa);
-    return { message: 'Empresa registrada con éxito', empresa: registroEmpresa };
+    return {
+      message: 'Empresa registrada con éxito',
+      empresa: registroEmpresa,
+    };
+  }
+
+  async getEmpresaById(id: string) {
+    const empresa = await this.empresaRepository.findOne({
+      where: { user: { id } },
+      relations: ['user'],
+    });
+    if (!empresa) {
+      return null;
+    }
+    return {
+      name_empresa: empresa.name_empresa,
+    };
   }
 }

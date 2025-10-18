@@ -8,17 +8,16 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup-empresas',
-  standalone:true,
-  imports: [RouterLink,ReactiveFormsModule,CommonModule],
+  standalone: true,
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './signup-empresas.html',
-  styleUrl: './signup-empresas.css'
+  styleUrl: './signup-empresas.css',
 })
 export class SignupEmpresas {
-
-  alert=inject(Alerts);
-  auth= inject(Auth);
-  fb=inject(FormBuilder);
-  router=inject(Router);
+  alert = inject(Alerts);
+  auth = inject(Auth);
+  fb = inject(FormBuilder);
+  router = inject(Router);
   currentStep: number = 1;
 
   nextStep(): void {
@@ -36,51 +35,55 @@ export class SignupEmpresas {
     }
   }
 
-  empresaForm=this.fb.group({
-    name_empresa:['',Validators.required],
-    NIT:['',Validators.required],
-  })
+  empresaForm = this.fb.group({
+    name_empresa: ['', Validators.required],
+    NIT: ['', Validators.required],
+  });
 
-  signupEmpresasForm=this.fb.group({
-    email:['',[Validators.required, Validators.email]],
-    password:['',[Validators.required,Validators.minLength(6)]],
-    repassword:['',Validators.required],
-  },{validators: passwordValidator('password','repassword')})
+  signupEmpresasForm = this.fb.group(
+    {
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      repassword: ['', Validators.required],
+    },
+    { validators: passwordValidator('password', 'repassword') }
+  );
 
-  onSignupEmpresa(){
-    let user= this.signupEmpresasForm.value as User;
-    let empresa =this.empresaForm.value as Empresa
+  onSignupEmpresa() {
+    let user = this.signupEmpresasForm.value as User;
+    let empresa = this.empresaForm.value as Empresa;
 
-    if(this.signupEmpresasForm.hasError('passwordMismatch')){
-      this.alert.error("Las contraseñas no coinciden");
-      return
+    if (this.signupEmpresasForm.hasError('passwordMismatch')) {
+      this.alert.error('Las contraseñas no coinciden');
+      return;
     }
 
-    if(this.signupEmpresasForm.invalid || this.empresaForm.invalid){
+    if (this.signupEmpresasForm.invalid || this.empresaForm.invalid) {
       this.alert.error('Campos incorrectos');
-      return 
+      return;
     }
 
     this.auth.signUp(user).subscribe({
-      next:(response)=>{
-        if(response.success){
-          empresa.idUser=response.user.id;
+      next: (response) => {
+        if (response.success) {
+          empresa.id_perfil = response.user.id;
 
           this.auth.signUpEmpresa(empresa).subscribe({
-            next:(postresponse)=>{
-              if(postresponse){
+            next: (postresponse) => {
+              if (postresponse) {
                 this.alert.success('Registro exitoso. Por favor, inicie sesión.');
                 this.router.navigate(['login']);
-              }}
-          })
-        }
-        else{
+              }
+            },
+          });
+        } else {
           this.alert.error(response.message);
         }
-    },error:(error)=>{
+      },
+      error: (error) => {
         console.error(error);
         this.alert.error('Error en la solicitud');
       },
-  });
+    });
   }
 }
