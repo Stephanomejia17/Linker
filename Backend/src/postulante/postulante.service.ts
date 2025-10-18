@@ -17,16 +17,39 @@ export class PostulanteService {
   ) {}
 
   async createPostulante(dto: CreatePostulanteDto) {
-    const user = await this.usuarioRepository.findOne({ where: { id: dto.id_perfil } });
+    const user = await this.usuarioRepository.findOne({
+      where: { id: dto.id_perfil },
+    });
     console.log(user);
-    
+
     if (!user) {
-      throw new NotFoundException('No se encontró el perfil de usuario asociado.');
+      throw new NotFoundException(
+        'No se encontró el perfil de usuario asociado.',
+      );
     }
-    console.log(dto)
-    const postulante = this.postulanteRepository.create(dto);
+    console.log('DTO recibido:', dto);
+    console.log('Usuario encontrado:', user?.id);
+
+    const postulante = this.postulanteRepository.create({
+      ...dto,
+      user,
+    });
 
     const registroPostulante = await this.postulanteRepository.save(postulante);
-    return { message: 'Postulante registrado con éxito', postulante: registroPostulante };
+    return {
+      message: 'Postulante registrado con éxito',
+      postulante: registroPostulante,
+    };
+  }
+
+  async getPostulanteById(id: string) {
+    const postulante = await this.postulanteRepository.findOne({
+      where: { user: { id } },
+      relations: ['user'],
+    });
+    if (!postulante) {
+      throw new NotFoundException('Postulante no encontrado');
+    }
+    return postulante;
   }
 }

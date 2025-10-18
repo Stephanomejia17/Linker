@@ -1,12 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, OneToOne } from "typeorm";
-import { Postulante } from "src/postulante/entities/postulante.entity";
-import { Empresa } from "src/empresa/entities/empresa.entity";
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
+import { Postulante } from 'src/postulante/entities/postulante.entity';
+import { Empresa } from 'src/empresa/entities/empresa.entity';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   email: string;
   @Column({ type: 'varchar' })
   password: string;
@@ -15,10 +21,9 @@ export class User {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fecha_registro: Date;
 
-  @OneToOne(() => Postulante, postulante => postulante.id)
+  @OneToOne(() => Postulante, (postulante) => postulante.user)
   postulante: Postulante;
 
-  @OneToOne(() => Empresa, empresa=> empresa.id)
+  @OneToOne(() => Empresa, (empresa) => empresa.id)
   empresa: Empresa;
-
 }

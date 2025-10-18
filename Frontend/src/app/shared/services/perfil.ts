@@ -1,16 +1,19 @@
 import { inject, Injectable } from '@angular/core';
-import {v4 as uuid4} from 'uuid';
+import { v4 as uuid4 } from 'uuid';
 import { Auth } from './auth';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+export class Perfil {
+  auth = inject(Auth);
+  http = inject(HttpClient);
 
+  getUserNamePostulante(id: string) {
+    return this.http.post('http://localhost:3000/postulante/' + id, id);
+  }
 
-export class Perfil{
-
-  auth=inject(Auth) 
-  
   /*guardarPerfil(perfil: PerfilPostulanteModel| PerfilEmpresaModel) {
     let user= this.auth.getUser()
     if(user){

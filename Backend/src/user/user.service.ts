@@ -2,7 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
 import { UserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 
@@ -12,10 +12,9 @@ export class UserService {
     @InjectRepository(User)
     private usuarioRepository: Repository<User>,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   async createUser(dto: UserDto) {
-
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(dto.password, salt);
 
@@ -36,10 +35,10 @@ export class UserService {
       console.error(error);
       throw new BadRequestException('No se pudo crear');
     }
-  };
+  }
 
   async loginUser(dto: UserDto) {
-    const user =  await this.usuarioRepository.findOneBy({ email: dto.email });
+    const user = await this.usuarioRepository.findOneBy({ email: dto.email });
     if (!user) {
       throw new BadRequestException('Credenciales inválidas');
     }
@@ -59,5 +58,4 @@ export class UserService {
       token,
     };
   }
-
-  }
+}
