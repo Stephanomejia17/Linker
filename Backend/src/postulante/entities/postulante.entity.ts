@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToOne,
+} from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
 
 @Entity('postulantes')
@@ -18,7 +25,7 @@ export class Postulante {
   @Column({ type: 'varchar', nullable: true })
   ubicacion: string;
 
-  @OneToOne(()=>User, user => user.id )
+  @OneToOne(() => User, (user) => user.postulante)
   @JoinColumn({ name: 'id_perfil' })
-  user:User;
+  user: User;
 }

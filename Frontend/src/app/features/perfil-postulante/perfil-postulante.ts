@@ -5,27 +5,41 @@ import { Router } from '@angular/router';
 import { Alerts } from '../../shared/services/alerts';
 import { Perfil } from '../../shared/services/perfil';
 
-
 @Component({
   selector: 'app-perfil-postulante',
   standalone: true,
   imports: [NgFor, NgIf, ReactiveFormsModule],
   templateUrl: './perfil-postulante.html',
-  styleUrls: ['./perfil-postulante.css']
+  styleUrls: ['./perfil-postulante.css'],
 })
 export class PerfilPostulante {
-  alert=inject(Alerts);
+  alert = inject(Alerts);
   postulante = inject(Perfil);
-  fb=inject(FormBuilder);
-  router=inject(Router);
+  fb = inject(FormBuilder);
+  router = inject(Router);
+  perfil = inject(Perfil);
+  name = '';
 
   postulanteForm = this.fb.group({
     experiencia: ['', Validators.required],
     cv: [''],
     estudios: this.fb.array([this.crearEstudio()]),
     habilidades: this.fb.array([this.crearHabilidad()]),
-    idiomas: this.fb.array([this.crearIdioma()])
+    idiomas: this.fb.array([this.crearIdioma()]),
   });
+
+  ngOnInit() {
+    const id = sessionStorage.getItem('userId');
+
+    if (id) {
+      this.perfil.getUserNamePostulante(id).subscribe({
+        next: (data: any) => {
+          this.name = `${data.name} ${data.lastname}`;
+        },
+        error: (err) => console.error('Error al obtener nombre:', err),
+      });
+    }
+  }
 
   get estudiosForm(): FormArray {
     return this.postulanteForm.get('estudios') as FormArray;
@@ -39,19 +53,23 @@ export class PerfilPostulante {
 
   crearEstudio() {
     return this.fb.group({
-      titulo: ['', Validators.required], nivel: ['', Validators.required], certificado: ''
+      titulo: ['', Validators.required],
+      nivel: ['', Validators.required],
+      certificado: '',
     });
   }
 
   crearHabilidad() {
     return this.fb.group({
-      nombre: ['', Validators.required], certificado: ''
+      nombre: ['', Validators.required],
+      certificado: '',
     });
   }
 
   crearIdioma() {
     return this.fb.group({
-      nombre: ['', Validators.required], certificado: ''
+      nombre: ['', Validators.required],
+      certificado: '',
     });
   }
 

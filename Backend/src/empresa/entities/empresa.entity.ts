@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToOne,
+} from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
 
 @Entity('empresas')
@@ -14,8 +21,7 @@ export class Empresa {
   @Column({ type: 'varchar' })
   NIT: string;
 
-  @OneToOne(()=>User, user => user.id)
+  @OneToOne(() => User, (user) => user.empresa)
   @JoinColumn({ name: 'id_perfil' })
-  user:User;
-
+  user: User;
 }

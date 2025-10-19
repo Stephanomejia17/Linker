@@ -20,7 +20,7 @@ interface Idioma {
 }
 
 interface PerfilPostulanteModel {
-  idUser?: string;
+  id_perfil?: string;
   name: string;
   lastname: string;
 }

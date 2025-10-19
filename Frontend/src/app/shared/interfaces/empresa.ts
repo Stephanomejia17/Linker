@@ -21,8 +21,8 @@ interface PerfilEmpresaModel {
   vacantes: Vacante[];
   certificados: CertificadoEmpresa[];
 }
-interface Empresa{
-    idUser:string,
-    name_empresa:string,
-    NIT:string,
+interface Empresa {
+  id_perfil: string;
+  name_empresa: string;
+  NIT: string;
 }

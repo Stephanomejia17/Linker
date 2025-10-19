@@ -1,97 +1,128 @@
 <section>
-<div class="perfil-container">
-  <form [formGroup]="empresaForm" (ngSubmit)="OnEmpresa()">
-    <h2>PERFIL EMPRESA</h2>
+  <div class="perfil-container">
+    <form [formGroup]="empresaForm" (ngSubmit)="OnEmpresa()">
+      <h2>PERFIL EMPRESA</h2>
 
-    <div class="perfil-header">
-      <img src="assets/img/match-user-icon.webp" class="foto" />
-      <span class="nombre">Johnson & Johnson</span>
-    </div>
-    <hr/>
-
-    <div class="campo descripcion-empresa">
-      <div class="mini-titulo">
-        <img src="assets/img/icono-lapiz.png" class="icon" />
-        <label class="descripcion">Descripción de la empresa</label>
+      <div class="perfil-header">
+        <img src="assets/img/match-user-icon.webp" class="foto" />
+        <span class="nombre">{{ name }} </span>
       </div>
-      <textarea placeholder="Descripción de la empresa" formControlName="descripcion"></textarea>
-    </div>
+      <hr />
 
-    <div formArrayName="vacantes">
-      <div *ngFor="let vacante of vacantesForm.controls; let i = index" [formGroupName]="i">
+      <div class="campo descripcion-empresa">
         <div class="mini-titulo">
-          <img src="assets/img/icono-lupa.png" class="icon" />
-          <label>Vacante {{ i + 1 }}</label>
+          <img src="assets/img/icono-lapiz.png" class="icon" />
+          <label class="descripcion">Descripción de la empresa</label>
         </div>
-        <div class="campo vacante-grid">
-          <input type="text" placeholder="Título" formControlName="titulo"/>
-          <input placeholder="Descripción" formControlName="descripcion">
-        </div>
-        
-        <div class="campo vacante-grid">
-          <input type="number" placeholder="Salario" formControlName="salario"/>
-          <input type="text" placeholder="Ubicación" formControlName="ubicacion"/>
-        </div>
-        <div class="campo vacante-grid-triple">
-          <select formControlName="modalidad">
+        <textarea placeholder="Descripción de la empresa" formControlName="descripcion"></textarea>
+      </div>
+
+      <div formArrayName="vacantes">
+        <div *ngFor="let vacante of vacantesForm.controls; let i = index" [formGroupName]="i">
+          <div class="mini-titulo">
+            <img src="assets/img/icono-lupa.png" class="icon" />
+            <label>Vacante {{ i + 1 }}</label>
+          </div>
+          <div class="campo vacante-grid">
+            <input type="text" placeholder="Título" formControlName="titulo" />
+            <input placeholder="Descripción" formControlName="descripcion" />
+          </div>
+
+          <div class="campo vacante-grid">
+            <input type="number" placeholder="Salario" formControlName="salario" />
+            <input type="text" placeholder="Ubicación" formControlName="ubicacion" />
+          </div>
+          <div class="campo vacante-grid-triple">
+            <select formControlName="modalidad">
               <option value="">Modalidad</option>
               <option value="Presencial">Presencial</option>
               <option value="Remoto">Remoto</option>
               <option value="Híbrido">Híbrido</option>
-          </select>
-          <select formControlName="tipo_trabajo">
+            </select>
+            <select formControlName="tipo_trabajo">
               <option value="">Tipo de trabajo</option>
               <option value="Practicante">Practicante</option>
               <option value="Auxiliar">Auxiliar</option>
               <option value="Junior">Junior</option>
               <option value="Trainee">Trainee</option>
               <option value="Voluntario">Voluntario</option>
-          </select>
-          <select formControlName="habilidad">
+            </select>
+            <select formControlName="habilidad">
               <option value="">Habilidad requerida</option>
               <option value="Excel">Excel</option>
               <option value="Python">Python</option>
-          </select>
-        </div>
-        <div class="campo">
-          <select formControlName="idioma">
+            </select>
+          </div>
+          <div class="campo">
+            <select formControlName="idioma">
               <option value="">Idioma requerido</option>
               <option value="Español">Español</option>
               <option value="Inglés">Inglés</option>
               <option value="Italiano">Italiano</option>
               <option value="Francés">Francés</option>
               <option value="Alemán">Alemán</option>
-          </select>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="botones-container">
-      <button type="button" class="agregar" (click)="agregarVacante()" *ngIf="vacantesForm.length < 5">AGREGAR</button>
-      <button type="button" class="eliminar" (click)="eliminarVacante(vacantesForm.length - 1)" *ngIf="vacantesForm.length > 1">ELIMINAR</button>
-    </div>
+      <div class="botones-container">
+        <button
+          type="button"
+          class="agregar"
+          (click)="agregarVacante()"
+          *ngIf="vacantesForm.length < 5"
+        >
+          AGREGAR
+        </button>
+        <button
+          type="button"
+          class="eliminar"
+          (click)="eliminarVacante(vacantesForm.length - 1)"
+          *ngIf="vacantesForm.length > 1"
+        >
+          ELIMINAR
+        </button>
+      </div>
 
-    <div formArrayName="certificados">
-      <div *ngFor="let certificado of certificadosForm.controls; let i = index" [formGroupName]="i">
-        <div class="mini-titulo">
-          <img src="assets/img/icono-certificado.png" class="icon" />
-          <label>Certificados {{ i + 1 }}</label>
-        </div>
+      <div formArrayName="certificados">
+        <div
+          *ngFor="let certificado of certificadosForm.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="mini-titulo">
+            <img src="assets/img/icono-certificado.png" class="icon" />
+            <label>Certificados {{ i + 1 }}</label>
+          </div>
           <div class="campo vacante-grid">
-            <input type="text" placeholder="Nombre" formControlName="nombre"/>
-            <input type="text" placeholder="Entidad emisora" formControlName="entidadEmisora"/>
+            <input type="text" placeholder="Nombre" formControlName="nombre" />
+            <input type="text" placeholder="Entidad emisora" formControlName="entidadEmisora" />
           </div>
           <div class="campo fecha-certificados">
-            <input type="date" placeholder="dd/mm/aaaa" formControlName="fechaEmision"/>
-            <input type="date" placeholder="dd/mm/aaaa" formControlName="fechaCaducidad"/>
+            <input type="date" placeholder="dd/mm/aaaa" formControlName="fechaEmision" />
+            <input type="date" placeholder="dd/mm/aaaa" formControlName="fechaCaducidad" />
           </div>
+        </div>
       </div>
-    </div>
-    <div class="botones-container">
-      <button type="button" class="agregar" (click)="agregarCertificado()" *ngIf="certificadosForm.length < 5">AGREGAR</button>
-      <button type="button" class="eliminar" (click)="eliminarCertificado(certificadosForm.length - 1)" *ngIf="certificadosForm.length > 1">ELIMINAR</button>
-    </div>
+      <div class="botones-container">
+        <button
+          type="button"
+          class="agregar"
+          (click)="agregarCertificado()"
+          *ngIf="certificadosForm.length < 5"
+        >
+          AGREGAR
+        </button>
+        <button
+          type="button"
+          class="eliminar"
+          (click)="eliminarCertificado(certificadosForm.length - 1)"
+          *ngIf="certificadosForm.length > 1"
+        >
+          ELIMINAR
+        </button>
+      </div>
 
-    <button class="btn-guardar">Guardar</button>
-  </form>
-</div>
+      <button class="btn-guardar">Guardar</button>
+    </form>
+  </div>
 </section>

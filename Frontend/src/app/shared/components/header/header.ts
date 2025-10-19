@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { SidebarService } from '../../../services/sidebar/sidebar-service';
+import { Perfil } from '../../services/perfil';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ export class Header {
   private authService = inject(Auth);
   isLogged = this.authService.isLogged;
   isMenuOpen = false;
+  profile = inject(Perfil);
 
   sidebarService = inject(SidebarService);
 
@@ -32,15 +34,8 @@ export class Header {
   }
 
   getUserType(): boolean {
-    const email = sessionStorage.getItem('user');
-    const data = localStorage.getItem(`${email}` || '');
-    console.log(`${email}`);
-    if (data) {
-      const user = JSON.parse(data);
+    const isEmpresa = sessionStorage.getItem('isEmpresa');
 
-      return !!user['NIT'];
-    }
-
-    return false;
+    return isEmpresa === 'true';
   }
 }

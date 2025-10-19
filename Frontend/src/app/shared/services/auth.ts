@@ -1,4 +1,3 @@
-
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,7 +8,7 @@ import { Observable } from 'rxjs';
 export class Auth {
   isLogged = signal(false);
 
-  http=inject(HttpClient)
+  http = inject(HttpClient);
 
   signUp(user: User): Observable<any> {
     return this.http.post('http://localhost:3000/user/registro', user);

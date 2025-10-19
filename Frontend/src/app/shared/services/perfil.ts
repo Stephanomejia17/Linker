@@ -1,16 +1,33 @@
 import { inject, Injectable } from '@angular/core';
-import {v4 as uuid4} from 'uuid';
+import { v4 as uuid4 } from 'uuid';
 import { Auth } from './auth';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+interface PerfilPostulanteResponse {
+  name: string;
+  lastname: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+export class Perfil {
+  auth = inject(Auth);
+  http = inject(HttpClient);
 
+  getIsEmpresa(id: string): Observable<{ isEmpresa: boolean }> {
+    return this.http.get<{ isEmpresa: boolean }>(`http://localhost:3000/empresa/isEmpresa/${id}`);
+  }
 
-export class Perfil{
+  getUserNamePostulante(id: string): Observable<PerfilPostulanteResponse> {
+    return this.http.get<PerfilPostulanteResponse>(`http://localhost:3000/postulante/${id}`);
+  }
 
-  auth=inject(Auth) 
-  
+  getUserNameEmpresa(id: string): Observable<{ name: string }> {
+    return this.http.get<{ name: string }>(`http://localhost:3000/empresa/${id}`);
+  }
+
   /*guardarPerfil(perfil: PerfilPostulanteModel| PerfilEmpresaModel) {
     let user= this.auth.getUser()
     if(user){
