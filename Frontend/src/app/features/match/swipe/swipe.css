@@ -1,200 +1,168 @@
 .card-section {
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 45%;
-  height: 75% !important;
-  min-width: 50vh;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 10px;
-  padding: 20px;
-}
-
-.card-section div {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-}
-
-.vacant-image {
-  border-radius: 10px;
-  width: 100%;
-  height: 95%;
-  max-height: 63vh;
-  object-fit: cover;
-  margin-bottom: 2vh;
-}
-
-h4 {
-  position: absolute;
-  color: white;
-  font-weight: 500;
-  top: 72%;
-  left: 10px;
-}
-
-p {
-  position: absolute;
-  color: white;
-  font-weight: 300;
-  width: 75%;
-  overflow: hidden;
-  top: 78%;
-  left: 10px;
-}
-
-.image-container {
   position: relative;
   width: 100%;
-  height: 100%;
+  overflow: hidden;
+  max-width: 450px;
+  height: 700px;
+  margin: 5%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
 }
 
-.image-container img {
+.card-content {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.floating-icons {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.filter {
-  position: absolute;
-  background-color: rgba(163, 162, 160, 0.7);
-  border-radius: 0px;
-  padding: 3px;
-
-  top: 10px;
-  right: 10px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.filter:active {
-  transform: scale(0.85);
-  background-color: rgba(163, 162, 160, 0.9);
-}
-
-.black-row {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-}
-
-.black-row-mirror {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: scaleX(-1);
-}
-
-.up-row {
-  position: absolute;
-  top: 70%;
-  right: 10px;
-  transform: translateX(-50%) rotate(90deg);
-}
-
-.floating-icons img {
-  width: 30px !important;
-  height: 30px !important;
-  cursor: pointer;
-  object-fit: contain;
-}
-
-.option-buttons {
-  background-color: #495a79;
-  justify-content: space-between !important;
+  background: white;
   display: flex;
-  border-radius: 100px;
-  width: 85% !important;
-  height: 15% !important;
-  align-items: center;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.option-buttons img {
-  width: 85px !important;
-  height: 85px !important;
-  margin: 10px;
-  object-fit: contain;
+.card-image-container {
+  position: relative;
+  width: 100%;
+  height: 60%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.emoji {
+  height: 25%;
+  width: 25%;
+}
+
+.distance-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #667eea;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.card-info {
+  padding: 20px;
+  background: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.card-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-salary {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4caf50;
+  white-space: nowrap;
+}
+
+.card-description {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--soft-blue) 100%);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.info-row {
+  display: flex;
+  gap: 30px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+.info-item span {
+  font-size: 30px;
+}
+
+.filter-btn {
+  position: absolute;
+  border: none;
+  top: 16px;
+  right: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.filter-btn:active {
+  transform: scale(0.95);
 }
 
 @media (max-width: 768px) {
   .card-section {
-    background-color: transparent;
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 0px;
-    min-height: 0vh;
-    padding: 0px;
-    /* padding-left: 3%;
-    padding-right: 3%; */
+    width: 100vw;
+    height: 90vh;
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
   }
 
-  .black-row {
-    background-color: white;
-    border-radius: 100%;
+  .card-image-container {
+    height: 50%;
   }
 
-  .black-row-mirror {
-    background: white;
-    border-radius: 100%;
+  .card-name {
+    font-size: 22px;
   }
 
-  .vacant-image {
-    width: 100% !important;
-    height: 100% !important;
-    max-height: none !important;
-    border-radius: 0px !important;
-    margin-bottom: 0;
-  }
-
-  .option-buttons {
-    display: none !important;
-    /* position: absolute;
-    background-color: transparent;
-    bottom: 20%;
-    width: 100%;
-    height: auto !important;
-    scale: 0.8; */
-  }
-
-  .image-container {
-    height: 100% !important;
-    width: 100% !important;
-    top: 0 !important;
-  }
-
-  .image-container::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60%; /* qué tan alto quieres el degradado */
-    background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
-    pointer-events: none; /* no bloquea clics */
-    border-radius: inherit; /* respeta bordes si los hay */
-  }
-
-  .floating-icons {
-    z-index: 500;
-  }
-
-  .vacant-title {
-    z-index: 500;
-  }
-
-  .vacant-descrip {
-    z-index: 500;
+  .card-info {
+    padding: 14px;
   }
 }

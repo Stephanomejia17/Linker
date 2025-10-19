@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { Sidebar } from './sidebar/sidebar';
 import { Swipe } from './swipe/swipe';
 import { Filter } from './filter/filter';
@@ -8,9 +8,10 @@ import { SidebarService } from '../../services/sidebar/sidebar-service';
 
 @Component({
   selector: 'app-match',
-  imports: [Sidebar, Swipe, Filter, Bottombar],
+  imports: [Sidebar,Swipe, Filter, Bottombar],
   templateUrl: './match.html',
   styleUrl: './match.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class Match {
   filterService = inject(FilterService);

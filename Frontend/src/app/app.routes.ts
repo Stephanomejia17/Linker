@@ -6,6 +6,7 @@ import { PerfilPostulante } from './features/perfil-postulante/perfil-postulante
 import { PerfilEmpresa } from './features/perfil-empresa/perfil-empresa';
 import { Signup } from './features/signup/signup';
 import { SignupEmpresas } from './features/signup-empresas/signup-empresas';
+import { Swipe } from './features/match/swipe/swipe';
 
 export const routes: Routes = [
     {

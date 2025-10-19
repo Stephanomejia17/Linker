@@ -1,28 +1,53 @@
-<section class="card-section">
-  <div class="image-container">
-    <div>
-      <img class="vacant-image" src="assets/img/match-example-photo.webp" />
-    </div>
-    <div class="floating-icons">
-      <img class="black-row" alt="black-row" src="assets/img/match-black-row.webp" />
-      <img class="black-row-mirror" alt="black-row-mirror" src="assets/img/match-black-row.webp" />
-      <img
-        class="filter"
-        alt="filter"
-        src="assets/img/match-filter-icon.webp"
-        (click)="filterActivated()"
-      />
-      <img class="up-row" alt="up-row" src="assets/img/match-row.webp" />
-      <div class="description">
-        <h4 class="vacant-title">Oportunidad de Crecimiento Personal</h4>
-        <p class="vacant-descrip">
-          Estamos buscando personas con talento y motivación para unirse a nuestro equipo. Si...
-        </p>
+<swiper-container
+  effect="cards"
+  grab-cursor="true"
+  allow-slide-prev="false"
+  (slidechange)="onSlideChange()"
+  
+  (swiperslidechange)="onSlideChange()"
+  class="card-section"
+>
+  @for(v of vacancies; track v.title) {
+  <swiper-slide class="cards">
+    <app-card [vacancy]="v">
+      <div class="card-content">
+        <div class="card-image-container">
+          <img alt="Card Image" class="card-image" />
+          <div class="distance-badge"> {{ v.location }}</div>
+          <button class="filter-btn" (click)="filterActivated()">
+            <img class="filter-icon" alt="filter" src="assets/img/match-filter-icon.webp" />
+          </button>
+        </div>
+
+        <div class="card-info">
+          <div class="title">
+            <div class="card-name">{{ v.title }}</div>
+            <div class="card-salary">{{ v.salary }}</div>
+          </div>
+
+          <div class="card-description">
+            {{ v.description }}
+          </div>
+
+          <div class="tags">
+            @for(tag of v.tags; track tag) {
+            <div class="tag">{{ tag }}</div>
+            }
+          </div>
+
+          <div class="info-row">
+            <div class="info-item">
+              <span> <img src="assets/img/compania.png" alt="Company" class="emoji"/> </span>
+              {{ v.company }}
+            </div>
+            <div class="info-item">
+              <span> <img src="assets/img/reloj-en.png" alt="Schedule" class="emoji"/> </span>
+              {{ v.schedule }}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="option-buttons">
-    <img src="assets/img/match-X-icon.webp" />
-    <img src="assets/img/match-check-icon.webp" />
-  </div>
-</section>
+    </app-card>
+  </swiper-slide>
+  }
+</swiper-container>
