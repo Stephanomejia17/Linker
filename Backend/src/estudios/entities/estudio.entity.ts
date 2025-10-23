@@ -1,4 +1,4 @@
-import { DetalleEstudio } from 'src/detalle_estudios/entities/detalle_estudio.entity';
+import { DetalleEstudio } from 'src/detalles_estudios/entities/detalle_estudio.entity';
 import { Postulante } from 'src/postulante/entities/postulante.entity';
 import {
   Column,

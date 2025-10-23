@@ -8,7 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EmpresaModule } from './empresa/empresa.module';
 import { PostulanteModule } from './postulante/postulante.module';
 import { EstudiosModule } from './estudios/estudios.module';
-import { DetalleEstudiosModule } from './detalle_estudios/detalle_estudios.module';
+import { DetalleEstudiosModule } from './detalles_estudios/detalle_estudios.module';
 import { HabilidadesModule } from './habilidades/habilidades.module';
 import { PostulanteHabilidadesModule } from './postulante_habilidades/postulante_habilidades.module';
 import { IdiomasModule } from './idiomas/idiomas.module';

@@ -10,8 +10,8 @@ import {
 } from 'typeorm';
 
 export enum Accion {
-  LIKE = 'like',
-  DISLIKE = 'dislike',
+  LIKE = 'Like',
+  DISLIKE = 'Dislike',
 }
 
 @Entity('matches')

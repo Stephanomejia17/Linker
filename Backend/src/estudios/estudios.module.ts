@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { EstudiosService } from './estudios.service';
 import { EstudiosController } from './estudios.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DetalleEstudio } from 'src/detalle_estudios/entities/detalle_estudio.entity';
+import { DetalleEstudio } from 'src/detalles_estudios/entities/detalle_estudio.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([DetalleEstudio])],
