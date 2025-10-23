@@ -14,6 +14,7 @@ import { Estudio } from 'src/estudios/entities/estudio.entity';
 import { DetalleEstudio } from 'src/detalle_estudios/entities/detalle_estudio.entity';
 import { PostulanteHabilidades } from 'src/postulante_habilidades/entities/postulante_habilidades.entity';
 import { PostulanteIdioma } from 'src/postulante_idiomas/entities/postulante_idioma.entity';
+import { VacantesIdioma } from 'src/vacantes_idiomas/entities/vacantes_idioma.entity';
 
 @Entity('postulantes')
 export class Postulante {

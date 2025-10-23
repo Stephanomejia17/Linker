@@ -13,6 +13,11 @@ import { HabilidadesModule } from './habilidades/habilidades.module';
 import { PostulanteHabilidadesModule } from './postulante_habilidades/postulante_habilidades.module';
 import { IdiomasModule } from './idiomas/idiomas.module';
 import { PostulanteIdiomasModule } from './postulante_idiomas/postulante_idiomas.module';
+import { CertificadosModule } from './certificados/certificados.module';
+import { DetallesCertificadosModule } from './detalles_certificados/detalles_certificados.module';
+import { VacantesModule } from './vacantes/vacantes.module';
+import { VacantesIdiomasModule } from './vacantes_idiomas/vacantes_idiomas.module';
+import { VacanteHabilidadesModule } from './vacante_habilidades/vacante_habilidades.module';
 
 @Module({
   imports: [
@@ -38,6 +43,11 @@ import { PostulanteIdiomasModule } from './postulante_idiomas/postulante_idiomas
     PostulanteHabilidadesModule,
     IdiomasModule,
     PostulanteIdiomasModule,
+    CertificadosModule,
+    DetallesCertificadosModule,
+    VacantesModule,
+    VacantesIdiomasModule,
+    VacanteHabilidadesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

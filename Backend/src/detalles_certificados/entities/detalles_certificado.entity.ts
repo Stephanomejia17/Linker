@@ -1,0 +1,37 @@
+import { Certificado } from 'src/certificados/entities/certificado.entity';
+import { Empresa } from 'src/empresa/entities/empresa.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+@Entity('detalles_certificados')
+export class DetallesCertificado {
+  @PrimaryGeneratedColumn('uuid')
+  id_detalles_certificados: string;
+
+  @ManyToOne(() => Empresa, (empresa) => empresa.detallesCertificados, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'id_empresa' })
+  empresa: Empresa;
+
+  @ManyToOne(
+    () => Certificado,
+    (certificado) => certificado.detallesCertificados,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
+  @JoinColumn({ name: 'id_certificado' })
+  certificado: Certificado;
+
+  @Column({ type: 'date' })
+  fecha_emision: string;
+
+  @Column({ type: 'date' })
+  fecha_caducidad: string | null;
+}

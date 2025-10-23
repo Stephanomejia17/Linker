@@ -1,4 +1,5 @@
 import { PostulanteHabilidades } from 'src/postulante_habilidades/entities/postulante_habilidades.entity';
+import { VacanteHabilidade } from 'src/vacante_habilidades/entities/vacante_habilidade.entity';
 import {
   Column,
   Entity,
@@ -17,4 +18,7 @@ export class Habilidades {
 
   @OneToMany(() => PostulanteHabilidades, (ph) => ph.habilidades)
   postulanteHabilidades: PostulanteHabilidades[];
+
+  @OneToMany(() => VacanteHabilidade, (vh) => vh.habilidades)
+  vacanteHabilidades: VacanteHabilidade[];
 }

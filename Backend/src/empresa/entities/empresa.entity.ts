@@ -5,8 +5,12 @@ import {
   ManyToOne,
   JoinColumn,
   OneToOne,
+  OneToMany,
+  JoinTable,
 } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
+import { DetallesCertificado } from 'src/detalles_certificados/entities/detalles_certificado.entity';
+import { Vacante } from 'src/vacantes/entities/vacante.entity';
 
 @Entity('empresas')
 export class Empresa {
@@ -24,4 +28,11 @@ export class Empresa {
   @OneToOne(() => User, (user) => user.empresa)
   @JoinColumn({ name: 'id_perfil' })
   user: User;
+
+  @OneToMany(() => DetallesCertificado, (dc) => dc.empresa)
+  @JoinTable()
+  detallesCertificados: DetallesCertificado[];
+
+  @OneToMany(() => Vacante, (vacante) => vacante.empresa)
+  vacantes: Vacante[];
 }
