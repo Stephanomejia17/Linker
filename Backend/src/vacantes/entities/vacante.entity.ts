@@ -1,4 +1,5 @@
 import { Empresa } from 'src/empresa/entities/empresa.entity';
+import { Match } from 'src/matches/entities/match.entity';
 import { VacanteHabilidade } from 'src/vacante_habilidades/entities/vacante_habilidade.entity';
 import { VacantesIdioma } from 'src/vacantes_idiomas/entities/vacantes_idioma.entity';
 import {
@@ -52,4 +53,7 @@ export class Vacante {
 
   @OneToMany(() => VacanteHabilidade, (vh) => vh.vacante)
   vacanteHabilidades: VacanteHabilidade[];
+
+  @OneToMany(() => Match, (match) => match.vacante)
+  matches: Match[];
 }

@@ -18,6 +18,7 @@ import { DetallesCertificadosModule } from './detalles_certificados/detalles_cer
 import { VacantesModule } from './vacantes/vacantes.module';
 import { VacantesIdiomasModule } from './vacantes_idiomas/vacantes_idiomas.module';
 import { VacanteHabilidadesModule } from './vacante_habilidades/vacante_habilidades.module';
+import { MatchesModule } from './matches/matches.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { VacanteHabilidadesModule } from './vacante_habilidades/vacante_habilida
     VacantesModule,
     VacantesIdiomasModule,
     VacanteHabilidadesModule,
+    MatchesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
