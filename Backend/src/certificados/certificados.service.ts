@@ -1,15 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCertificadoDto } from './dto/create-certificado.dto';
 import { UpdateCertificadoDto } from './dto/update-certificado.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Certificado } from './entities/certificado.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CertificadosService {
+  constructor(
+    @InjectRepository(Certificado)
+    private certificadoRepository: Repository<Certificado>,
+  ) {}
+
   create(createCertificadoDto: CreateCertificadoDto) {
-    return 'This action adds a new certificado';
+    const certificadoEntity =
+      this.certificadoRepository.create(createCertificadoDto);
+    this.certificadoRepository.save(certificadoEntity);
+    return certificadoEntity;
   }
 
   findAll() {
-    return `This action returns all certificados`;
+    return this.certificadoRepository.find();
   }
 
   findOne(id: number) {
