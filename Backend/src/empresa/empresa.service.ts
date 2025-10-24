@@ -15,6 +15,12 @@ export class EmpresaService {
     private usuarioRepository: Repository<User>,
   ) {}
 
+  findAll() {
+    return this.empresaRepository.find({
+      relations: ['user'],
+    });
+  }
+
   async createEmpresa(dto: CreateEmpresaDto) {
     const user = await this.usuarioRepository.findOne({
       where: { id: dto.id_perfil },
