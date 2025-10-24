@@ -1,15 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateVacanteHabilidadeDto } from './dto/create-vacante_habilidade.dto';
 import { UpdateVacanteHabilidadeDto } from './dto/update-vacante_habilidade.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { VacanteHabilidade } from './entities/vacante_habilidade.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class VacanteHabilidadesService {
-  create(createVacanteHabilidadeDto: CreateVacanteHabilidadeDto) {
-    return 'This action adds a new vacanteHabilidade';
+  constructor(
+    @InjectRepository(VacanteHabilidade)
+    private vacanteHabilidadesRepository: Repository<VacanteHabilidade>,
+  ) {}
+
+  async create(createVacanteHabilidadeDto: CreateVacanteHabilidadeDto) {
+    const vacanteHabilidadesEntity = this.vacanteHabilidadesRepository.create(
+      createVacanteHabilidadeDto,
+    );
+    await this.vacanteHabilidadesRepository.save(vacanteHabilidadesEntity);
+    return vacanteHabilidadesEntity;
   }
 
   findAll() {
-    return `This action returns all vacanteHabilidades`;
+    return this.vacanteHabilidadesRepository.find({
+      relations: ['vacante', 'habilidades'],
+    });
   }
 
   findOne(id: number) {
