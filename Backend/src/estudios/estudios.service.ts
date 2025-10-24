@@ -1,15 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEstudioDto } from './dto/create-estudio.dto';
 import { UpdateEstudioDto } from './dto/update-estudio.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Estudio } from './entities/estudio.entity';
 
 @Injectable()
 export class EstudiosService {
-  create(createEstudioDto: CreateEstudioDto) {
-    return 'This action adds a new estudio';
+  constructor(
+    @InjectRepository(Estudio)
+    private estudiosRepository: Repository<Estudio>,
+  ) {}
+
+  async create(createEstudioDto: CreateEstudioDto) {
+    const estudiosEntity = this.estudiosRepository.create(createEstudioDto);
+
+    await this.estudiosRepository.save(estudiosEntity);
+
+    return estudiosEntity;
   }
 
   findAll() {
-    return `This action returns all estudios`;
+    return this.estudiosRepository.find();
   }
 
   findOne(id: number) {

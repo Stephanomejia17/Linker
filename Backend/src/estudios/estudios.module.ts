@@ -3,9 +3,10 @@ import { EstudiosService } from './estudios.service';
 import { EstudiosController } from './estudios.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DetalleEstudio } from 'src/detalles_estudios/entities/detalle_estudio.entity';
+import { Estudio } from './entities/estudio.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([DetalleEstudio])],
+  imports: [TypeOrmModule.forFeature([DetalleEstudio, Estudio])],
   controllers: [EstudiosController],
   providers: [EstudiosService],
 })
