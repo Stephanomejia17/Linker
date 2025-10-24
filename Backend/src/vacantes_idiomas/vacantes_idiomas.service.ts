@@ -1,15 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateVacantesIdiomaDto } from './dto/create-vacantes_idioma.dto';
 import { UpdateVacantesIdiomaDto } from './dto/update-vacantes_idioma.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { VacantesIdioma } from './entities/vacantes_idioma.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class VacantesIdiomasService {
-  create(createVacantesIdiomaDto: CreateVacantesIdiomaDto) {
-    return 'This action adds a new vacantesIdioma';
+  constructor(
+    @InjectRepository(VacantesIdioma)
+    private vacantesIdiomaRepository: Repository<VacantesIdioma>,
+  ) {}
+
+  async create(createVacantesIdiomaDto: CreateVacantesIdiomaDto) {
+    const vacanteIdiomaEntity = this.vacantesIdiomaRepository.create(
+      createVacantesIdiomaDto,
+    );
+    await this.vacantesIdiomaRepository.save(vacanteIdiomaEntity);
+    return vacanteIdiomaEntity;
   }
 
   findAll() {
-    return `This action returns all vacantesIdiomas`;
+    return this.vacantesIdiomaRepository.find({
+      relations: ['idioma', 'vacante'],
+    });
   }
 
   findOne(id: number) {
