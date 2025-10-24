@@ -1,1 +1,3 @@
-export class CreateHabilidadeDto {}
+export class CreateHabilidadeDto {
+  nombre_habilidad: string;
+}
