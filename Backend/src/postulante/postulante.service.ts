@@ -44,15 +44,21 @@ export class PostulanteService {
 
   async getPostulanteById(id: string) {
     const postulante = await this.postulanteRepository.findOne({
-      where: { user: { id } },
+      where: { id },
       relations: ['user'],
     });
     if (!postulante) {
-      return null;
+      throw new NotFoundException('Usuario no encontrado');
     }
     return {
       name: postulante.name,
       lastname: postulante.lastname,
     };
+  }
+
+  findAll() {
+    return this.postulanteRepository.find({
+      relations: ['user'],
+    });
   }
 }

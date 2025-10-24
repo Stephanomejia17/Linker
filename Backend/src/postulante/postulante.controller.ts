@@ -20,6 +20,11 @@ export class PostulanteController {
     return this.postulanteService.createPostulante(dto);
   }
 
+  @Get()
+  findAll() {
+    return this.postulanteService.findAll();
+  }
+
   @Get(':id')
   async getPostulante(@Param('id') id: string) {
     return this.postulanteService.getPostulanteById(id);
