@@ -1,6 +1,7 @@
 import { Habilidades } from 'src/habilidades/entities/habilidades.entity';
 import { Postulante } from 'src/postulante/entities/postulante.entity';
 import {
+  Column,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -12,6 +13,9 @@ import {
 export class PostulanteHabilidades {
   @PrimaryGeneratedColumn('uuid')
   id_postulante_habilidad: string;
+
+  @Column({ type: 'varchar' })
+  certificado: string;
 
   @ManyToOne(
     () => Postulante,
