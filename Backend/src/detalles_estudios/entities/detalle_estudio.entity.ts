@@ -1,6 +1,12 @@
 import { Estudio } from 'src/estudios/entities/estudio.entity';
 import { Postulante } from 'src/postulante/entities/postulante.entity';
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('detalles_estudios')
 export class DetalleEstudio {
@@ -18,4 +24,7 @@ export class DetalleEstudio {
   })
   @JoinColumn({ name: 'id_estudio' })
   estudio: Estudio;
+
+  @Column({ type: 'varchar' })
+  certificado: string;
 }
