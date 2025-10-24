@@ -1,1 +1,3 @@
-export class CreateIdiomaDto {}
+export class CreateIdiomaDto {
+  nombre: string;
+}

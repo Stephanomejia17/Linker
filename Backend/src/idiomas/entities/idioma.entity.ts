@@ -4,8 +4,8 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('idiomas')
 export class Idioma {
-  @PrimaryGeneratedColumn('uuid')
-  id_idioma: string;
+  @PrimaryGeneratedColumn()
+  id_idioma: number;
 
   @Column({ type: 'varchar', unique: true })
   nombre: string;

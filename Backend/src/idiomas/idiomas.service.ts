@@ -1,15 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { CreateIdiomaDto } from './dto/create-idioma.dto';
 import { UpdateIdiomaDto } from './dto/update-idioma.dto';
+import { Idioma } from './entities/idioma.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class IdiomasService {
-  create(createIdiomaDto: CreateIdiomaDto) {
-    return 'This action adds a new idioma';
+  constructor(
+    @InjectRepository(Idioma)
+    private idiomasRepository: Repository<Idioma>,
+  ) {}
+
+  async create(createIdiomaDto: CreateIdiomaDto) {
+    const idiomaEntity = this.idiomasRepository.create(createIdiomaDto);
+
+    await this.idiomasRepository.save(idiomaEntity);
+    return idiomaEntity;
   }
 
   findAll() {
-    return `This action returns all idiomas`;
+    return this.idiomasRepository.find();
   }
 
   findOne(id: number) {
