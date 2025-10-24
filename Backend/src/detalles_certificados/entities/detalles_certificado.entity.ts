@@ -30,8 +30,8 @@ export class DetallesCertificado {
   certificado: Certificado;
 
   @Column({ type: 'date' })
-  fecha_emision: string;
+  fecha_emision: Date;
 
   @Column({ type: 'date' })
-  fecha_caducidad: string | null;
+  fecha_caducidad: Date | null;
 }
