@@ -8,6 +8,8 @@ import { Estudio } from 'src/estudios/entities/estudio.entity';
 import { DetalleEstudio } from 'src/detalles_estudios/entities/detalle_estudio.entity';
 import { PostulanteHabilidades } from 'src/postulante_habilidades/entities/postulante_habilidades.entity';
 import { PostulanteIdioma } from 'src/postulante_idiomas/entities/postulante_idioma.entity';
+import { InteraccionesService } from 'src/interacciones/interacciones.service';
+import { InteraccionesModule } from 'src/interacciones/interacciones.module';
 
 @Module({
   imports: [
@@ -19,6 +21,7 @@ import { PostulanteIdioma } from 'src/postulante_idiomas/entities/postulante_idi
       PostulanteHabilidades,
       PostulanteIdioma,
     ]),
+    InteraccionesModule,
   ],
   controllers: [PostulanteController],
   providers: [PostulanteService],

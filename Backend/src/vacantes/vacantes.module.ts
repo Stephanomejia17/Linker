@@ -6,6 +6,9 @@ import { VacantesIdioma } from 'src/vacantes_idiomas/entities/vacantes_idioma.en
 import { VacanteHabilidade } from 'src/vacante_habilidades/entities/vacante_habilidade.entity';
 import { Match } from 'src/matches/entities/match.entity';
 import { Vacante } from './entities/vacante.entity';
+import { Interaccion } from 'src/interacciones/entities/interacciones.entity';
+import { InteraccionesService } from 'src/interacciones/interacciones.service';
+import { InteraccionesModule } from 'src/interacciones/interacciones.module';
 
 @Module({
   imports: [
@@ -14,7 +17,9 @@ import { Vacante } from './entities/vacante.entity';
       VacanteHabilidade,
       Match,
       Vacante,
+      Interaccion,
     ]),
+    InteraccionesModule,
   ],
   controllers: [VacantesController],
   providers: [VacantesService],

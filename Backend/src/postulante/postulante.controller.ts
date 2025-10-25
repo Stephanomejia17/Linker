@@ -25,8 +25,9 @@ export class PostulanteController {
     return this.postulanteService.findAll();
   }
 
-  @Get(':id')
-  async getPostulante(@Param('id') id: string) {
-    return this.postulanteService.getPostulanteById(id);
+  @Get('postulantes/:id')
+  async getPostulante(@Param('id') empresaId: string) {
+    return this.postulanteService.getPostulantes(empresaId);
   }
+
 }

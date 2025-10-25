@@ -3,13 +3,16 @@ import { CreateVacanteDto } from './dto/create-vacante.dto';
 import { UpdateVacanteDto } from './dto/update-vacante.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Vacante } from './entities/vacante.entity';
-import { Repository } from 'typeorm';
+import { In, Not, Repository } from 'typeorm';
+import { InteraccionesService } from 'src/interacciones/interacciones.service';
 
 @Injectable()
 export class VacantesService {
   constructor(
     @InjectRepository(Vacante)
     private vacanteRepository: Repository<Vacante>,
+
+    private interaccionService: InteraccionesService,
   ) {}
 
   async create(createVacanteDto: CreateVacanteDto) {
@@ -27,15 +30,22 @@ export class VacantesService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} vacante`;
-  }
-
   update(id: number, updateVacanteDto: UpdateVacanteDto) {
     return `This action updates a #${id} vacante`;
   }
 
   remove(id: number) {
     return `This action removes a #${id} vacante`;
+  }
+
+  async getVacantes(postulanteId: string) {
+    const vacantesExcluidas =
+      await this.interaccionService.isFilteredVacantes(postulanteId);
+    const vacantes = this.vacanteRepository.find({
+      where: {
+        id_vacante: Not(In(vacantesExcluidas)),
+      },
+    });
+    return vacantes;
   }
 }

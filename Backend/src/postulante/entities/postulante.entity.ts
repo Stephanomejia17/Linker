@@ -16,6 +16,7 @@ import { PostulanteHabilidades } from 'src/postulante_habilidades/entities/postu
 import { PostulanteIdioma } from 'src/postulante_idiomas/entities/postulante_idioma.entity';
 import { VacantesIdioma } from 'src/vacantes_idiomas/entities/vacantes_idioma.entity';
 import { Match } from 'src/matches/entities/match.entity';
+import { Interaccion } from 'src/interacciones/entities/interacciones.entity';
 
 @Entity('postulantes')
 export class Postulante {
@@ -55,4 +56,7 @@ export class Postulante {
 
   @OneToMany(() => Match, (match) => match.postulante)
   matches: Match[];
+
+  @OneToMany(()=>Interaccion,(interaccion)=>interaccion.postulante)
+  interacciones:Interaccion[];
 }

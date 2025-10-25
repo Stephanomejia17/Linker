@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { VacantesService } from './vacantes.service';
 import { CreateVacanteDto } from './dto/create-vacante.dto';
 import { UpdateVacanteDto } from './dto/update-vacante.dto';
@@ -17,11 +25,6 @@ export class VacantesController {
     return this.vacantesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vacantesService.findOne(+id);
-  }
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVacanteDto: UpdateVacanteDto) {
     return this.vacantesService.update(+id, updateVacanteDto);
@@ -30,5 +33,10 @@ export class VacantesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.vacantesService.remove(+id);
+  }
+
+  @Get('vacantes/:id')
+  getVacantes(@Param('id') postulanteId: string) {
+    return this.vacantesService.getVacantes(postulanteId);
   }
 }

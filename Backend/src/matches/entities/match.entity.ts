@@ -6,20 +6,19 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
-export enum Accion {
-  LIKE = 'Like',
-  DISLIKE = 'Dislike',
-}
 
 @Entity('matches')
 export class Match {
   @PrimaryGeneratedColumn('uuid')
   id_match: string;
 
-  @ManyToOne(() => Vacante, (vacante) => vacante.matches, {
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  fecha: Date;
+
+  /*@ManyToOne(() => Vacante, (vacante) => vacante.matches, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'id_vacante' })
@@ -31,9 +30,6 @@ export class Match {
   @JoinColumn({ name: 'id_postulante' })
   postulante: Postulante;
 
-  @Column({ type: 'enum', enum: Accion })
-  accion: Accion;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  fecha: Date;
+ /* @Column({ type: 'enum', enum: Accion })
+  accion: Accion;*/
 }
