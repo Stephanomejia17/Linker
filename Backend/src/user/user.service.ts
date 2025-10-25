@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import bcrypt from 'bcryptjs';
 import { UserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
+import { ChatService } from '../chat/chat.service';
 
 @Injectable()
 export class UserService {
@@ -12,6 +13,7 @@ export class UserService {
     @InjectRepository(User)
     private usuarioRepository: Repository<User>,
     private readonly jwtService: JwtService,
+    private readonly chatService: ChatService,
   ) {}
 
   async createUser(dto: UserDto) {
@@ -25,6 +27,8 @@ export class UserService {
       });
 
       await this.usuarioRepository.save(userEntity);
+
+      await this.chatService.createStreamUser(userEntity.id, dto.email);
 
       return {
         success: true,

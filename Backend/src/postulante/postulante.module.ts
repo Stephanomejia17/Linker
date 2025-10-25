@@ -22,5 +22,6 @@ import { PostulanteIdioma } from 'src/postulante_idiomas/entities/postulante_idi
   ],
   controllers: [PostulanteController],
   providers: [PostulanteService],
+  exports: [TypeOrmModule], 
 })
 export class PostulanteModule {}

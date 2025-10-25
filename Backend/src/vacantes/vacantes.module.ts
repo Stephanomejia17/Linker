@@ -18,5 +18,6 @@ import { Vacante } from './entities/vacante.entity';
   ],
   controllers: [VacantesController],
   providers: [VacantesService],
+  exports: [TypeOrmModule], 
 })
 export class VacantesModule {}
