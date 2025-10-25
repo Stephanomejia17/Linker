@@ -31,13 +31,12 @@ export class InteraccionesController {
     return this.interaccionesService.isFilteredPostulantes(vacanteId);
   }
 
-  @Get('check-match/:postulanteId/:vacanteId') // Usamos vacanteId en la ruta, no empresaId
+  @Get('check-match/:postulanteId/:vacanteId') 
   async checkMatch(
     @Param('postulanteId') postulanteId: string,
-    @Param('vacanteId') vacanteId: string, // <-- Usar vacanteId, ya que la interacción se liga a Vacante
+    @Param('vacanteId') vacanteId: string, 
   ) {
-    // NOTA: El nombre del método en el service (findOne) está un poco confuso.
-    // Lo llamaremos 'getInteraccionPorPV' para mayor claridad.
+    
     const interaccion = await this.interaccionesService.findOne(
       postulanteId,
       vacanteId,
