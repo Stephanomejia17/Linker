@@ -32,10 +32,10 @@ export class Vacante {
   @Column({ type: 'varchar' })
   titulo: string;
 
-  @Column({ type: 'enum', enum: TipoTrabajo })
+  @Column({ type: 'enum', enum: TipoTrabajo, default: TipoTrabajo.FULL_TIME})
   tipo_trabajo: TipoTrabajo;
 
-  @Column({ type: 'enum', enum: TipoModalidad })
+  @Column({ type: 'enum', enum: TipoModalidad, default: TipoModalidad.REMOTO })
   modalidad: TipoModalidad;
 
   @Column({ type: 'float' })
@@ -56,7 +56,7 @@ export class Vacante {
   vacanteHabilidades: VacanteHabilidade[];
 
   @OneToMany(() => Match, (match) => match.vacante)
-  matches: Match[];
+  match: Match[];
 
   @OneToMany(() => Interaccion,(interaccion)=> interaccion.vacante)
   interacciones:Interaccion[];

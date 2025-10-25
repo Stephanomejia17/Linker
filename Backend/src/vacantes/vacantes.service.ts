@@ -41,6 +41,7 @@ export class VacantesService {
   async getVacantes(postulanteId: string) {
     const vacantesExcluidas =
       await this.interaccionService.isFilteredVacantes(postulanteId);
+    console.log('desde vacante',vacantesExcluidas)
     const vacantes = this.vacanteRepository.find({
       where: {
         id_vacante: Not(In(vacantesExcluidas)),

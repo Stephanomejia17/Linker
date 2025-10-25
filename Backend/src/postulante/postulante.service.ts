@@ -64,9 +64,10 @@ export class PostulanteService {
     });
   }
 
-  async getPostulantes(empresaId: string) {
+  async getPostulantes(vacanteId: string) {
     const postulantesExcluidos =
-      await this.interaccionesService.isFilteredPostulantes(empresaId);
+      await this.interaccionesService.isFilteredPostulantes(vacanteId);
+    console.log(postulantesExcluidos)
     const postulantes = await this.postulanteRepository.find({
       where: {
         id: Not(In(postulantesExcluidos)),

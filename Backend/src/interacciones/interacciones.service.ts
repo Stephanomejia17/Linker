@@ -11,7 +11,8 @@ export class InteraccionesService {
     private interaccionRepository: Repository<Interaccion>,
   ) {}
 
-  async createInteraction(createInteraccioneDto: CreateInteraccioneDto) {
+ async createInteraction(createInteraccioneDto: CreateInteraccioneDto) {
+  
     const interaccion = this.interaccionRepository.create({
       ...createInteraccioneDto,
       accionEmpresa: createInteraccioneDto.accion_empresa,
@@ -23,6 +24,25 @@ export class InteraccionesService {
     await this.interaccionRepository.save(interaccion);
     return interaccion;
   }
+
+  async findOne(empresaId:string , postulanteId:string ){
+    const interaccion = await this.interaccionRepository.findOne({
+      where:{
+        vacante: { id_vacante: postulanteId },
+        postulante: { id: empresaId },
+      }
+    }
+    )
+    console.log(interaccion)
+    if (!interaccion){
+      console.log('no existe')
+    }else{
+      console.log('hay relacion')
+    }
+
+  }
+
+
 
   async isFilteredVacantes(postulanteId: string) {
     const filter = await this.interaccionRepository.find({
@@ -63,6 +83,7 @@ export class InteraccionesService {
     const vacantesExcluidas = Array.from(
       new Set(filter.map((i) => i.vacante.id_vacante)),
     );
+    console.log(vacantesExcluidas)
     return vacantesExcluidas;
   }
 

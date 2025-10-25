@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { InteraccionesService } from './interacciones.service';
 import { CreateInteraccioneDto } from './dto/create-interaccione.dto';
@@ -25,10 +26,26 @@ export class InteraccionesController {
     return this.interaccionesService.isFilteredVacantes(postulanteId);
   }
 
-  @Get('filter/postulantes')
+  @Get('filter/postulantes/:id')
   findPostulantesExcluidos(@Param('id') vacanteId: string) {
     return this.interaccionesService.isFilteredPostulantes(vacanteId);
   }
+
+  @Get('check-match/:postulanteId/:vacanteId') // Usamos vacanteId en la ruta, no empresaId
+  async checkMatch(
+    @Param('postulanteId') postulanteId: string,
+    @Param('vacanteId') vacanteId: string, // <-- Usar vacanteId, ya que la interacción se liga a Vacante
+  ) {
+    // NOTA: El nombre del método en el service (findOne) está un poco confuso.
+    // Lo llamaremos 'getInteraccionPorPV' para mayor claridad.
+    const interaccion = await this.interaccionesService.findOne(
+      postulanteId,
+      vacanteId,
+    );
+
+    return interaccion;
+  }
+
 
   /*@Get(':id')
   findOne(@Param('id') id: string) {

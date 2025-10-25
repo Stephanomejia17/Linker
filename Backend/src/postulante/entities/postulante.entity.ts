@@ -55,7 +55,7 @@ export class Postulante {
   postulanteIdiomas: PostulanteIdioma[];
 
   @OneToMany(() => Match, (match) => match.postulante)
-  matches: Match[];
+  match: Match[];
 
   @OneToMany(()=>Interaccion,(interaccion)=>interaccion.postulante)
   interacciones:Interaccion[];
