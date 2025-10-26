@@ -8,8 +8,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class PostulanteHabilidadesService {
   constructor(
-    @InjectRepository(PostulanteHabilidades)
+    @InjectRepository(PostulanteHabilidades, 'postgresConnection')
     private postulanteHabilidadesRepository: Repository<PostulanteHabilidades>,
+    @InjectRepository(PostulanteHabilidades, 'oracleConnection')
+    private postulanteHabilidadesOracleRepository: Repository<PostulanteHabilidades>,
   ) {}
 
   create(createPostulanteHabilidadeDto: CreatePostulanteHabilidadeDto) {
@@ -17,12 +19,25 @@ export class PostulanteHabilidadesService {
       this.postulanteHabilidadesRepository.create(
         createPostulanteHabilidadeDto,
       );
-    this.postulanteHabilidadesRepository.save(postulanteHabilidadesEntity);
+    const postulanteHabilidadesOracleEntity =
+      this.postulanteHabilidadesOracleRepository.create(
+        createPostulanteHabilidadeDto,
+      );
+    this.postulanteHabilidadesRepository.insert(postulanteHabilidadesEntity);
+    this.postulanteHabilidadesOracleRepository.insert(
+      postulanteHabilidadesOracleEntity,
+    );
     return postulanteHabilidadesEntity;
   }
 
   findAll() {
     return this.postulanteHabilidadesRepository.find({
+      relations: ['postulante', 'habilidades'],
+    });
+  }
+
+  findAllOracle() {
+    return this.postulanteHabilidadesOracleRepository.find({
       relations: ['postulante', 'habilidades'],
     });
   }

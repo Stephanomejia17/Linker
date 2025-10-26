@@ -6,7 +6,16 @@ import { Habilidades } from 'src/habilidades/entities/habilidades.entity';
 import { PostulanteHabilidades } from './entities/postulante_habilidades.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Habilidades, PostulanteHabilidades])],
+  imports: [
+    TypeOrmModule.forFeature(
+      [Habilidades, PostulanteHabilidades],
+      'postgresConnection',
+    ),
+    TypeOrmModule.forFeature(
+      [Habilidades, PostulanteHabilidades],
+      'oracleConnection',
+    ),
+  ],
   controllers: [PostulanteHabilidadesController],
   providers: [PostulanteHabilidadesService],
 })
