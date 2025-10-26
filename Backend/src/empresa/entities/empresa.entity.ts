@@ -11,11 +11,12 @@ import {
 import { User } from 'src/user/entities/user.entity';
 import { DetallesCertificado } from 'src/detalles_certificados/entities/detalles_certificado.entity';
 import { Vacante } from 'src/vacantes/entities/vacante.entity';
+import { Match } from 'src/matches/entities/match.entity';
 
 @Entity('empresas')
 export class Empresa {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
   @Column({ type: 'varchar' })
   name_empresa: string;
   @Column({ type: 'varchar', nullable: true })
@@ -35,4 +36,7 @@ export class Empresa {
 
   @OneToMany(() => Vacante, (vacante) => vacante.empresa)
   vacantes: Vacante[];
+
+  @OneToMany(() => Match, (match) => match.empresa)
+  match: Match[];
 }

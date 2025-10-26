@@ -10,7 +10,14 @@ import { Vacante } from 'src/vacantes/entities/vacante.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Empresa, User, DetallesCertificado, Vacante]),
+    TypeOrmModule.forFeature(
+      [Empresa, User, DetallesCertificado, Vacante],
+      'postgresConnection',
+    ),
+    TypeOrmModule.forFeature(
+      [Empresa, User, DetallesCertificado, Vacante],
+      'oracleConnection',
+    ),
   ],
   controllers: [EmpresaController],
   providers: [EmpresaService],

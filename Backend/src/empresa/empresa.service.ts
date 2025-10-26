@@ -8,15 +8,25 @@ import { User } from 'src/user/entities/user.entity';
 @Injectable()
 export class EmpresaService {
   constructor(
-    @InjectRepository(Empresa)
+    @InjectRepository(Empresa, 'postgresConnection')
     private empresaRepository: Repository<Empresa>,
+    @InjectRepository(Empresa, 'oracleConnection')
+    private empresaOracleRepository: Repository<Empresa>,
 
-    @InjectRepository(User)
+    @InjectRepository(User, 'postgresConnection')
     private usuarioRepository: Repository<User>,
+    @InjectRepository(User, 'oracleConnection')
+    private usuarioOracleRepository: Repository<User>,
   ) {}
 
   findAll() {
     return this.empresaRepository.find({
+      relations: ['user'],
+    });
+  }
+
+  findAllOracle() {
+    return this.empresaOracleRepository.find({
       relations: ['user'],
     });
   }
@@ -40,14 +50,20 @@ export class EmpresaService {
       user,
     });
 
-    const registroEmpresa = await this.empresaRepository.save(empresa);
+    const empresaOracle = this.empresaOracleRepository.create({
+      ...dto,
+      user,
+    });
+
+    const registroEmpresa = await this.empresaRepository.insert(empresa);
+    await this.empresaOracleRepository.insert(empresaOracle);
     return {
       message: 'Empresa registrada con éxito',
       empresa: registroEmpresa,
     };
   }
 
-  async getEmpresaById(id: string) {
+  async getEmpresaById(id: number) {
     const empresa = await this.empresaRepository.findOne({
       where: { user: { id } },
       relations: ['user'],
@@ -60,7 +76,7 @@ export class EmpresaService {
     };
   }
 
-  async isEmpresa(id: string) {
+  async isEmpresa(id: number) {
     const empresa = await this.empresaRepository.findOne({
       where: { user: { id } },
     });
