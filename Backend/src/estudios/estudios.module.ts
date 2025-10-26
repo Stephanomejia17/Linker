@@ -6,7 +6,10 @@ import { DetalleEstudio } from 'src/detalles_estudios/entities/detalle_estudio.e
 import { Estudio } from './entities/estudio.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([DetalleEstudio, Estudio])],
+  imports: [
+    TypeOrmModule.forFeature([DetalleEstudio, Estudio], 'postgresConnection'),
+    TypeOrmModule.forFeature([DetalleEstudio, Estudio], 'oracleConnection'),
+  ],
   controllers: [EstudiosController],
   providers: [EstudiosService],
 })

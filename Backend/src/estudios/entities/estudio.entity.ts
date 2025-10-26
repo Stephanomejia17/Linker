@@ -20,13 +20,13 @@ export enum Niveles {
 
 @Entity('estudios')
 export class Estudio {
-  @PrimaryGeneratedColumn('uuid')
-  id_estudio: string;
+  @PrimaryGeneratedColumn()
+  id_estudio: number;
 
   @Column({ type: 'varchar' })
   titulo: string;
 
-  @Column({ type: 'enum', enum: Niveles })
+  @Column({ type: 'varchar', nullable: true })
   nivel: Niveles;
 
   @OneToMany(() => DetalleEstudio, (detalleEstudio) => detalleEstudio.estudio)

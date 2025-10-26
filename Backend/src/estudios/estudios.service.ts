@@ -8,20 +8,29 @@ import { Estudio } from './entities/estudio.entity';
 @Injectable()
 export class EstudiosService {
   constructor(
-    @InjectRepository(Estudio)
+    @InjectRepository(Estudio, 'postgresConnection')
     private estudiosRepository: Repository<Estudio>,
+    @InjectRepository(Estudio, 'oracleConnection')
+    private estudiosOracleRepository: Repository<Estudio>,
   ) {}
 
   async create(createEstudioDto: CreateEstudioDto) {
     const estudiosEntity = this.estudiosRepository.create(createEstudioDto);
+    const estudiosOracleEntity =
+      this.estudiosOracleRepository.create(createEstudioDto);
 
-    await this.estudiosRepository.save(estudiosEntity);
+    await this.estudiosRepository.insert(estudiosEntity);
+    await this.estudiosOracleRepository.insert(estudiosOracleEntity);
 
     return estudiosEntity;
   }
 
   findAll() {
     return this.estudiosRepository.find();
+  }
+
+  findAllOracle() {
+    return this.estudiosOracleRepository.find();
   }
 
   findOne(id: number) {
