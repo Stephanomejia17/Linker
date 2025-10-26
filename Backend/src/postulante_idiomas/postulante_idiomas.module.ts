@@ -8,7 +8,14 @@ import { PostulanteIdioma } from './entities/postulante_idioma.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Idioma, Postulante, Idioma, PostulanteIdioma]),
+    TypeOrmModule.forFeature(
+      [Idioma, Postulante, Idioma, PostulanteIdioma],
+      'postgresConnection',
+    ),
+    TypeOrmModule.forFeature(
+      [Idioma, Postulante, Idioma, PostulanteIdioma],
+      'oracleConnection',
+    ),
   ],
   controllers: [PostulanteIdiomasController],
   providers: [PostulanteIdiomasService],

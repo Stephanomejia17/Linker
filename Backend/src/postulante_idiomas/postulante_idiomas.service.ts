@@ -10,26 +10,43 @@ import { PostulanteIdioma } from './entities/postulante_idioma.entity';
 @Injectable()
 export class PostulanteIdiomasService {
   constructor(
-    @InjectRepository(Postulante)
+    @InjectRepository(Postulante, 'postgresConnection')
     private postulanteRepository: Repository<Postulante>,
-    @InjectRepository(Idioma)
+    @InjectRepository(Idioma, 'postgresConnection')
     private idiomaRepository: Repository<Idioma>,
-    @InjectRepository(PostulanteIdioma)
+    @InjectRepository(PostulanteIdioma, 'postgresConnection')
     private postulanteIdiomaRepository: Repository<PostulanteIdioma>,
+    @InjectRepository(Postulante, 'oracleConnection')
+    private postulanteOracleRepository: Repository<Postulante>,
+    @InjectRepository(Idioma, 'oracleConnection')
+    private idiomaOracleRepository: Repository<Idioma>,
+    @InjectRepository(PostulanteIdioma, 'oracleConnection')
+    private postulanteIdiomaOracleRepository: Repository<PostulanteIdioma>,
   ) {}
 
   async create(createPostulanteIdiomaDto: CreatePostulanteIdiomaDto) {
     const postulanteIdiomaEntity = this.postulanteIdiomaRepository.create(
       createPostulanteIdiomaDto,
     );
+    const postulanteIdiomaOracleEntity =
+      this.postulanteIdiomaOracleRepository.create(createPostulanteIdiomaDto);
 
-    await this.postulanteIdiomaRepository.save(postulanteIdiomaEntity);
+    await this.postulanteIdiomaRepository.insert(postulanteIdiomaEntity);
+    await this.postulanteIdiomaOracleRepository.insert(
+      postulanteIdiomaOracleEntity,
+    );
 
     return postulanteIdiomaEntity;
   }
 
   findAll() {
     return this.postulanteIdiomaRepository.find({
+      relations: ['postulante', 'idioma'],
+    });
+  }
+
+  findAllOracle() {
+    return this.postulanteIdiomaOracleRepository.find({
       relations: ['postulante', 'idioma'],
     });
   }
