@@ -5,7 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Idioma } from './entities/idioma.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Idioma])],
+  imports: [
+    TypeOrmModule.forFeature([Idioma], 'postgresConnection'),
+    TypeOrmModule.forFeature([Idioma], 'oracleConnection'),
+  ],
   controllers: [IdiomasController],
   providers: [IdiomasService],
 })

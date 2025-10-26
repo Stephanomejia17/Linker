@@ -8,19 +8,28 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class IdiomasService {
   constructor(
-    @InjectRepository(Idioma)
+    @InjectRepository(Idioma, 'postgresConnection')
     private idiomasRepository: Repository<Idioma>,
+    @InjectRepository(Idioma, 'oracleConnection')
+    private idiomasOracleRepository: Repository<Idioma>,
   ) {}
 
   async create(createIdiomaDto: CreateIdiomaDto) {
     const idiomaEntity = this.idiomasRepository.create(createIdiomaDto);
+    const idiomaOracleEntity =
+      this.idiomasOracleRepository.create(createIdiomaDto);
 
-    await this.idiomasRepository.save(idiomaEntity);
+    await this.idiomasRepository.insert(idiomaEntity);
+    await this.idiomasOracleRepository.insert(idiomaOracleEntity);
     return idiomaEntity;
   }
 
   findAll() {
     return this.idiomasRepository.find();
+  }
+
+  findAllOracle() {
+    return this.idiomasOracleRepository.find();
   }
 
   findOne(id: number) {
