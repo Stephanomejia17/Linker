@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateVacanteDto } from './dto/create-vacante.dto';
 import { UpdateVacanteDto } from './dto/update-vacante.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,7 +11,7 @@ export class VacantesService {
   constructor(
     @InjectRepository(Vacante)
     private vacanteRepository: Repository<Vacante>,
-    @Inject(forwardRef(() => VacantesService))
+
     private interaccionService: InteraccionesService,
   ) {}
 
@@ -30,20 +30,19 @@ export class VacantesService {
     });
   }
 
-  findAllVacantesofEmpresa(empresaid:string){
+  findAllVacantesofEmpresa(empresaid: string) {
     return this.vacanteRepository.find({
-      where:{
-        empresa:{id:empresaid},
+      where: {
+        empresa: { id: empresaid },
       },
       relations: ['empresa'],
-    })
+    });
   }
-
 
   async getVacantes(postulanteId: string) {
     const vacantesExcluidas =
       await this.interaccionService.isFilteredVacantes(postulanteId);
-    console.log('desde vacante',vacantesExcluidas)
+    console.log('desde vacante', vacantesExcluidas);
     const vacantes = this.vacanteRepository.find({
       where: {
         id_vacante: Not(In(vacantesExcluidas)),
@@ -52,7 +51,7 @@ export class VacantesService {
     return vacantes;
   }
 
-  async getEmpresaOfVacante(vacanteId: string){
+  /*sync getEmpresaOfVacante(vacanteId: string){
     return this.vacanteRepository.findOne({
       select:{empresa:{id:true}},
       where:{
@@ -60,9 +59,9 @@ export class VacantesService {
       },
       relations: ['empresa'],
     })
-  }
+  }*/
 
-    update(id: number, updateVacanteDto: UpdateVacanteDto) {
+  update(id: number, updateVacanteDto: UpdateVacanteDto) {
     return `This action updates a #${id} vacante`;
   }
 

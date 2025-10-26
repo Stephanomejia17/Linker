@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { VacantesService } from './vacantes.service';
 import { CreateVacanteDto } from './dto/create-vacante.dto';
-import { UpdateVacanteDto } from './dto/update-vacante.dto';
 
 @Controller('vacantes')
 export class VacantesController {
@@ -26,14 +17,14 @@ export class VacantesController {
   }
 
   @Get('empresaId/:empresa')
-  findVacantesOfEmpresa(@Param('empresa') empresaId :string) {
+  findVacantesOfEmpresa(@Param('empresa') empresaId: string) {
     return this.vacantesService.findAllVacantesofEmpresa(empresaId);
   }
 
-  @Get('vacante/:vacante')
+  /*@Get('vacante/:vacante')
   findEmpresaOfVacante(@Param('vacante') vacanteId :string) {
     return this.vacantesService.getEmpresaOfVacante(vacanteId);
-  }
+  }*/
 
   @Get('vacantes/:id')
   getVacantes(@Param('id') postulanteId: string) {

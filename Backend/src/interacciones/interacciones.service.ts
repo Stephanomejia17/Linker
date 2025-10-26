@@ -1,51 +1,49 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateInteraccioneDto } from './dto/create-interaccione.dto';
 import { Interaccion, TipoInteraccion } from './entities/interacciones.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MatchesService } from 'src/matches/matches.service';
-import { Vacante } from 'src/vacantes/entities/vacante.entity';
-import { VacantesService } from 'src/vacantes/vacantes.service';
 import { CreateMatchDto } from 'src/matches/dto/create-match.dto';
-import { Empresa } from 'src/empresa/entities/empresa.entity';
 
 @Injectable()
 export class InteraccionesService {
   constructor(
     @InjectRepository(Interaccion)
     private readonly interaccionRepository: Repository<Interaccion>,
-    @Inject(forwardRef(() => InteraccionesService))
-    private readonly vacantesService : VacantesService,
+    //private readonly vacantesService : VacantesService,
     private readonly matchService: MatchesService,
   ) {}
 
   async createInteraction(createInteraccioneDto: CreateInteraccioneDto) {
-    const { postulante_id, vacante_id, accion_empresa, accion_postulante , } =
+    const { postulante, vacante, accion_empresa, accion_postulante, empresa } =
       createInteraccioneDto;
 
-    console.log(postulante_id);
+    console.log(postulante);
     console.log(accion_empresa);
-    console.log(vacante_id);
+    console.log(vacante);
     console.log(accion_postulante);
+    console.log(empresa);
 
-    const interaccionExistente = await this.findOne(vacante_id, postulante_id);
-    console.log(interaccionExistente)
+    const interaccionExistente = await this.findOne(vacante, postulante);
+    console.log(interaccionExistente);
 
-    
     if (!interaccionExistente) {
       const interaccion = this.interaccionRepository.create({
-        ...createInteraccioneDto,
         accionEmpresa: accion_empresa,
         accionPostulante: accion_postulante,
-        vacante: { id_vacante: vacante_id },
-        postulante: { id: postulante_id },
+        vacante: { id_vacante: vacante },
+        postulante: { id: postulante },
       });
 
       await this.interaccionRepository.save(interaccion);
+      await this.isMatch(empresa, vacante, postulante);
       return interaccion;
+
     } else {
       // 2. Aplicar la nueva acción SOLO si está definida en el DTO (es decir, fue enviada)
       if (accion_empresa !== undefined) {
+        console.log('es like empresa');
         interaccionExistente.accionEmpresa = accion_empresa;
       }
 
@@ -54,21 +52,30 @@ export class InteraccionesService {
       }
 
       await this.interaccionRepository.save(interaccionExistente);
+      this.isMatch(empresa, vacante, postulante);
+      return;
+    }
+  }
 
+  async isMatch(empresaId: string, vacanteId: string, postulanteId: string) {
+    const interaccionExistente = await this.findOne(vacanteId, postulanteId);
+    console.log('desde match', interaccionExistente);
+
+    if (interaccionExistente) {
       if (
         interaccionExistente.accionEmpresa === 'like' &&
         interaccionExistente.accionPostulante === 'like'
       ) {
-        const empresa = await this.vacantesService.getEmpresaOfVacante(vacante_id)
-        const match: CreateMatchDto ={
-          empresa:{id: empresa?.empresa.id},
-          vacante:{id_vacante: vacante_id},
-          postulante:{id:postulante_id}
-        }
-        await this.matchService.create(match)
-        console.log('es un match')
-        //await this.matchService.create(createInteraccioneDto);
+        const match: CreateMatchDto = {
+          empresa: { id: empresaId },
+          vacante: { id_vacante: vacanteId },
+          postulante: { id: postulanteId },
+        };
+        await this.matchService.create(match);
+        console.log('es un match');
       }
+    }else{
+    console.log('no hay match');
     }
   }
 
