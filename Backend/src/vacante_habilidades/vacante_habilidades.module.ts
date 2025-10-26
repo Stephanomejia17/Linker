@@ -5,7 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { VacanteHabilidade } from './entities/vacante_habilidade.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([VacanteHabilidade])],
+  imports: [
+    TypeOrmModule.forFeature([VacanteHabilidade], 'postgresConnection'),
+    TypeOrmModule.forFeature([VacanteHabilidade], 'oracleConnection'),
+  ],
   controllers: [VacanteHabilidadesController],
   providers: [VacanteHabilidadesService],
 })

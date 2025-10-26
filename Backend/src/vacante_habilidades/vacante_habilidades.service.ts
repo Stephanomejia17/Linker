@@ -8,20 +8,35 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class VacanteHabilidadesService {
   constructor(
-    @InjectRepository(VacanteHabilidade)
+    @InjectRepository(VacanteHabilidade, 'postgresConnection')
     private vacanteHabilidadesRepository: Repository<VacanteHabilidade>,
+    @InjectRepository(VacanteHabilidade, 'oracleConnection')
+    private vacanteHabilidadesOracleRepository: Repository<VacanteHabilidade>,
   ) {}
 
   async create(createVacanteHabilidadeDto: CreateVacanteHabilidadeDto) {
     const vacanteHabilidadesEntity = this.vacanteHabilidadesRepository.create(
       createVacanteHabilidadeDto,
     );
-    await this.vacanteHabilidadesRepository.save(vacanteHabilidadesEntity);
+    const vacanteHabilidadesOracleEntity =
+      this.vacanteHabilidadesOracleRepository.create(
+        createVacanteHabilidadeDto,
+      );
+    await this.vacanteHabilidadesRepository.insert(vacanteHabilidadesEntity);
+    await this.vacanteHabilidadesOracleRepository.insert(
+      vacanteHabilidadesOracleEntity,
+    );
     return vacanteHabilidadesEntity;
   }
 
   findAll() {
     return this.vacanteHabilidadesRepository.find({
+      relations: ['vacante', 'habilidades'],
+    });
+  }
+
+  findAllOracle() {
+    return this.vacanteHabilidadesOracleRepository.find({
       relations: ['vacante', 'habilidades'],
     });
   }
