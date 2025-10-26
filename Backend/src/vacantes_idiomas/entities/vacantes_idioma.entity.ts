@@ -4,8 +4,8 @@ import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('vacante_idiomas')
 export class VacantesIdioma {
-  @PrimaryGeneratedColumn('uuid')
-  id_vacante_idiomas: string;
+  @PrimaryGeneratedColumn()
+  id_vacante_idiomas: number;
 
   @ManyToOne(() => Vacante, (vacante) => vacante.vacantesIdiomas, {
     onDelete: 'CASCADE',

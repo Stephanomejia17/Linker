@@ -8,20 +8,31 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class VacantesIdiomasService {
   constructor(
-    @InjectRepository(VacantesIdioma)
+    @InjectRepository(VacantesIdioma, 'postgresConnection')
     private vacantesIdiomaRepository: Repository<VacantesIdioma>,
+    @InjectRepository(VacantesIdioma, 'oracleConnection')
+    private vacantesIdiomaOracleRepository: Repository<VacantesIdioma>,
   ) {}
 
   async create(createVacantesIdiomaDto: CreateVacantesIdiomaDto) {
     const vacanteIdiomaEntity = this.vacantesIdiomaRepository.create(
       createVacantesIdiomaDto,
     );
-    await this.vacantesIdiomaRepository.save(vacanteIdiomaEntity);
+    const vacanteIdiomaOracleEntity =
+      this.vacantesIdiomaOracleRepository.create(createVacantesIdiomaDto);
+    await this.vacantesIdiomaRepository.insert(vacanteIdiomaEntity);
+    await this.vacantesIdiomaOracleRepository.insert(vacanteIdiomaOracleEntity);
     return vacanteIdiomaEntity;
   }
 
   findAll() {
     return this.vacantesIdiomaRepository.find({
+      relations: ['idioma', 'vacante'],
+    });
+  }
+
+  findAllOracle() {
+    return this.vacantesIdiomaOracleRepository.find({
       relations: ['idioma', 'vacante'],
     });
   }
