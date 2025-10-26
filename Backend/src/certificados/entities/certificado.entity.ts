@@ -3,8 +3,8 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('certificados')
 export class Certificado {
-  @PrimaryGeneratedColumn('uuid')
-  id_certificado: string;
+  @PrimaryGeneratedColumn()
+  id_certificado: number;
 
   @Column({ type: 'varchar' })
   entidad_emisora: string;

@@ -5,7 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Certificado } from './entities/certificado.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Certificado])],
+  imports: [
+    TypeOrmModule.forFeature([Certificado], 'postgresConnection'),
+    TypeOrmModule.forFeature([Certificado], 'oracleConnection'),
+  ],
   controllers: [CertificadosController],
   providers: [CertificadosService],
 })

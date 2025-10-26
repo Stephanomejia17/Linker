@@ -8,19 +8,31 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class CertificadosService {
   constructor(
-    @InjectRepository(Certificado)
+    @InjectRepository(Certificado, 'postgresConnection')
     private certificadoRepository: Repository<Certificado>,
+
+    @InjectRepository(Certificado, 'oracleConnection')
+    private certificadoOracleRepository: Repository<Certificado>,
   ) {}
 
   create(createCertificadoDto: CreateCertificadoDto) {
     const certificadoEntity =
       this.certificadoRepository.create(createCertificadoDto);
-    this.certificadoRepository.save(certificadoEntity);
+
+    const certificadoEntityOracle =
+      this.certificadoOracleRepository.create(createCertificadoDto);
+
+    this.certificadoRepository.insert(certificadoEntity);
+    this.certificadoOracleRepository.insert(certificadoEntityOracle);
     return certificadoEntity;
   }
 
   findAll() {
     return this.certificadoRepository.find();
+  }
+
+  findAllOracle() {
+    return this.certificadoOracleRepository.find();
   }
 
   findOne(id: number) {
