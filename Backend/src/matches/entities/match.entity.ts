@@ -1,3 +1,4 @@
+import { Empresa } from 'src/empresa/entities/empresa.entity';
 import { Postulante } from 'src/postulante/entities/postulante.entity';
 import { Vacante } from 'src/vacantes/entities/vacante.entity';
 import {
@@ -16,24 +17,27 @@ export enum Accion {
 
 @Entity('matches')
 export class Match {
-  @PrimaryGeneratedColumn('uuid')
-  id_match: string;
+  @PrimaryGeneratedColumn()
+  id_match: number;
 
-  @ManyToOne(() => Vacante, (vacante) => vacante.matches, {
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  fecha: Date;
+
+  @ManyToOne(() => Empresa, (empresa) => empresa.match, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'id_empresa' })
+  empresa: Empresa;
+
+  @ManyToOne(() => Vacante, (vacante) => vacante.match, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'id_vacante' })
   vacante: Vacante;
 
-  @ManyToOne(() => Postulante, (postulante) => postulante.matches, {
+  @ManyToOne(() => Postulante, (postulante) => postulante.match, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'id_postulante' })
   postulante: Postulante;
-
-  @Column({ type: 'enum', enum: Accion })
-  accion: Accion;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  fecha: Date;
 }

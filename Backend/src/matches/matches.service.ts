@@ -8,18 +8,28 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class MatchesService {
   constructor(
-    @InjectRepository(Match)
+    @InjectRepository(Match, 'postgresConnection')
     private matchRepository: Repository<Match>,
+    @InjectRepository(Match, 'oracleConnection')
+    private matchOracleRepository: Repository<Match>,
   ) {}
 
   async create(createMatchDto: CreateMatchDto) {
     const matchEntity = this.matchRepository.create(createMatchDto);
-    await this.matchRepository.save(matchEntity);
+    const matchOracleEntity = this.matchOracleRepository.create(createMatchDto);
+    await this.matchRepository.insert(matchEntity);
+    await this.matchOracleRepository.insert(matchOracleEntity);
     return matchEntity;
   }
 
   findAll() {
     return this.matchRepository.find({ relations: ['postulante', 'vacante'] });
+  }
+
+  findAllOracle() {
+    return this.matchOracleRepository.find({
+      relations: ['postulante', 'vacante'],
+    });
   }
 
   findOne(id: number) {
