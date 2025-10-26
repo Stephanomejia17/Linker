@@ -7,13 +7,16 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), 
-  ConfigModule.forRoot(), 
+  imports: [
+    TypeOrmModule.forFeature([User], 'postgresConnection'),
+    TypeOrmModule.forFeature([User], 'oracleConnection'),
+    ConfigModule.forRoot(),
     JwtModule.register({
-    global: true,
-    secret: process.env.JWT_SECRET,
-    signOptions: { expiresIn: '30m' },
-  })],
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '30m' },
+    }),
+  ],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService],

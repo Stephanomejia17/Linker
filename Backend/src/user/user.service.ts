@@ -9,8 +9,10 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
+    @InjectRepository(User, 'postgresConnection')
     private usuarioRepository: Repository<User>,
+    @InjectRepository(User, 'oracleConnection')
+    private usuarioOracleRepository: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -24,7 +26,13 @@ export class UserService {
         password: hash,
       });
 
-      await this.usuarioRepository.save(userEntity);
+      const userOracleEntity = this.usuarioOracleRepository.create({
+        ...dto,
+        password: hash,
+      });
+
+      await this.usuarioRepository.insert(userEntity);
+      await this.usuarioOracleRepository.insert(userOracleEntity);
 
       return {
         success: true,
