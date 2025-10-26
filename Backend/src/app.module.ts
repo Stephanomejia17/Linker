@@ -19,6 +19,7 @@ import { VacantesModule } from './vacantes/vacantes.module';
 import { VacantesIdiomasModule } from './vacantes_idiomas/vacantes_idiomas.module';
 import { VacanteHabilidadesModule } from './vacante_habilidades/vacante_habilidades.module';
 import { MatchesModule } from './matches/matches.module';
+import { InteraccionModule } from './interaccion/interaccion.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MatchesModule } from './matches/matches.module';
     UserModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
+      name: 'postgresConnection',
       type: 'postgres',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT!,
@@ -33,7 +35,23 @@ import { MatchesModule } from './matches/matches.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false, // FALSOOOO
+    }),
+
+    TypeOrmModule.forRoot({
+      name: 'oracleConnection',
+      type: 'oracle',
+      host: process.env.DB_HOST_ORACLE,
+      port: +process.env.DB_PORT_ORACLE!,
+      username: process.env.DB_USERNAME_ORACLE,
+      password: process.env.DB_PASSWORD_ORACLE,
+      serviceName: process.env.DB_SERVICE_ORACLE,
+      synchronize: false,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      logging: true,
+      extra: {
+        schema: 'XE_LINKER',
+      },
     }),
     EmpresaModule,
     PostulanteModule,
@@ -50,6 +68,7 @@ import { MatchesModule } from './matches/matches.module';
     VacantesIdiomasModule,
     VacanteHabilidadesModule,
     MatchesModule,
+    InteraccionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
