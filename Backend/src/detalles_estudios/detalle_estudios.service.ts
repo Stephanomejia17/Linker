@@ -8,8 +8,10 @@ import { Repository, DeepPartial } from 'typeorm';
 @Injectable()
 export class DetalleEstudiosService {
   constructor(
-    @InjectRepository(DetalleEstudio)
+    @InjectRepository(DetalleEstudio, 'postgresConnection')
     private detalleEstudioRepository: Repository<DetalleEstudio>,
+    @InjectRepository(DetalleEstudio, 'oracleConnection')
+    private detalleEstudioOracleRepository: Repository<DetalleEstudio>,
   ) {}
   async create(
     createDetalleEstudioDto: CreateDetalleEstudioDto,
@@ -17,11 +19,24 @@ export class DetalleEstudiosService {
     const detalleEstudioEntity = this.detalleEstudioRepository.create(
       createDetalleEstudioDto,
     );
-    return await this.detalleEstudioRepository.save(detalleEstudioEntity);
+    const detalleEstudioOracleEntity =
+      this.detalleEstudioOracleRepository.create(createDetalleEstudioDto);
+
+    await this.detalleEstudioRepository.insert(detalleEstudioEntity);
+    await this.detalleEstudioOracleRepository.insert(
+      detalleEstudioOracleEntity,
+    );
+    return detalleEstudioEntity;
   }
 
   findAll() {
     return this.detalleEstudioRepository.find({
+      relations: ['postulante', 'estudio'],
+    });
+  }
+
+  findAllOracle() {
+    return this.detalleEstudioOracleRepository.find({
       relations: ['postulante', 'estudio'],
     });
   }

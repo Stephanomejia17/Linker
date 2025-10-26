@@ -10,8 +10,8 @@ import {
 
 @Entity('detalles_estudios')
 export class DetalleEstudio {
-  @PrimaryGeneratedColumn('uuid')
-  id_detalle_estudios: string;
+  @PrimaryGeneratedColumn()
+  id_detalle_estudios: number;
 
   @ManyToOne(() => Postulante, (postulante) => postulante.postulanteEstudios, {
     onDelete: 'CASCADE',

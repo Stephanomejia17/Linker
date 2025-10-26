@@ -5,7 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DetalleEstudio } from './entities/detalle_estudio.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([DetalleEstudio])],
+  imports: [
+    TypeOrmModule.forFeature([DetalleEstudio], 'postgresConnection'),
+    TypeOrmModule.forFeature([DetalleEstudio], 'oracleConnection'),
+  ],
   controllers: [DetalleEstudiosController],
   providers: [DetalleEstudiosService],
 })
