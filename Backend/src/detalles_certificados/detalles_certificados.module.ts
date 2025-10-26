@@ -6,7 +6,16 @@ import { Certificado } from 'src/certificados/entities/certificado.entity';
 import { DetallesCertificado } from './entities/detalles_certificado.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Certificado, DetallesCertificado])],
+  imports: [
+    TypeOrmModule.forFeature(
+      [Certificado, DetallesCertificado],
+      'postgresConnection',
+    ),
+    TypeOrmModule.forFeature(
+      [Certificado, DetallesCertificado],
+      'oracleConnection',
+    ),
+  ],
   controllers: [DetallesCertificadosController],
   providers: [DetallesCertificadosService],
 })

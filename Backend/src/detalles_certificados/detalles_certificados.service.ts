@@ -8,8 +8,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class DetallesCertificadosService {
   constructor(
-    @InjectRepository(DetallesCertificado)
+    @InjectRepository(DetallesCertificado, 'postgresConnection')
     private detallesCertificadoRepository: Repository<DetallesCertificado>,
+    @InjectRepository(DetallesCertificado, 'oracleConnection')
+    private detallesCertificadoOracleRepository: Repository<DetallesCertificado>,
   ) {}
 
   create(createDetallesCertificadoDto: CreateDetallesCertificadoDto) {
@@ -17,12 +19,24 @@ export class DetallesCertificadosService {
       createDetallesCertificadoDto,
     );
 
-    this.detallesCertificadoRepository.save(detallesCertificadoEntity);
+    const detallesCertificadoOracleEntity =
+      this.detallesCertificadoOracleRepository.create(
+        createDetallesCertificadoDto,
+      );
+
+    this.detallesCertificadoOracleRepository.insert(detallesCertificadoEntity);
+    this.detallesCertificadoRepository.insert(detallesCertificadoEntity);
     return detallesCertificadoEntity;
   }
 
   findAll() {
     return this.detallesCertificadoRepository.find({
+      relations: ['empresa', 'certificado'],
+    });
+  }
+
+  findAllOracle() {
+    return this.detallesCertificadoOracleRepository.find({
       relations: ['empresa', 'certificado'],
     });
   }
