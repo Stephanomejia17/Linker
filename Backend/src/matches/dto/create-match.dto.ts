@@ -5,11 +5,12 @@ import { IsDate } from 'class-validator';
 import { Empresa } from 'src/empresa/entities/empresa.entity';
 
 export class CreateMatchDto {
-  empresa: Empresa;
-  vacante: Vacante;
-  postulante:Postulante
+  empresa: Partial<Empresa>;
+  vacante: Partial<Vacante>;
+  postulante: Partial<Postulante>
   //accion: Accion;
   /*@IsDate()
   @Type(() => Date)
   fecha: Date;*/
 }
+

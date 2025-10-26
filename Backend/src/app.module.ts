@@ -20,6 +20,7 @@ import { VacantesIdiomasModule } from './vacantes_idiomas/vacantes_idiomas.modul
 import { VacanteHabilidadesModule } from './vacante_habilidades/vacante_habilidades.module';
 import { MatchesModule } from './matches/matches.module';
 import { InteraccionesModule } from './interacciones/interacciones.module';
+import { RelationsService } from './common/relations/relations.service';
 
 @Module({
   imports: [
@@ -54,6 +55,6 @@ import { InteraccionesModule } from './interacciones/interacciones.module';
     InteraccionesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RelationsService],
 })
 export class AppModule {}

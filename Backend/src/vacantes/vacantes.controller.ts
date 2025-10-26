@@ -25,14 +25,14 @@ export class VacantesController {
     return this.vacantesService.findAll();
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVacanteDto: UpdateVacanteDto) {
-    return this.vacantesService.update(+id, updateVacanteDto);
+  @Get('empresaId/:empresa')
+  findVacantesOfEmpresa(@Param('empresa') empresaId :string) {
+    return this.vacantesService.findAllVacantesofEmpresa(empresaId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.vacantesService.remove(+id);
+  @Get('vacante/:vacante')
+  findEmpresaOfVacante(@Param('vacante') vacanteId :string) {
+    return this.vacantesService.getEmpresaOfVacante(vacanteId);
   }
 
   @Get('vacantes/:id')

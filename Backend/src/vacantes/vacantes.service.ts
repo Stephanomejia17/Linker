@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateVacanteDto } from './dto/create-vacante.dto';
 import { UpdateVacanteDto } from './dto/update-vacante.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,7 +11,7 @@ export class VacantesService {
   constructor(
     @InjectRepository(Vacante)
     private vacanteRepository: Repository<Vacante>,
-
+    @Inject(forwardRef(() => VacantesService))
     private interaccionService: InteraccionesService,
   ) {}
 
@@ -30,13 +30,15 @@ export class VacantesService {
     });
   }
 
-  update(id: number, updateVacanteDto: UpdateVacanteDto) {
-    return `This action updates a #${id} vacante`;
+  findAllVacantesofEmpresa(empresaid:string){
+    return this.vacanteRepository.find({
+      where:{
+        empresa:{id:empresaid},
+      },
+      relations: ['empresa'],
+    })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} vacante`;
-  }
 
   async getVacantes(postulanteId: string) {
     const vacantesExcluidas =
@@ -48,5 +50,23 @@ export class VacantesService {
       },
     });
     return vacantes;
+  }
+
+  async getEmpresaOfVacante(vacanteId: string){
+    return this.vacanteRepository.findOne({
+      select:{empresa:{id:true}},
+      where:{
+        id_vacante:vacanteId
+      },
+      relations: ['empresa'],
+    })
+  }
+
+    update(id: number, updateVacanteDto: UpdateVacanteDto) {
+    return `This action updates a #${id} vacante`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} vacante`;
   }
 }

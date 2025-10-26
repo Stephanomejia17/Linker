@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { VacantesService } from './vacantes.service';
 import { VacantesController } from './vacantes.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,9 +19,11 @@ import { InteraccionesModule } from 'src/interacciones/interacciones.module';
       Vacante,
       Interaccion,
     ]),
-    InteraccionesModule,
+    //InteraccionesModule,
+    //forwardRef(() => InteraccionesModule)
   ],
   controllers: [VacantesController],
   providers: [VacantesService],
+  exports:[VacantesService]
 })
 export class VacantesModule {}
