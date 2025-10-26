@@ -16,11 +16,12 @@ import { PostulanteHabilidades } from 'src/postulante_habilidades/entities/postu
 import { PostulanteIdioma } from 'src/postulante_idiomas/entities/postulante_idioma.entity';
 import { VacantesIdioma } from 'src/vacantes_idiomas/entities/vacantes_idioma.entity';
 import { Match } from 'src/matches/entities/match.entity';
+import { Interaccion } from 'src/interaccion/entities/interaccion.entity';
 
 @Entity('postulantes')
 export class Postulante {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
   @Column({ type: 'varchar' })
   name: string;
   @Column({ type: 'varchar' })
@@ -54,5 +55,8 @@ export class Postulante {
   postulanteIdiomas: PostulanteIdioma[];
 
   @OneToMany(() => Match, (match) => match.postulante)
-  matches: Match[];
+  match: Match[];
+
+  @OneToMany(() => Interaccion, (interaccion) => interaccion.postulante)
+  interacciones: Interaccion[];
 }

@@ -11,14 +11,28 @@ import { PostulanteIdioma } from 'src/postulante_idiomas/entities/postulante_idi
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      User,
-      Postulante,
-      Estudio,
-      DetalleEstudio,
-      PostulanteHabilidades,
-      PostulanteIdioma,
-    ]),
+    TypeOrmModule.forFeature(
+      [
+        User,
+        Postulante,
+        Estudio,
+        DetalleEstudio,
+        PostulanteHabilidades,
+        PostulanteIdioma,
+      ],
+      'postgresConnection',
+    ),
+    TypeOrmModule.forFeature(
+      [
+        User,
+        Postulante,
+        Estudio,
+        DetalleEstudio,
+        PostulanteHabilidades,
+        PostulanteIdioma,
+      ],
+      'oracleConnection',
+    ),
   ],
   controllers: [PostulanteController],
   providers: [PostulanteService],

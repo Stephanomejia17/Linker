@@ -10,10 +10,14 @@ import { Console } from 'console';
 @Injectable()
 export class PostulanteService {
   constructor(
-    @InjectRepository(Postulante)
+    @InjectRepository(Postulante, 'postgresConnection')
     private readonly postulanteRepository: Repository<Postulante>,
-    @InjectRepository(User)
+    @InjectRepository(Postulante, 'oracleConnection')
+    private readonly postulanteOracleRepository: Repository<Postulante>,
+    @InjectRepository(User, 'postgresConnection')
     private readonly usuarioRepository: Repository<User>,
+    @InjectRepository(User, 'oracleConnection')
+    private readonly usuarioOracleRepository: Repository<User>,
   ) {}
 
   async createPostulante(dto: CreatePostulanteDto) {
@@ -35,14 +39,21 @@ export class PostulanteService {
       user,
     });
 
-    const registroPostulante = await this.postulanteRepository.save(postulante);
+    const postulanteOracle = this.postulanteOracleRepository.create({
+      ...dto,
+      user,
+    });
+
+    const registroPostulante =
+      await this.postulanteRepository.insert(postulante);
+    await this.postulanteOracleRepository.insert(postulanteOracle);
     return {
       message: 'Postulante registrado con éxito',
       postulante: registroPostulante,
     };
   }
 
-  async getPostulanteById(id: string) {
+  async getPostulanteById(id: number) {
     const postulante = await this.postulanteRepository.findOne({
       where: { id },
       relations: ['user'],
@@ -58,6 +69,12 @@ export class PostulanteService {
 
   findAll() {
     return this.postulanteRepository.find({
+      relations: ['user'],
+    });
+  }
+
+  findAllOracle() {
+    return this.postulanteOracleRepository.find({
       relations: ['user'],
     });
   }

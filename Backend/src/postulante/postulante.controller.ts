@@ -26,7 +26,7 @@ export class PostulanteController {
   }
 
   @Get(':id')
-  async getPostulante(@Param('id') id: string) {
+  async getPostulante(@Param('id') id: number) {
     return this.postulanteService.getPostulanteById(id);
   }
 }
