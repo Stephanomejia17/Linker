@@ -8,8 +8,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class VacantesService {
   constructor(
-    @InjectRepository(Vacante)
+    @InjectRepository(Vacante, 'postgresConnection')
     private vacanteRepository: Repository<Vacante>,
+    @InjectRepository(Vacante, 'oracleConnection')
+    private vacanteOracleRepository: Repository<Vacante>,
   ) {}
 
   async create(createVacanteDto: CreateVacanteDto) {
@@ -17,12 +19,25 @@ export class VacantesService {
       ...createVacanteDto,
       empresa: { id: createVacanteDto.empresa.id },
     });
-    await this.vacanteRepository.save(vacanteEntity);
+
+    const vacanteOracleEntity = this.vacanteOracleRepository.create({
+      ...createVacanteDto,
+      empresa: { id: createVacanteDto.empresa.id },
+    });
+
+    await this.vacanteRepository.insert(vacanteEntity);
+    await this.vacanteOracleRepository.insert(vacanteOracleEntity);
     return vacanteEntity;
   }
 
   findAll() {
     return this.vacanteRepository.find({
+      relations: ['empresa'],
+    });
+  }
+
+  findAllOracle() {
+    return this.vacanteOracleRepository.find({
       relations: ['empresa'],
     });
   }

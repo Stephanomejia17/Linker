@@ -1,4 +1,5 @@
 import { Empresa } from 'src/empresa/entities/empresa.entity';
+import { Interaccion } from 'src/interaccion/entities/interaccion.entity';
 import { Match } from 'src/matches/entities/match.entity';
 import { VacanteHabilidade } from 'src/vacante_habilidades/entities/vacante_habilidade.entity';
 import { VacantesIdioma } from 'src/vacantes_idiomas/entities/vacantes_idioma.entity';
@@ -25,16 +26,16 @@ export enum TipoModalidad {
 
 @Entity('vacantes')
 export class Vacante {
-  @PrimaryGeneratedColumn('uuid')
-  id_vacante: string;
+  @PrimaryGeneratedColumn()
+  id_vacante: number;
 
   @Column({ type: 'varchar' })
   titulo: string;
 
-  @Column({ type: 'enum', enum: TipoTrabajo })
+  @Column({ default: TipoTrabajo.FULL_TIME })
   tipo_trabajo: TipoTrabajo;
 
-  @Column({ type: 'enum', enum: TipoModalidad })
+  @Column({ default: TipoModalidad.REMOTO })
   modalidad: TipoModalidad;
 
   @Column({ type: 'float' })
@@ -55,5 +56,8 @@ export class Vacante {
   vacanteHabilidades: VacanteHabilidade[];
 
   @OneToMany(() => Match, (match) => match.vacante)
-  matches: Match[];
+  match: Match[];
+
+  @OneToMany(() => Interaccion, (interaccion) => interaccion.vacante)
+  interacciones: Interaccion[];
 }
