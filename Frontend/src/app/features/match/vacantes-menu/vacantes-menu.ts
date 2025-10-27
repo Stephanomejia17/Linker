@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Match } from '../../../shared/services/match';
+import { Auth } from '../../../shared/services/auth';
 
 @Component({
   selector: 'app-vacantes-menu',
@@ -10,21 +11,18 @@ import { Match } from '../../../shared/services/match';
 export class VacantesMenu {
 
   match=inject(Match)
-
-  vacantes = [
-    /*{ id: 1, nombre: 'Desarrollador Frontend' },
-    { id: 2, nombre: 'Diseñador UX/UI' },
-    { id: 3, nombre: 'QA Tester' },
-    { id: 4, nombre: 'Project Manager' }*/
-  ];
-
+  auth=inject(Auth)
+  vacantes: Vacante[]= [];
+  
   mostrarLista = false;
-  vacanteSeleccionada: string | null = null;
+  vacanteSeleccionada: Vacante|null = null;
 
   getVacantes(){
     this.match.getVacantesForEmpresa().subscribe({
-      next: (data)=>{
+      next: (data: Vacante[])=>{
+        console.log(sessionStorage.getItem('perfilId'))
         this.vacantes= data
+        console.log(data)
       },
       error:(err)=>{
         console.log('no hay vacantes')
@@ -34,10 +32,15 @@ export class VacantesMenu {
 
   toggleLista() {
     this.mostrarLista = !this.mostrarLista;
+    if(this.vacantes.length===0){
+     this.getVacantes()
+    }
   }
 
-  seleccionarVacante(vacante: any) {
-    this.vacanteSeleccionada = vacante.nombre;
+  seleccionarVacante(vacante: any) {    
+    this.vacanteSeleccionada = vacante;
+    sessionStorage.setItem('vacante', this.vacanteSeleccionada?.id_vacante || '');
+
     this.mostrarLista = false;
     console.log('Vacante seleccionada:', vacante);
   } 

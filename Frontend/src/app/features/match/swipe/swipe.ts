@@ -3,6 +3,7 @@ import { FilterService } from '../../../services/filter/filter-service';
 import { Auth } from '../../../shared/services/auth';
 import { Perfil } from '../../../shared/services/perfil';
 import { Match } from '../../../shared/services/match';
+import { Alerts } from '../../../shared/services/alerts';
 
 @Component({
   selector: 'app-swipe',
@@ -15,6 +16,7 @@ export class Swipe {
   profile = inject(Perfil);
   match = inject(Match);
   auth = inject(Auth);
+  alerts = inject(Alerts)
 
   userType = this.auth.getUserType();
 
@@ -25,8 +27,6 @@ export class Swipe {
 
   ngOnInit(): void {
     console.log('Swipe Component Initialized');
-    // 1. Llamada a getCards al inicio del componente
-    //this.getCards();
     console.log(this.list)
   }
 
@@ -83,6 +83,7 @@ export class Swipe {
         },
         error: (err: any) => {
           console.log(err);
+          this.alerts.info('No hay mas vacantes disponibles por el momento')
         },
       });
   }

@@ -23,6 +23,8 @@ export class Match {
   get userType(): boolean {
     return this.auth.getUserType();
   }
+
+
   
   //userType = this.auth.getUserType();
   //console.log('Tipo de usuario:', this.userType);

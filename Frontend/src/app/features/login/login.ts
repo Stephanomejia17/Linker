@@ -48,6 +48,15 @@ export class Login {
           },
           error: (err) => console.error('Error al obtener la respuesta:', err),
         });
+// Aqui hice un cambiooooo
+        this.auth.getPerfilId(id!).subscribe({
+          next: (data: any) => {
+            console.log('desde',data.id);
+            sessionStorage.setItem('perfilId', data.id);
+          },
+          error: (err) => console.error('Error al obtener la respuesta:', err),
+        });
+//Hasta aca
       },
       error: (error) => {
         console.error(error);

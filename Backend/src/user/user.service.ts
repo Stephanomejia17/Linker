@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, ParseFilePipe } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -57,5 +57,21 @@ export class UserService {
       user: { id: user.id },
       token,
     };
+  }
+
+  async getPerfilUser(userId:string){
+    const perfil = await this.usuarioRepository.findOne({
+      where:{id:userId},
+      relations:['empresa','postulante']
+    })
+
+    if (!perfil) return null;
+
+    if(perfil.postulante){
+      return perfil.postulante
+    }
+    if(perfil.empresa){
+      return perfil.empresa
+    }
   }
 }

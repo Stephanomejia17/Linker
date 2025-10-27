@@ -1,14 +1,14 @@
 <div class="dropdown-container">
   <div class="dropdown-wrapper">
     <button class="dropdown-button" (click)="toggleLista()">
-      <span class="button-text">{{ vacanteSeleccionada || 'Selecciona una vacante' }}</span>
+      <span class="button-text">{{ vacanteSeleccionada?.titulo|| 'Selecciona una vacante' }}</span>
     </button>
 
     @if(mostrarLista){
     <div class="dropdown-list">
-      @for(i of vacantes; track i.id){
+      @for(i of vacantes; track i.id_vacante){
       <div (click)="seleccionarVacante(i)" class="dropdown-item">
-        {{ i.nombre }}
+        {{ i.titulo }}
       </div>
       }
     </div>

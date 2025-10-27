@@ -3,6 +3,7 @@ import { FilterService } from '../../../services/filter/filter-service';
 import { Perfil } from '../../../shared/services/perfil';
 import { Match } from '../../../shared/services/match';
 import { Auth } from '../../../shared/services/auth';
+import { Alerts } from '../../../shared/services/alerts';
 
 @Component({
   selector: 'app-swipe-empresa',
@@ -15,11 +16,12 @@ export class SwipeEmpresa {
   profile = inject(Perfil);
   match = inject(Match);
   auth = inject(Auth);
+  alerts = inject(Alerts)
 
   userType = this.auth.getUserType();
 
   list: Postulante[] =[
-      {id: '1',
+      /*{id: '1',
       name: 'María',
       lastname: 'García',
       anos_experiencia: 5,
@@ -28,7 +30,7 @@ export class SwipeEmpresa {
       ubicacion: 'Medellín, CO',
       habilidades: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
       idiomas: ['Español', 'Inglés', 'Portugués']
-    }];
+    }*/];
 
   start = 0;
   current_position = 0;
@@ -77,6 +79,7 @@ export class SwipeEmpresa {
       return;
     } else if (this.current_position < 0) {
       this.match.onDislike();
+      this.match.onAction
     } else {
       this.match.onLike();
     }
@@ -86,17 +89,25 @@ export class SwipeEmpresa {
     this.current_position = 0;
   }
 
-  /*getCards() {
-      this.match.getVacantes().subscribe({
+  getCards() {
+    let vacante = sessionStorage.getItem('vacante')
+    if(vacante){
+      this.match.getPostulantes(vacante).subscribe({
         next: (data: Postulante[]) => {
           this.list = data;
+          console.log('empresa',data)
           console.log(this.list);
         },
         error: (err: any) => {
           console.log(err);
+          this.alerts.info('No hay mas postulantes para la vacante')
         },
       });
-  }*/
+    }
+    else{
+      this.alerts.warning('Selecciona una vacante')
+    }
+  }
 
   filterActivated() {
     this.filter.Switch();

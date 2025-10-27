@@ -9,21 +9,26 @@ import { Perfil } from './perfil';
 export class Match {
 
     http=inject(HttpClient)
-    isEmpresa=sessionStorage.getItem('isEmpresa')
-    user = sessionStorage.getItem('userId')
+    isEmpresa=sessionStorage.getItem('isEmpresa');
+    user = sessionStorage.getItem('userId');
+    perfil= sessionStorage.getItem('perfilId');
 
     getVacantesForEmpresa():Observable<any>{
-        return this.http.get(`http://localhost:3000/vacantes/empresaId/${this.user}`)
+        return this.http.get(`http://localhost:3000/vacantes/empresaId/${this.perfil}`)
 
     }
 
     getVacantes():Observable<any>{
-        return this.http.get(`http://localhost:3000/vacantes/vacantes/${this.user}`)
+        return this.http.get(`http://localhost:3000/vacantes/vacantes/${this.perfil}`)
     }
 
-    onAction(){}
+    getPostulantes(vacanteId:string):Observable<any>{
+        return this.http.get(`http://localhost:3000/postulante/postulantes/${vacanteId}`)
+    }
 
-    //getPostulantes():Observable<any>{}
+    onAction(interaccion:Interaccion):Observable<any>{
+        return this.http.post(`http://localhost:3000/interacciones`, interaccion )
+    }
     
     onLike(){
         if(this.isEmpresa){
