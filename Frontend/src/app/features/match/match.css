@@ -81,3 +81,19 @@ app-filter {
     gap: 0px;
   }
 }
+
+.vacantes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 400px;
+}
+
+.vacante-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}

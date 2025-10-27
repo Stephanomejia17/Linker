@@ -10,6 +10,20 @@ export class Match {
 
     http=inject(HttpClient)
     isEmpresa=sessionStorage.getItem('isEmpresa')
+    user = sessionStorage.getItem('userId')
+
+    getVacantesForEmpresa():Observable<any>{
+        return this.http.get(`http://localhost:3000/vacantes/empresaId/${this.user}`)
+
+    }
+
+    getVacantes():Observable<any>{
+        return this.http.get(`http://localhost:3000/vacantes/vacantes/${this.user}`)
+    }
+
+    onAction(){}
+
+    //getPostulantes():Observable<any>{}
     
     onLike(){
         if(this.isEmpresa){

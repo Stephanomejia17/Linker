@@ -1,16 +1,16 @@
 import { Component, ElementRef, inject, QueryList, ViewChildren } from '@angular/core';
 import { FilterService } from '../../../services/filter/filter-service';
-import { Auth } from '../../../shared/services/auth';
 import { Perfil } from '../../../shared/services/perfil';
 import { Match } from '../../../shared/services/match';
+import { Auth } from '../../../shared/services/auth';
 
 @Component({
-  selector: 'app-swipe',
-  standalone: true,
-  templateUrl: './swipe.html',
-  styleUrls: ['./swipe.css'],
+  selector: 'app-swipe-empresa',
+  imports: [],
+  templateUrl: './swipe-empresa.html',
+  styleUrl: './swipe-empresa.css'
 })
-export class Swipe {
+export class SwipeEmpresa {
   filter = inject(FilterService);
   profile = inject(Perfil);
   match = inject(Match);
@@ -18,7 +18,18 @@ export class Swipe {
 
   userType = this.auth.getUserType();
 
-  list: Vacante[] =[];
+  list: Postulante[] =[
+      {id: '1',
+      name: 'María',
+      lastname: 'García',
+      anos_experiencia: 5,
+      curriculum: '#',
+      foto: 'https://i.pravatar.cc/300?img=47',
+      ubicacion: 'Medellín, CO',
+      habilidades: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+      idiomas: ['Español', 'Inglés', 'Portugués']
+    }];
+
   start = 0;
   current_position = 0;
   isDragging = false;
@@ -75,9 +86,9 @@ export class Swipe {
     this.current_position = 0;
   }
 
-  getCards() {
+  /*getCards() {
       this.match.getVacantes().subscribe({
-        next: (data: Vacante[]) => {
+        next: (data: Postulante[]) => {
           this.list = data;
           console.log(this.list);
         },
@@ -85,7 +96,7 @@ export class Swipe {
           console.log(err);
         },
       });
-  }
+  }*/
 
   filterActivated() {
     this.filter.Switch();

@@ -72,6 +72,7 @@ export class PostulanteService {
       where: {
         id: Not(In(postulantesExcluidos)),
       },
+      relations:['postulanteHabilidades','postulanteIdiomas']
     });
 
     return postulantes;

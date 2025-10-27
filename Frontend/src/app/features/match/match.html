@@ -3,8 +3,16 @@
   <app-sidebar></app-sidebar>
   } @else {
   <div class="main-content">
-    <app-swipe></app-swipe>
 
+    @if(userType===true){
+     <app-vacantes-menu></app-vacantes-menu>
+     <app-swipe-empresa></app-swipe-empresa>
+    
+    }@else{
+       <app-swipe></app-swipe>
+
+    }
+    
     @if(filterService.isActivate()){
     <app-filter></app-filter>
     }
