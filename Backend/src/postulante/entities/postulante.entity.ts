@@ -27,7 +27,7 @@ export class Postulante {
   @Column({ type: 'varchar' })
   lastname: string;
   @Column({ type: 'int', nullable: true })
-  años_experiencia: number;
+  experiencia: number;
   @Column({ type: 'varchar', nullable: true })
   curriculum: string;
   @Column({ type: 'varchar', nullable: true })
