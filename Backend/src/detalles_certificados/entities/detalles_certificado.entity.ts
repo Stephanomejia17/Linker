@@ -10,7 +10,10 @@ import {
 
 @Entity('detalles_certificados')
 export class DetallesCertificado {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_detalles_certificados',
+  })
   id_detalles_certificados: number;
 
   @ManyToOne(() => Empresa, (empresa) => empresa.detallesCertificados, {

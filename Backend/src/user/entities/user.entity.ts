@@ -10,7 +10,10 @@ import { Empresa } from 'src/empresa/entities/empresa.entity';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id',
+  })
   id: number;
   @Column({ type: 'varchar' })
   email: string;

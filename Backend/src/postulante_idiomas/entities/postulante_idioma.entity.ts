@@ -11,7 +11,10 @@ import {
 
 @Entity('postulante_idiomas')
 export class PostulanteIdioma {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_postulante_idiomas',
+  })
   id_postulante_idiomas: number;
 
   @Column({ type: 'varchar' })

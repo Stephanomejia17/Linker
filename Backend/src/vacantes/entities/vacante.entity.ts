@@ -26,7 +26,10 @@ export enum TipoModalidad {
 
 @Entity('vacantes')
 export class Vacante {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_vacante',
+  })
   id_vacante: number;
 
   @Column({ type: 'varchar' })

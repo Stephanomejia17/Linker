@@ -15,7 +15,10 @@ import { Match } from 'src/matches/entities/match.entity';
 
 @Entity('empresas')
 export class Empresa {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id',
+  })
   id: number;
   @Column({ type: 'varchar' })
   name_empresa: string;

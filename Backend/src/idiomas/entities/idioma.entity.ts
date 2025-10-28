@@ -4,7 +4,10 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('idiomas')
 export class Idioma {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_idioma',
+  })
   id_idioma: number;
 
   @Column({ type: 'varchar', unique: true })

@@ -4,7 +4,10 @@ import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('vacante_habilidades')
 export class VacanteHabilidade {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_vacante_habilidade',
+  })
   id_vacante_habilidade: number;
 
   @ManyToOne(() => Vacante, (vacante) => vacante.vacanteHabilidades, {

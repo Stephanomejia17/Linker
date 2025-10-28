@@ -4,7 +4,10 @@ import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('vacante_idiomas')
 export class VacantesIdioma {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_vacante_idiomas',
+  })
   id_vacante_idiomas: number;
 
   @ManyToOne(() => Vacante, (vacante) => vacante.vacantesIdiomas, {

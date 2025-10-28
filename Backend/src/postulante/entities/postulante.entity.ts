@@ -20,7 +20,10 @@ import { Interaccion } from 'src/interaccion/entities/interaccion.entity';
 
 @Entity('postulantes')
 export class Postulante {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id',
+  })
   id: number;
   @Column({ type: 'varchar' })
   name: string;

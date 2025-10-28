@@ -35,7 +35,7 @@ import { InteraccionModule } from './interaccion/interaccion.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
-      synchronize: false, // FALSOOOO
+      synchronize: true, // FALSOOOO
     }),
 
     TypeOrmModule.forRoot({
@@ -46,7 +46,7 @@ import { InteraccionModule } from './interaccion/interaccion.module';
       username: process.env.DB_USERNAME_ORACLE,
       password: process.env.DB_PASSWORD_ORACLE,
       serviceName: process.env.DB_SERVICE_ORACLE,
-      synchronize: false,
+      synchronize: true,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       logging: true,
       extra: {

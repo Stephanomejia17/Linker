@@ -17,7 +17,10 @@ export enum TipoInteraccion {
 
 @Entity('interacciones')
 export class Interaccion {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_interaccion',
+  })
   id_interaccion: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

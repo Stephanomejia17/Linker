@@ -10,7 +10,10 @@ import {
 
 @Entity('habilidades')
 export class Habilidades {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_habilidad',
+  })
   id_habilidad: number;
 
   @Column({ type: 'varchar' })

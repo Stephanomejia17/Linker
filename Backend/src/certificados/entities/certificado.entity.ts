@@ -3,7 +3,10 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('certificados')
 export class Certificado {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_certificado',
+  })
   id_certificado: number;
 
   @Column({ type: 'varchar' })

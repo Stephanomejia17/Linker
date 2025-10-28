@@ -17,7 +17,10 @@ export enum Accion {
 
 @Entity('matches')
 export class Match {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_match',
+  })
   id_match: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

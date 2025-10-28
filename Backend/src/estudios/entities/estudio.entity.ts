@@ -20,7 +20,10 @@ export enum Niveles {
 
 @Entity('estudios')
 export class Estudio {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment', {
+    type: 'int',
+    name: 'id_estudio',
+  })
   id_estudio: number;
 
   @Column({ type: 'varchar' })
