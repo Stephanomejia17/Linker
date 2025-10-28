@@ -37,7 +37,7 @@ export class InteraccionesService {
       });
 
       await this.interaccionRepository.save(interaccion);
-      await this.isMatch(empresa, vacante, postulante);
+      //await this.isMatch(empresa, vacante, postulante);
       return interaccion;
 
     } else {
@@ -52,7 +52,7 @@ export class InteraccionesService {
       }
 
       await this.interaccionRepository.save(interaccionExistente);
-      this.isMatch(empresa, vacante, postulante);
+      await this.isMatch(empresa, vacante, postulante);
       return;
     }
   }
@@ -67,12 +67,12 @@ export class InteraccionesService {
         interaccionExistente.accionPostulante === 'like'
       ) {
         const match: CreateMatchDto = {
-          empresa: { id: empresaId },
+          //empresa: { id: empresaId },
           vacante: { id_vacante: vacanteId },
           postulante: { id: postulanteId },
         };
         await this.matchService.create(match);
-        console.log('es un match');
+        console.log('es un match', match);
       }
     }else{
     console.log('no hay match');
@@ -81,10 +81,13 @@ export class InteraccionesService {
 
   async findOne(vacanteId: string, postulanteId: string) {
     const interaccion = await this.interaccionRepository.findOne({
+      //select:{postulante:{id:true}, vacante:{id_vacante:true}},
       where: {
         vacante: { id_vacante: vacanteId },
         postulante: { id: postulanteId },
       },
+      //relations:['vacante', 'postulante']
+      loadRelationIds: true,
     });
     console.log(interaccion);
     if (!interaccion) {

@@ -5,7 +5,7 @@ import { IsDate } from 'class-validator';
 import { Empresa } from 'src/empresa/entities/empresa.entity';
 
 export class CreateMatchDto {
-  empresa: Partial<Empresa>;
+  //empresa: Partial<Empresa>;
   vacante: Partial<Vacante>;
   postulante: Partial<Postulante>
   //accion: Accion;

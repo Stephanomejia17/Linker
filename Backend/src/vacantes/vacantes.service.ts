@@ -44,7 +44,11 @@ export class VacantesService {
       await this.interaccionService.isFilteredVacantes(postulanteId);
     console.log('desde vacante', vacantesExcluidas);
     const vacantes = this.vacanteRepository.find({
-      select:{ empresa:{name_empresa:true}
+      select:{ 
+        empresa:{
+          name_empresa:true,
+          id:true
+        }
       },
       where: {
         id_vacante: Not(In(vacantesExcluidas)),

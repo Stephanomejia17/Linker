@@ -20,11 +20,11 @@ export class Match {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fecha: Date;
 
-  @ManyToOne(()=> Empresa, (empresa)=>empresa.match, {
+  /*@ManyToOne(()=> Empresa, (empresa)=>empresa.match, {
     onDelete: 'CASCADE'
   })
   @JoinColumn({ name: 'id_empresa' })
-  empresa: Empresa;
+  empresa: Empresa;*/
 
   @ManyToOne(()=> Vacante, (vacante)=>vacante.match, {
     onDelete: 'CASCADE'
