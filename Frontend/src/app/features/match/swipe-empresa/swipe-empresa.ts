@@ -66,7 +66,11 @@ export class SwipeEmpresa {
     }deg)`;
   }
 
-  onPointerUp() {
+
+
+
+
+  onPointerUp(postulante:Postulante) {
     if (!this.isDragging) return;
     const card = this.cardElement.first.nativeElement;
     //console.log(card)
@@ -78,16 +82,42 @@ export class SwipeEmpresa {
       this.current_position = 0;
       return;
     } else if (this.current_position < 0) {
-      this.match.onDislike();
-      this.match.onAction
+      const interaccion: Interaccion = {
+      accion_empresa: 'dislike',
+      vacante: sessionStorage.getItem('vacante') || '',
+      postulante: postulante.id,
+      empresa: sessionStorage.getItem('perfilId') || ''
+      };
+      console.log(interaccion)
+      this.match.onAction(interaccion).subscribe({
+      next: () => console.log('Dislike enviado:', interaccion),
+      error: (err) => console.error('Error al enviar dislike:', err)
+      });
+    
     } else {
-      this.match.onLike();
+      const interaccion: Interaccion = {
+      accion_empresa: 'like',
+      vacante: sessionStorage.getItem('vacante') || '',
+      postulante: postulante.id,
+      empresa: sessionStorage.getItem('perfilId') || ''
+      };
+      console.log(interaccion)
+      this.match.onAction(interaccion).subscribe({
+      next: () => console.log('like enviado:', interaccion),
+      error: (err) => console.error('Error al enviar like:', err)
+      });
     }
-    this.list.shift(); // Elimina la carta actual
+
+    this.list.shift(); // Elimina la carta en la  que estoy parada
 
     this.isDragging = false;
     this.current_position = 0;
   }
+
+
+
+
+
 
   getCards() {
     let vacante = sessionStorage.getItem('vacante')

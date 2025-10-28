@@ -53,7 +53,7 @@ export class Swipe {
     }deg)`;
   }
 
-  onPointerUp() {
+  onPointerUp(vacante:Vacante) {
     if (!this.isDragging) return;
     const card = this.cardElement.first.nativeElement;
     //console.log(card)
@@ -65,9 +65,27 @@ export class Swipe {
       this.current_position = 0;
       return;
     } else if (this.current_position < 0) {
-      this.match.onDislike();
+      const interaccion: Interaccion = {
+      accion_postulante: 'dislike',
+      vacante: vacante.id_vacante,
+      postulante: sessionStorage.getItem('perfilId') || '',
+      empresa: vacante.empresa.id_perfil
+      };
+      this.match.onAction(interaccion).subscribe({
+      next: () => console.log('Dislike enviado:', interaccion),
+      error: (err) => console.error('Error al enviar dislike:', err)
+      });
     } else {
-      this.match.onLike();
+      const interaccion: Interaccion = {
+      accion_postulante: 'like',
+      vacante: vacante.id_vacante,
+      postulante: sessionStorage.getItem('perfilId') || '',
+      empresa: vacante.empresa.id_perfil
+      };
+      this.match.onAction(interaccion).subscribe({
+      next: () => console.log('like enviado:', interaccion),
+      error: (err) => console.error('Error al enviar like:', err)
+      });
     }
     this.list.shift(); // Elimina la carta actual
 

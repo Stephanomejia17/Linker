@@ -42,12 +42,12 @@ export class InteraccionesService {
 
     } else {
       // 2. Aplicar la nueva acción SOLO si está definida en el DTO (es decir, fue enviada)
-      if (accion_empresa !== undefined) {
+      if (accion_empresa !== null) {
         console.log('es like empresa');
         interaccionExistente.accionEmpresa = accion_empresa;
       }
 
-      if (accion_postulante !== undefined) {
+      if (accion_postulante !== null) {
         interaccionExistente.accionPostulante = accion_postulante;
       }
 

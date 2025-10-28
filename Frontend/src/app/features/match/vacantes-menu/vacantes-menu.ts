@@ -18,6 +18,7 @@ export class VacantesMenu {
   vacanteSeleccionada: Vacante|null = null;
 
   getVacantes(){
+    console.log(sessionStorage.getItem('perfilId'))
     this.match.getVacantesForEmpresa().subscribe({
       next: (data: Vacante[])=>{
         console.log(sessionStorage.getItem('perfilId'))
