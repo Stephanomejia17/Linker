@@ -19,7 +19,7 @@ import { VacantesModule } from './vacantes/vacantes.module';
 import { VacantesIdiomasModule } from './vacantes_idiomas/vacantes_idiomas.module';
 import { VacanteHabilidadesModule } from './vacante_habilidades/vacante_habilidades.module';
 import { MatchesModule } from './matches/matches.module';
-import { InteraccionModule } from './interaccion/interaccion.module';
+import { InteraccionesModule } from './interacciones/interacciones.module';
 
 @Module({
   imports: [
@@ -68,7 +68,7 @@ import { InteraccionModule } from './interaccion/interaccion.module';
     VacantesIdiomasModule,
     VacanteHabilidadesModule,
     MatchesModule,
-    InteraccionModule,
+    InteraccionesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

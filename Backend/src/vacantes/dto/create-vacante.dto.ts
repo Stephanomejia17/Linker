@@ -9,8 +9,8 @@ export class CreateVacanteDto {
   tipo_trabajo: TipoTrabajo;
   @IsEnum(TipoModalidad)
   tipo_modalidad: TipoModalidad;
-  @IsNumber()
-  @Type(() => Number)
+  //@IsNumber()
+  //@Type(() => Number)
   salario: number;
   ubicacion: string;
   empresa: Empresa;

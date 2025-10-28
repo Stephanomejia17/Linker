@@ -1,11 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePostulanteDto } from './dto/create-postulante.dto';
-import { UpdatePostulanteDto } from './dto/update-postulante.dto';
 import { Postulante } from './entities/postulante.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
-import { Repository } from 'typeorm';
-import { Console } from 'console';
+import { In, Not, Repository } from 'typeorm';
+import { InteraccionesService } from 'src/interacciones/interacciones.service';
 
 @Injectable()
 export class PostulanteService {
@@ -18,6 +17,7 @@ export class PostulanteService {
     private readonly usuarioRepository: Repository<User>,
     @InjectRepository(User, 'oracleConnection')
     private readonly usuarioOracleRepository: Repository<User>,
+    private readonly interaccionesService: InteraccionesService,
   ) {}
 
   async createPostulante(dto: CreatePostulanteDto) {
@@ -77,5 +77,19 @@ export class PostulanteService {
     return this.postulanteOracleRepository.find({
       relations: ['user'],
     });
+  }
+
+  async getPostulantes(vacanteId: number) {
+    const postulantesExcluidos =
+      await this.interaccionesService.isFilteredPostulantes(vacanteId);
+    console.log(postulantesExcluidos);
+    const postulantes = await this.postulanteRepository.find({
+      where: {
+        id: Not(In(postulantesExcluidos)),
+      },
+      relations: ['postulanteHabilidades', 'postulanteIdiomas'],
+    });
+
+    return postulantes;
   }
 }

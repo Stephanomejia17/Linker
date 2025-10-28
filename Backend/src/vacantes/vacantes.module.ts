@@ -21,5 +21,6 @@ import { Interaccion } from 'src/interaccion/entities/interaccion.entity';
   ],
   controllers: [VacantesController],
   providers: [VacantesService],
+  exports: [VacantesService],
 })
 export class VacantesModule {}

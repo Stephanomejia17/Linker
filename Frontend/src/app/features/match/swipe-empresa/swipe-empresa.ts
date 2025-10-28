@@ -1,17 +1,17 @@
 import { Component, ElementRef, inject, QueryList, ViewChildren } from '@angular/core';
 import { FilterService } from '../../../services/filter/filter-service';
-import { Auth } from '../../../shared/services/auth';
 import { Perfil } from '../../../shared/services/perfil';
 import { Match } from '../../../shared/services/match';
+import { Auth } from '../../../shared/services/auth';
 import { Alerts } from '../../../shared/services/alerts';
 
 @Component({
-  selector: 'app-swipe',
-  standalone: true,
-  templateUrl: './swipe.html',
-  styleUrls: ['./swipe.css'],
+  selector: 'app-swipe-empresa',
+  imports: [],
+  templateUrl: './swipe-empresa.html',
+  styleUrl: './swipe-empresa.css'
 })
-export class Swipe {
+export class SwipeEmpresa {
   filter = inject(FilterService);
   profile = inject(Perfil);
   match = inject(Match);
@@ -20,13 +20,26 @@ export class Swipe {
 
   userType = this.auth.getUserType();
 
-  list: Vacante[] =[];
+  list: Postulante[] =[
+      /*{id: '1',
+      name: 'María',
+      lastname: 'García',
+      anos_experiencia: 5,
+      curriculum: '#',
+      foto: 'https://i.pravatar.cc/300?img=47',
+      ubicacion: 'Medellín, CO',
+      habilidades: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+      idiomas: ['Español', 'Inglés', 'Portugués']
+    }*/];
+
   start = 0;
   current_position = 0;
   isDragging = false;
 
   ngOnInit(): void {
     console.log('Swipe Component Initialized');
+    // 1. Llamada a getCards al inicio del componente
+    //this.getCards();
     console.log(this.list)
   }
 
@@ -53,7 +66,11 @@ export class Swipe {
     }deg)`;
   }
 
-  onPointerUp(vacante:Vacante) {
+
+
+
+
+  onPointerUp(postulante:Postulante) {
     if (!this.isDragging) return;
     const card = this.cardElement.first.nativeElement;
     //console.log(card)
@@ -65,48 +82,61 @@ export class Swipe {
       this.current_position = 0;
       return;
     } else if (this.current_position < 0) {
-
       const interaccion: Interaccion = {
-      accion_postulante: 'dislike',
-      vacante: vacante.id_vacante,
-      postulante: sessionStorage.getItem('perfilId') || '',
-      empresa: vacante.empresa.id_perfil
+      accion_empresa: 'dislike',
+      vacante: sessionStorage.getItem('vacante') || '',
+      postulante: postulante.id,
+      empresa: sessionStorage.getItem('perfilId') || ''
       };
       console.log(interaccion)
-
       this.match.onAction(interaccion).subscribe({
       next: () => console.log('Dislike enviado:', interaccion),
       error: (err) => console.error('Error al enviar dislike:', err)
       });
+    
     } else {
       const interaccion: Interaccion = {
-      accion_postulante: 'like',
-      vacante: vacante.id_vacante,
-      postulante: sessionStorage.getItem('perfilId') || '',
-      empresa: vacante.empresa.id_perfil
+      accion_empresa: 'like',
+      vacante: sessionStorage.getItem('vacante') || '',
+      postulante: postulante.id,
+      empresa: sessionStorage.getItem('perfilId') || ''
       };
+      console.log(interaccion)
       this.match.onAction(interaccion).subscribe({
       next: () => console.log('like enviado:', interaccion),
       error: (err) => console.error('Error al enviar like:', err)
       });
     }
-    this.list.shift(); // Elimina la carta actual
+
+    this.list.shift(); // Elimina la carta en la  que estoy parada
 
     this.isDragging = false;
     this.current_position = 0;
   }
 
+
+
+
+
+
   getCards() {
-      this.match.getVacantes().subscribe({
-        next: (data: Vacante[]) => {
+    let vacante = sessionStorage.getItem('vacante')
+    if(vacante){
+      this.match.getPostulantes(vacante).subscribe({
+        next: (data: Postulante[]) => {
           this.list = data;
+          console.log('empresa',data)
           console.log(this.list);
         },
         error: (err: any) => {
           console.log(err);
-          this.alerts.info('No hay mas vacantes disponibles por el momento')
+          this.alerts.info('No hay mas postulantes para la vacante')
         },
       });
+    }
+    else{
+      this.alerts.warning('Selecciona una vacante')
+    }
   }
 
   filterActivated() {

@@ -10,6 +10,15 @@ export class Auth {
 
   http = inject(HttpClient);
 
+  getUserType(){
+    const isEmpresa = sessionStorage.getItem('isEmpresa');
+    return isEmpresa === 'true';
+  }
+
+  getPerfilId(user: string){
+     return this.http.get(`http://localhost:3000/user/perfil/${user}`)  
+  }
+
   signUp(user: User): Observable<any> {
     return this.http.post('http://localhost:3000/user/registro', user);
   }

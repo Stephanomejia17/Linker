@@ -24,3 +24,15 @@ interface PerfilPostulanteModel {
   name: string;
   lastname: string;
 }
+
+interface Postulante{
+  id:string;
+  name:string;
+  lastname:string;
+  anos_experiencia:number;
+  curriculum:string;
+  foto:string;
+  ubicacion:string;
+  habilidades?: any[]
+  idiomas?:any[]
+}

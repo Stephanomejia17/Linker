@@ -1,12 +1,14 @@
 interface Vacante {
+  id_vacante:string;
   titulo: string;
-  descripcion: string;
-  salario: number;
+  tipo_trabajo: string;
   modalidad: string;
-  tipo: string;
+  salario: number;
   ubicacion: string;
-  habilidades: string[];
-  idiomas: string[];
+  empresa:Empresa;
+  habilidades?: any[];
+  idiomas?: any[];
+  
 }
 
 interface CertificadoEmpresa {

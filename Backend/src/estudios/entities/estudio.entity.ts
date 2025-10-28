@@ -31,7 +31,7 @@ export class Estudio {
 
   @Column({ type: 'varchar', nullable: true })
   nivel: Niveles;
-
+  
   @OneToMany(() => DetalleEstudio, (detalleEstudio) => detalleEstudio.estudio)
   postulanteEstudios: DetalleEstudio[];
 }

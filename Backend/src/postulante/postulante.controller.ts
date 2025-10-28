@@ -20,13 +20,18 @@ export class PostulanteController {
     return this.postulanteService.createPostulante(dto);
   }
 
+  @Get(':id')
+  async getPostulante(@Param('id') id: number) {
+    return this.postulanteService.getPostulanteById(id);
+  }
+
   @Get()
   findAll() {
     return this.postulanteService.findAll();
   }
 
-  @Get(':id')
-  async getPostulante(@Param('id') id: number) {
-    return this.postulanteService.getPostulanteById(id);
+  @Get('postulantes/:id')
+  async getPostulantesForEmpresa(@Param('id') vacanteId: number) {
+    return this.postulanteService.getPostulantes(vacanteId);
   }
 }

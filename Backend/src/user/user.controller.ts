@@ -24,4 +24,9 @@ export class UserController {
   async login(@Body() dto: UserDto) {
     return this.userService.loginUser(dto);
   }
+
+  @Get('perfil/:idUser')
+  async getPerfil(@Param('idUser') idUser:string){
+    return await this.userService.getPerfilUser(idUser)
+  }
 }

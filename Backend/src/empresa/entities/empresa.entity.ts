@@ -40,6 +40,6 @@ export class Empresa {
   @OneToMany(() => Vacante, (vacante) => vacante.empresa)
   vacantes: Vacante[];
 
-  @OneToMany(() => Match, (match) => match.empresa)
-  match: Match[];
+  /*@OneToMany(() => Match, (match) => match.empresa) 
+  match: Match[];*/
 }

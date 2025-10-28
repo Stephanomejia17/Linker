@@ -3,7 +3,8 @@ import { CreateVacanteDto } from './dto/create-vacante.dto';
 import { UpdateVacanteDto } from './dto/update-vacante.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Vacante } from './entities/vacante.entity';
-import { Repository } from 'typeorm';
+import { In, Not, Repository } from 'typeorm';
+import { InteraccionesService } from 'src/interacciones/interacciones.service';
 
 @Injectable()
 export class VacantesService {
