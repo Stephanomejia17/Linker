@@ -65,12 +65,15 @@ export class Swipe {
       this.current_position = 0;
       return;
     } else if (this.current_position < 0) {
+
       const interaccion: Interaccion = {
       accion_postulante: 'dislike',
       vacante: vacante.id_vacante,
       postulante: sessionStorage.getItem('perfilId') || '',
       empresa: vacante.empresa.id_perfil
       };
+      console.log(interaccion)
+
       this.match.onAction(interaccion).subscribe({
       next: () => console.log('Dislike enviado:', interaccion),
       error: (err) => console.error('Error al enviar dislike:', err)

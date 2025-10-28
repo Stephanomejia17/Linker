@@ -39,7 +39,7 @@ onLogin() {
         const id = response.user.id;
         console.log('ID de usuario en sesión:', id);
 
-        // Llamadas encadenadas
+        
         this.profile.getIsEmpresa(id).subscribe({
           next: (isEmpresa: any) => {
             sessionStorage.setItem('isEmpresa', isEmpresa);
@@ -49,7 +49,6 @@ onLogin() {
                 console.log('desde login perfil', perfilData.id);
                 sessionStorage.setItem('perfilId', perfilData.id);
 
-                // 👇 Navegar solo cuando todo está listo
                 this.router.navigate(['match']);
               },
               error: (err) => console.error('Error al obtener el perfil:', err),
