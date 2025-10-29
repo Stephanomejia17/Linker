@@ -16,7 +16,7 @@ export class VacantesService {
     private interaccionService: InteraccionesService,
   ) {}
 
-  async create(createVacanteDto: CreateVacanteDto) {
+  /*async create(createVacanteDto: CreateVacanteDto) {
     const vacanteEntity = this.vacanteRepository.create({
       ...createVacanteDto,
       empresa: { id: createVacanteDto.empresa.id },
@@ -30,10 +30,48 @@ export class VacantesService {
     await this.vacanteRepository.insert(vacanteEntity);
     await this.vacanteOracleRepository.insert(vacanteOracleEntity);
     return vacanteEntity;
+  }*/
+
+  async create(createVacanteDto: CreateVacanteDto) {
+    const { vacantesIdiomas, vacanteHabilidades, empresa, ...vacanteData } =
+      createVacanteDto;
+    console.log(
+      'habilidades',
+      vacanteHabilidades,
+      'idiomas',
+      vacantesIdiomas,
+      'data',
+      vacanteData,
+    );
+
+    const nuevaVacante = this.vacanteOracleRepository.create({
+      ...vacanteData,
+      empresa,
+    });
+
+    if (vacantesIdiomas && vacantesIdiomas.length > 0) {
+      nuevaVacante.vacantesIdiomas = vacantesIdiomas.map(
+        (id_idioma) =>
+          ({
+            idioma: { id_idioma },
+          }) as any,
+      );
+    }
+
+    if (vacanteHabilidades && vacanteHabilidades.length > 0) {
+      nuevaVacante.vacanteHabilidades = vacanteHabilidades.map(
+        (id_habilidad) =>
+          ({
+            habilidades: { id_habilidad },
+          }) as any,
+      );
+    }
+
+    return await this.vacanteOracleRepository.save(nuevaVacante);
   }
 
   findAll() {
-    return this.vacanteRepository.find({
+    return this.vacanteOracleRepository.find({
       relations: ['empresa'],
     });
   }
@@ -57,7 +95,7 @@ export class VacantesService {
   }
 
   findAllVacantesofEmpresa(empresaid: number) {
-    return this.vacanteRepository.find({
+    return this.vacanteOracleRepository.find({
       where: {
         empresa: { id: empresaid },
       },
@@ -69,7 +107,7 @@ export class VacantesService {
     const vacantesExcluidas =
       await this.interaccionService.isFilteredVacantes(postulanteId);
     console.log('desde vacante', vacantesExcluidas);
-    const vacantes = this.vacanteRepository.find({
+    const vacantes = this.vacanteOracleRepository.find({
       select: {
         empresa: {
           name_empresa: true,

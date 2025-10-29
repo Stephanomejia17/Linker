@@ -25,7 +25,7 @@ export class IdiomasService {
   }
 
   findAll() {
-    return this.idiomasRepository.find();
+    return this.idiomasOracleRepository.find();
   }
 
   findAllOracle() {

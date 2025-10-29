@@ -11,9 +11,21 @@ interface Vacante {
   
 }
 
+interface CrearVacante{
+  id_vacante:string;
+  titulo: string;
+  tipo_trabajo: string;
+  tipo_modalidad: string;
+  salario: number;
+  ubicacion: string;
+  empresa:Empresa;
+  vacanteHabilidades?: any[];
+  vacantesIdiomas?: any[];
+}
+
 interface CertificadoEmpresa {
-  nombre: string;
-  entidadEmisora: string;
+  id_certificado: string;
+  id_empresa: string;  //revisar
   fechaEmision: string;
   fechaCaducidad: string;
 }

@@ -68,7 +68,7 @@ export class UserService {
   }
 
   async getPerfilUser(userId: number) {
-    const perfil = await this.usuarioRepository.findOne({
+    const perfil = await this.usuarioOracleRepository.findOne({
       where: { id: userId },
       relations: ['empresa', 'postulante'],
     });

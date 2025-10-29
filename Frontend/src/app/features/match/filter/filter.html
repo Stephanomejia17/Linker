@@ -1,18 +1,23 @@
 <section>
-    <h2>Aplicar filtros</h2>
-  <form>
-    <div *ngFor="let opcion of opciones" class="options">
-      <label>
-        <input
-          type="checkbox"
-          [value]="opcion"
-          [(ngModel)]="seleccionados[opcion]"
-          name="opcion-{{ opcion }}"
-        />
-        {{ opcion }}
-      </label>
-    </div>
-  </form>
+  <button type="button" (click)="agregarIdioma()">+ Añadir idioma</button>
 
-  <button (click)="borrarFiltros()">Borrar filtros</button>
+  @for (i of idiomas.controls; track $index; let index = $index) {
+  <div class="habilidad-item">
+    <button type="button" class="dropdown-button" (click)="toggleListaIdioma(index)">
+      {{ i.value || 'Seleccione un idioma' }}
+    </button>
+
+    @if (mostrarListaIdioma[index]) {
+    <div class="dropdown-list">
+      @for (idi of idiomasDisponibles; track idi.id_idioma) {
+      <div (click)="seleccionarIdioma(index, idi)" class="dropdown-item">
+        {{ idi.nombre }}
+      </div>
+      }
+    </div>
+    }
+
+    <button type="button" class="btn btn-danger" (click)="eliminarSelectIdioma(index)">−</button>
+  </div>
+  }
 </section>

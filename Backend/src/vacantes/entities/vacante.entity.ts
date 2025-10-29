@@ -52,10 +52,10 @@ export class Vacante {
   })
   empresa: Empresa;
 
-  @OneToMany(() => VacantesIdioma, (vi) => vi.vacante)
+  @OneToMany(() => VacantesIdioma, (vi) => vi.vacante,{cascade: true})
   vacantesIdiomas: VacantesIdioma[];
 
-  @OneToMany(() => VacanteHabilidade, (vh) => vh.vacante)
+  @OneToMany(() => VacanteHabilidade, (vh) => vh.vacante, {cascade: true,})
   vacanteHabilidades: VacanteHabilidade[];
 
   @OneToMany(() => Match, (match) => match.vacante)

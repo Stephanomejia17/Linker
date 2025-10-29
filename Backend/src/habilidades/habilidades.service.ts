@@ -28,7 +28,7 @@ export class HabilidadesService {
   }
 
   findAll() {
-    return this.habilidadesRepository.find();
+    return this.habilidadesOracleRepository.find();
   }
 
   findAllOracle() {

@@ -24,47 +24,46 @@ export class Login {
     password: ['', [Validators.required]],
   });
 
-onLogin() {
-  const user = this.loginForm.value as User;
+  onLogin() {
+    const user = this.loginForm.value as User;
 
-  this.auth.login(user).subscribe({
-    next: (response) => {
-      if (response.success) {
-        this.alert.success(response.message);
-        this.auth.isLogged.set(true);
+    this.auth.login(user).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.alert.success(response.message);
+          this.auth.isLogged.set(true);
 
-        sessionStorage.setItem('token', response.token);
-        sessionStorage.setItem('userId', response.user.id);
+          sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('userId', response.user.id);
 
-        const id = response.user.id;
-        console.log('ID de usuario en sesión:', id);
+          console.log('respuesta: ', response.user.id);
+          const id = response.user.id;
+          console.log('ID de usuario en sesión:', id);
 
-        
-        this.profile.getIsEmpresa(id).subscribe({
-          next: (isEmpresa: any) => {
-            sessionStorage.setItem('isEmpresa', isEmpresa);
+          this.profile.getIsEmpresa(id).subscribe({
+            next: (isEmpresa: any) => {
+              sessionStorage.setItem('isEmpresa', isEmpresa);
 
-            this.auth.getPerfilId(id).subscribe({
-              next: (perfilData: any) => {
-                console.log('desde login perfil', perfilData.id);
-                sessionStorage.setItem('perfilId', perfilData.id);
+              this.auth.getPerfilId(id).subscribe({
+                next: (perfilData: any) => {
+                  console.log('desde login perfil', perfilData.id);
+                  sessionStorage.setItem('perfilId', perfilData.id);
 
-                this.router.navigate(['match']);
-              },
-              error: (err) => console.error('Error al obtener el perfil:', err),
-            });
-          },
-          error: (err) => console.error('Error al obtener tipo de usuario:', err),
-        });
-      } else {
-        this.alert.error(response.message);
-      }
-    },
-    error: (error) => {
-      console.error(error);
-      this.alert.error('Error en la solicitud');
-    },
-  });
-}
-
+                  this.router.navigate(['match']);
+                },
+                error: (err) => console.error('Error al obtener el perfil:', err),
+              });
+            },
+            error: (err) => console.error('Error al obtener tipo de usuario:', err),
+          });
+        } else {
+          this.alert.error(response.message);
+        }
+      },
+      error: (error) => {
+        console.error(error);
+        this.alert.error('Error en la solicitud');
+      },
+    });
+  }
 }

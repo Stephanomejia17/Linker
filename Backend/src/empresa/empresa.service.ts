@@ -64,7 +64,7 @@ export class EmpresaService {
   }
 
   async getEmpresaById(id: number) {
-    const empresa = await this.empresaRepository.findOne({
+    const empresa = await this.empresaOracleRepository.findOne({
       where: { user: { id } },
       relations: ['user'],
     });
@@ -77,7 +77,7 @@ export class EmpresaService {
   }
 
   async isEmpresa(id: number) {
-    const empresa = await this.empresaRepository.findOne({
+    const empresa = await this.empresaOracleRepository.findOne({
       where: { user: { id } },
     });
     return empresa ? true : false;
