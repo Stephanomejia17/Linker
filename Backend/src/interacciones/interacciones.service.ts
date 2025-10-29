@@ -9,7 +9,7 @@ import { CreateMatchDto } from 'src/matches/dto/create-match.dto';
 @Injectable()
 export class InteraccionesService {
   constructor(
-    @InjectRepository(Interaccion)
+    @InjectRepository(Interaccion, 'oracleConnection')
     private readonly interaccionRepository: Repository<Interaccion>,
     //private readonly vacantesService : VacantesService,
     private readonly matchService: MatchesService,

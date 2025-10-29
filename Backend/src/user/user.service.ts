@@ -67,19 +67,19 @@ export class UserService {
     };
   }
 
-  async getPerfilUser(userId:string){
+  async getPerfilUser(userId: number) {
     const perfil = await this.usuarioRepository.findOne({
-      where:{id:userId},
-      relations:['empresa','postulante']
-    })
+      where: { id: userId },
+      relations: ['empresa', 'postulante'],
+    });
 
     if (!perfil) return null;
 
-    if(perfil.postulante){
-      return perfil.postulante
+    if (perfil.postulante) {
+      return perfil.postulante;
     }
-    if(perfil.empresa){
-      return perfil.empresa
+    if (perfil.empresa) {
+      return perfil.empresa;
     }
   }
 }

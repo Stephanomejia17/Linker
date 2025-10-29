@@ -35,6 +35,7 @@ import { InteraccionesModule } from 'src/interacciones/interacciones.module';
       ],
       'oracleConnection',
     ),
+    InteraccionesModule,
   ],
   controllers: [PostulanteController],
   providers: [PostulanteService],

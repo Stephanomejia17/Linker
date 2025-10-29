@@ -7,7 +7,7 @@ import { MatchesModule } from 'src/matches/matches.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Interaccion]),
+    TypeOrmModule.forFeature([Interaccion], 'oracleConnection'),
     MatchesModule,
   ],
   controllers: [InteraccionesController],

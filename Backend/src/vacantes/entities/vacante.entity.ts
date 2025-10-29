@@ -1,5 +1,5 @@
 import { Empresa } from 'src/empresa/entities/empresa.entity';
-import { Interaccion } from 'src/interaccion/entities/interaccion.entity';
+import { Interaccion } from 'src/interacciones/entities/interacciones.entity';
 import { Match } from 'src/matches/entities/match.entity';
 import { VacanteHabilidade } from 'src/vacante_habilidades/entities/vacante_habilidade.entity';
 import { VacantesIdioma } from 'src/vacantes_idiomas/entities/vacantes_idioma.entity';

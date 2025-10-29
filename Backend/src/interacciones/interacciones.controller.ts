@@ -22,21 +22,20 @@ export class InteraccionesController {
   }
 
   @Get('filter/vacantes/:id')
-  findVacantesExcluidos(@Param('id') postulanteId: string) {
+  findVacantesExcluidos(@Param('id') postulanteId: number) {
     return this.interaccionesService.isFilteredVacantes(postulanteId);
   }
 
   @Get('filter/postulantes/:id')
-  findPostulantesExcluidos(@Param('id') vacanteId: string) {
+  findPostulantesExcluidos(@Param('id') vacanteId: number) {
     return this.interaccionesService.isFilteredPostulantes(vacanteId);
   }
 
-  @Get('check-match/:postulanteId/:vacanteId') 
+  @Get('check-match/:postulanteId/:vacanteId')
   async checkMatch(
-    @Param('postulanteId') postulanteId: string,
-    @Param('vacanteId') vacanteId: string, 
+    @Param('postulanteId') postulanteId: number,
+    @Param('vacanteId') vacanteId: number,
   ) {
-    
     const interaccion = await this.interaccionesService.findOne(
       postulanteId,
       vacanteId,
@@ -44,7 +43,6 @@ export class InteraccionesController {
 
     return interaccion;
   }
-
 
   /*@Get(':id')
   findOne(@Param('id') id: string) {

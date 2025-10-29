@@ -13,6 +13,7 @@ export class VacantesService {
     private vacanteRepository: Repository<Vacante>,
     @InjectRepository(Vacante, 'oracleConnection')
     private vacanteOracleRepository: Repository<Vacante>,
+    private interaccionService: InteraccionesService,
   ) {}
 
   async create(createVacanteDto: CreateVacanteDto) {
@@ -53,5 +54,34 @@ export class VacantesService {
 
   remove(id: number) {
     return `This action removes a #${id} vacante`;
+  }
+
+  findAllVacantesofEmpresa(empresaid: number) {
+    return this.vacanteRepository.find({
+      where: {
+        empresa: { id: empresaid },
+      },
+      relations: ['empresa'],
+    });
+  }
+
+  async getVacantes(postulanteId: number) {
+    const vacantesExcluidas =
+      await this.interaccionService.isFilteredVacantes(postulanteId);
+    console.log('desde vacante', vacantesExcluidas);
+    const vacantes = this.vacanteRepository.find({
+      select: {
+        empresa: {
+          name_empresa: true,
+          id: true,
+        },
+      },
+      where: {
+        id_vacante: Not(In(vacantesExcluidas)),
+      },
+      relations: ['empresa', 'vacanteHabilidades', 'vacantesIdiomas'],
+      take: 5,
+    });
+    return vacantes;
   }
 }
