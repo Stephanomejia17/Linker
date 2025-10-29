@@ -10,13 +10,13 @@ interface Estudio {
 }
 
 interface Habilidad {
-  nombre: string;
-  certificado: string;
+  id_habilidad: string;
+  nombre_habilidad:string;
 }
 
 interface Idioma {
+  id_idioma: string;
   nombre: string;
-  certificado: string;
 }
 
 interface PerfilPostulanteModel {

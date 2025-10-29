@@ -31,7 +31,7 @@ export class Match {
 
   getVacantes(): Observable<any> {
     if (!this.perfil) {
-      console.warn('⚠ No hay perfil en sesión');
+      console.warn('No hay perfil en sesión');
     }
     return this.http.get(`http://localhost:3000/vacantes/vacantes/${this.perfil}`);
   }
@@ -42,7 +42,7 @@ export class Match {
 
   onAction(interaccion: Interaccion): Observable<any> {
     if (!this.perfil) {
-      console.warn('⚠ No hay perfil en sesión');
+      console.warn(' No hay perfil en sesión');
     }
     return this.http.post(`http://localhost:3000/interacciones`, interaccion);
   }

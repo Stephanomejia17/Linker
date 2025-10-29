@@ -27,6 +27,22 @@ export class Perfil {
   getUserNameEmpresa(id: string): Observable<{ name: string }> {
     return this.http.get<{ name: string }>(`http://localhost:3000/empresa/${id}`);
   }
+  // retomar todo el objeto
+
+  createVacante(vacante:CrearVacante): Observable<any> {
+    console.log(vacante,'desde service')
+    return this.http.post('http://localhost:3000/vacantes', vacante);
+  }
+
+  getHabilidades(): Observable<Habilidad[]> {
+    return this.http.get<Habilidad[]>('http://localhost:3000/habilidades');
+  }
+
+  getIdiomas():Observable<any>{
+    return this.http.get('http://localhost:3000/idiomas');
+  }
+
+
 
   /*guardarPerfil(perfil: PerfilPostulanteModel| PerfilEmpresaModel) {
     let user= this.auth.getUser()

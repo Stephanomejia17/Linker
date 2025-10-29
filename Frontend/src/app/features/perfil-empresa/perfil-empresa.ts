@@ -4,11 +4,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { Alerts } from '../../shared/services/alerts';
 import { Perfil } from '../../shared/services/perfil';
+import { PerfilVacantes } from './perfil-vacantes/perfil-vacantes';
 
 @Component({
   selector: 'app-perfil-empresa',
   standalone: true,
-  imports: [NgFor, NgIf, ReactiveFormsModule],
+  imports: [NgFor, NgIf, ReactiveFormsModule,PerfilVacantes],
   templateUrl: './perfil-empresa.html',
   styleUrl: './perfil-empresa.css',
 })
@@ -21,8 +22,8 @@ export class PerfilEmpresa {
 
   empresaForm = this.fb.group({
     descripcion: ['', Validators.required],
-    vacantes: this.fb.array([this.crearVacante()]),
-    certificados: this.fb.array([this.crearCertificado()]),
+    //vacantes: this.fb.array([this.crearVacante()]),
+  //certificados: this.fb.array([this.crearCertificado()]),
   });
 
   ngOnInit() {
@@ -38,7 +39,7 @@ export class PerfilEmpresa {
     }
   }
 
-  get vacantesForm(): FormArray {
+  /*get vacantesForm(): FormArray {
     return this.empresaForm.get('vacantes') as FormArray;
   }
 
@@ -46,7 +47,7 @@ export class PerfilEmpresa {
     return this.empresaForm.get('certificados') as FormArray;
   }
 
-  crearVacante() {
+  /*crearVacante() {
     return this.fb.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required],
@@ -109,4 +110,4 @@ export class PerfilEmpresa {
       }
         */
   }
-}
+

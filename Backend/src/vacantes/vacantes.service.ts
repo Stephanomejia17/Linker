@@ -15,14 +15,44 @@ export class VacantesService {
     private interaccionService: InteraccionesService,
   ) {}
 
-  async create(createVacanteDto: CreateVacanteDto) {
+  /*async create(createVacanteDto: CreateVacanteDto) {
     const vacanteEntity = this.vacanteRepository.create({
       ...createVacanteDto,
       empresa: { id: createVacanteDto.empresa.id },
     });
     await this.vacanteRepository.save(vacanteEntity);
     return vacanteEntity;
+  }*/
+
+async create(createVacanteDto: CreateVacanteDto) {
+
+  const { vacantesIdiomas, vacanteHabilidades, empresa, ...vacanteData } = createVacanteDto; 
+  console.log('habilidades', vacanteHabilidades, 'idiomas', vacantesIdiomas, 'data', vacanteData);
+
+
+  const nuevaVacante = this.vacanteRepository.create({
+      ...vacanteData,
+      empresa: { id: empresa }, 
+  });
+
+
+  if (vacantesIdiomas && vacantesIdiomas.length > 0) {
+  
+    nuevaVacante.vacantesIdiomas = vacantesIdiomas.map((id_idioma) => ({
+      idioma: { id_idioma }, 
+    } as any)); 
   }
+
+  if (vacanteHabilidades && vacanteHabilidades.length > 0) {
+   
+    nuevaVacante.vacanteHabilidades = vacanteHabilidades.map((id_habilidad) => ({
+      habilidades: { id_habilidad }, 
+    } as any));
+  }
+
+  return await this.vacanteRepository.save(nuevaVacante);
+}
+
 
   findAll() {
     return this.vacanteRepository.find({
