@@ -18,17 +18,17 @@ export class VacanteHabilidadesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.vacanteHabilidadesService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVacanteHabilidadeDto: UpdateVacanteHabilidadeDto) {
+  update(@Param('id') id: number, @Body() updateVacanteHabilidadeDto: UpdateVacanteHabilidadeDto) {
     return this.vacanteHabilidadesService.update(+id, updateVacanteHabilidadeDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.vacanteHabilidadesService.remove(+id);
   }
 }

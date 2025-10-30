@@ -15,7 +15,7 @@ export class VacantesMenu {
   vacantes: Vacante[]= [];
   
   mostrarLista = false;
-  vacanteSeleccionada: Vacante|null = null;
+  vacanteSeleccionada: Vacante |null = null;
 
   getVacantes(){
     console.log(sessionStorage.getItem('perfilId'))
@@ -40,7 +40,7 @@ export class VacantesMenu {
 
   seleccionarVacante(vacante: any) {    
     this.vacanteSeleccionada = vacante;
-    sessionStorage.setItem('vacante', this.vacanteSeleccionada?.id_vacante || '');
+    sessionStorage.setItem('vacante',  String(this.vacanteSeleccionada?.id_vacante ?? ''));
 
     this.mostrarLista = false;
     console.log('Vacante seleccionada:', vacante);

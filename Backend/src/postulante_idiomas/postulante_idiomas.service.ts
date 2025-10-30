@@ -16,9 +16,12 @@ export class PostulanteIdiomasService {
     private idiomaRepository: Repository<Idioma>,
     @InjectRepository(PostulanteIdioma)
     private postulanteIdiomaRepository: Repository<PostulanteIdioma>,
+
+    @InjectRepository(PostulanteIdioma, 'oracleConnection')
+    private postulanteIdiomaOracleRepository: Repository<PostulanteIdioma>,
   ) {}
 
-  async create(createPostulanteIdiomaDto: CreatePostulanteIdiomaDto) {
+  /*async create(createPostulanteIdiomaDto: CreatePostulanteIdiomaDto) {
     const postulanteData = createPostulanteIdiomaDto.postulante as any;
     const idiomaData = createPostulanteIdiomaDto.idioma as any;
     
@@ -37,6 +40,29 @@ export class PostulanteIdiomasService {
 
   findAll() {
     return this.postulanteIdiomaRepository.find({
+      relations: ['postulante', 'idioma'],
+    });
+  }*/
+
+  async create(createPostulanteIdiomaDto: CreatePostulanteIdiomaDto) {
+    const postulanteData = createPostulanteIdiomaDto.postulante as any;
+    const idiomaData = createPostulanteIdiomaDto.idioma as any;
+    
+    const postulanteId = postulanteData?.id_postulante || postulanteData?.id;
+    const idiomaId = idiomaData?.id_idioma || idiomaData?.id;
+    
+    const result = await this.postulanteIdiomaOracleRepository.query(
+      `INSERT INTO postulante_idiomas (id_postulante, id_idioma, certificado) 
+      VALUES ($1, $2, $3) 
+      RETURNING *`,
+      [postulanteId, idiomaId, createPostulanteIdiomaDto.certificado]
+    );
+    
+    return result[0];
+  }
+
+  findAll() {
+    return this.postulanteIdiomaOracleRepository.find({
       relations: ['postulante', 'idioma'],
     });
   }

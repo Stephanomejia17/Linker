@@ -69,7 +69,7 @@ export class Swipe {
       const interaccion: Interaccion = {
       accion_postulante: 'dislike',
       vacante: vacante.id_vacante,
-      postulante: sessionStorage.getItem('perfilId') || '',
+      postulante: +sessionStorage.getItem('perfilId')!,
       empresa: vacante.empresa.id_perfil
       };
       console.log(interaccion)
@@ -82,7 +82,7 @@ export class Swipe {
       const interaccion: Interaccion = {
       accion_postulante: 'like',
       vacante: vacante.id_vacante,
-      postulante: sessionStorage.getItem('perfilId') || '',
+      postulante: +sessionStorage.getItem('perfilId')!,
       empresa: vacante.empresa.id_perfil
       };
       this.match.onAction(interaccion).subscribe({

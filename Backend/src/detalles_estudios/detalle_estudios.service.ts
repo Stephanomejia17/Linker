@@ -10,9 +10,11 @@ export class DetalleEstudiosService {
   constructor(
     @InjectRepository(DetalleEstudio)
     private detalleEstudioRepository: Repository<DetalleEstudio>,
+    @InjectRepository(DetalleEstudio, 'oracleConnection')
+    private detalleEstudioOracleRepository: Repository<DetalleEstudio>,
   ) {}
   
-  async create(createDetalleEstudioDto: CreateDetalleEstudioDto): Promise<DetalleEstudio> {
+  /*async create(createDetalleEstudioDto: CreateDetalleEstudioDto): Promise<DetalleEstudio> {
     const postulanteData = createDetalleEstudioDto.postulante as any;
     const estudioData = createDetalleEstudioDto.estudio as any;
     
@@ -27,10 +29,33 @@ export class DetalleEstudiosService {
     );
     
     return result[0];
+  }*/
+
+  async create(createDetalleEstudioDto: CreateDetalleEstudioDto): Promise<DetalleEstudio> {
+    const postulanteData = createDetalleEstudioDto.postulante as any;
+    const estudioData = createDetalleEstudioDto.estudio as any;
+    
+    const postulanteId = postulanteData?.id_postulante || postulanteData?.id;
+    const estudioId = estudioData?.id_estudio || estudioData?.id;
+    
+    const result = await this.detalleEstudioOracleRepository.query(
+      `INSERT INTO detalles_estudios (id_postulante, id_estudio, certificado) 
+      VALUES ($1, $2, $3) 
+      RETURNING *`,
+      [postulanteId, estudioId, createDetalleEstudioDto.certificado]
+    );
+    
+    return result[0];
   }
 
-  findAll() {
+  /*findAll() {
     return this.detalleEstudioRepository.find({
+      relations: ['postulante', 'estudio'],
+    });
+  }*/
+
+  findAll() {
+    return this.detalleEstudioOracleRepository.find({
       relations: ['postulante', 'estudio'],
     });
   }

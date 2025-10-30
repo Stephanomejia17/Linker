@@ -10,8 +10,8 @@ import {
 
 @Entity('detalles_certificados')
 export class DetallesCertificado {
-  @PrimaryGeneratedColumn('uuid')
-  id_detalles_certificados: string;
+  @PrimaryGeneratedColumn()
+  id_detalles_certificados: number;
 
   @ManyToOne(() => Empresa, (empresa) => empresa.detallesCertificados, {
     onDelete: 'CASCADE',

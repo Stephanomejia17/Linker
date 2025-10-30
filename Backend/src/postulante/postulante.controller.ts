@@ -21,7 +21,7 @@ export class PostulanteController {
   }
 
   @Get(':id')
-  async getPostulante(@Param('id') id: string) {
+  async getPostulante(@Param('id') id: number) {
     return this.postulanteService.getPostulanteById(id);
   }
 
@@ -31,13 +31,13 @@ export class PostulanteController {
   }
 
   @Get('postulantes/:id')
-  async getPostulantesForEmpresa(@Param('id') vacanteId: string) {
+  async getPostulantesForEmpresa(@Param('id') vacanteId: number) {
     return this.postulanteService.getPostulantes(vacanteId);
   }
 
   @Patch(':id')
   async updatePostulante(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() createPostulanteDto: CreatePostulanteDto,
   ) {
     return this.postulanteService.updatePostulante(id, createPostulanteDto);

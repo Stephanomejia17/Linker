@@ -11,8 +11,8 @@ export enum TipoInteraccion {
 
 @Entity('interacciones')
 export class Interaccion {
-  @PrimaryGeneratedColumn('uuid')
-  id_interaccion: string;
+  @PrimaryGeneratedColumn()
+  id_interaccion: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fecha_registro: Date;

@@ -10,19 +10,31 @@ export class MatchesService {
   constructor(
     @InjectRepository(Match)
     private matchRepository: Repository<Match>,
+    @InjectRepository(Match, 'oracleConnection')
+    private matchOracleRepository: Repository<Match>,
     //private readonly vacantesService: VacantesService
     
   ) {}
 
-  async create(createMatchDto: CreateMatchDto) {
+  /*async create(createMatchDto: CreateMatchDto) {
     const match = this.matchRepository.create(createMatchDto);
     await this.matchRepository.save(match);
     return match
+  }*/
+
+  async create(createMatchDto: CreateMatchDto) {
+    const matchOracle = this.matchOracleRepository.create(createMatchDto);
+    await this.matchOracleRepository.save(matchOracle);
+    return matchOracle
   }
 
   findAll() {
-    return this.matchRepository.find({ relations: ['postulante', 'vacante'] });
+    return this.matchOracleRepository.find({ relations: ['postulante', 'vacante'] });
   }
+
+  /*findAll() {
+    return this.matchRepository.find({ relations: ['postulante', 'vacante'] });
+  }*/
 
   findOne(id: number) {
     return `This action returns a #${id} match`;

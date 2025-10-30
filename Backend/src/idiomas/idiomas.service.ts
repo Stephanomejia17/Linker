@@ -10,9 +10,11 @@ export class IdiomasService {
   constructor(
     @InjectRepository(Idioma)
     private idiomasRepository: Repository<Idioma>,
+    @InjectRepository(Idioma, 'oracleConnection')
+    private idiomasOracleRepository: Repository<Idioma>,
   ) {}
 
-  async create(createIdiomaDto: CreateIdiomaDto) {
+  /*async create(createIdiomaDto: CreateIdiomaDto) {
     const idiomaEntity = this.idiomasRepository.create(createIdiomaDto);
 
     await this.idiomasRepository.save(idiomaEntity);
@@ -21,6 +23,17 @@ export class IdiomasService {
 
   findAll() {
     return this.idiomasRepository.find();
+  }*/
+
+  async create(createIdiomaDto: CreateIdiomaDto) {
+    const idiomaEntity = this.idiomasOracleRepository.create(createIdiomaDto);
+
+    await this.idiomasOracleRepository.save(idiomaEntity);
+    return idiomaEntity;
+  }
+
+  findAll() {
+    return this.idiomasOracleRepository.find();
   }
 
   findOne(id: number) {

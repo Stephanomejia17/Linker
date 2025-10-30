@@ -20,8 +20,8 @@ import { Interaccion } from 'src/interacciones/entities/interacciones.entity';
 
 @Entity('postulantes')
 export class Postulante {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
   @Column({ type: 'varchar' })
   name: string;
   @Column({ type: 'varchar' })

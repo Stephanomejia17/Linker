@@ -16,9 +16,15 @@ export class PostulanteService {
     private readonly usuarioRepository: Repository<User>,
 
     private readonly interaccionesService: InteraccionesService,
+
+    @InjectRepository(Postulante, 'oracleConnection')
+    private postulanteOracleRepository: Repository<Postulante>,
+
+    @InjectRepository(User, 'oracleConnection')
+    private usuarioOracleRepository: Repository<User>,
   ) {}
 
-  async createPostulante(dto: CreatePostulanteDto) {
+  /*async createPostulante(dto: CreatePostulanteDto) {
     const user = await this.usuarioRepository.findOne({
       where: { id: dto.id_perfil },
     });
@@ -92,7 +98,7 @@ export class PostulanteService {
     postulante.curriculum = dto.cv;
   }
     return await this.postulanteRepository.save(postulante);
-  }
+  }*/
 
   /*async getPostulantesNoInteraction(empresaId:string){  
     console.log('hola desde sevice',empresaId)
@@ -100,4 +106,80 @@ export class PostulanteService {
     const vacantes_empresa= await this.vacanteService.vacantesEmpresa(empresaId)
     console.log(vacantes_empresa)
   }*/
+
+  async createPostulante(dto: CreatePostulanteDto) {
+    const user = await this.usuarioOracleRepository.findOne({
+      where: { id: dto.id_perfil },
+    });
+    console.log(user);
+
+    if (!user) {
+      throw new NotFoundException(
+        'No se encontró el perfil de usuario asociado.',
+      );
+    }
+    console.log('DTO recibido:', dto);
+    console.log('Usuario encontrado:', user?.id);
+
+    const postulante = this.postulanteOracleRepository.create({
+      ...dto,
+      user,
+    });
+
+    const registroPostulante = await this.postulanteOracleRepository.save(postulante);
+    return {
+      message: 'Postulante registrado con éxito',
+      postulante: registroPostulante,
+    };
+  }
+
+  async getPostulanteById(id: number) {
+    const postulante = await this.postulanteOracleRepository.findOne({
+      where: { id },
+      relations: ['user'],
+    });
+    if (!postulante) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+    return {
+      name: postulante.name,
+      lastname: postulante.lastname,
+    };
+  }
+
+  findAll() {
+    return this.postulanteOracleRepository.find({
+      relations: ['user'],
+    });
+  }
+
+  async getPostulantes(vacanteId: number) {
+    const postulantesExcluidos =
+      await this.interaccionesService.isFilteredPostulantes(vacanteId);
+    console.log(postulantesExcluidos)
+    const postulantes = await this.postulanteOracleRepository.find({
+      where: {
+        id: Not(In(postulantesExcluidos)),
+      },
+      relations:['postulanteHabilidades','postulanteIdiomas']
+    });
+
+    return postulantes;
+  }
+
+  async updatePostulante(idUsuario: number, dto: any) {
+    const postulante = await this.postulanteOracleRepository.findOne({ where: { id: idUsuario } });
+    if (!postulante) {
+      throw new NotFoundException(`Postulante no encontrado`);
+    }
+
+    if (dto.experiencia  !== undefined) {
+    postulante.años_experiencia = dto.experiencia;
+  }
+  
+  if (dto.cv  !== undefined) {
+    postulante.curriculum = dto.cv;
+  }
+    return await this.postulanteOracleRepository.save(postulante);
+  }
 }

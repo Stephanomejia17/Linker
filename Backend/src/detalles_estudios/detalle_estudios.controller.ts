@@ -18,17 +18,17 @@ export class DetalleEstudiosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.detalleEstudiosService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDetalleEstudioDto: UpdateDetalleEstudioDto) {
+  update(@Param('id') id: number, @Body() updateDetalleEstudioDto: UpdateDetalleEstudioDto) {
     return this.detalleEstudiosService.update(+id, updateDetalleEstudioDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.detalleEstudiosService.remove(+id);
   }
 }

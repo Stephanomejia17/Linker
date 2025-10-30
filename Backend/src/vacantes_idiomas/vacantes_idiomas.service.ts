@@ -10,9 +10,12 @@ export class VacantesIdiomasService {
   constructor(
     @InjectRepository(VacantesIdioma)
     private vacantesIdiomaRepository: Repository<VacantesIdioma>,
+
+    @InjectRepository(VacantesIdioma, 'oracleConnection')
+        private vacantesIdiomaOracleRepository: Repository<VacantesIdioma>,
   ) {}
 
-  async create(createVacantesIdiomaDto: CreateVacantesIdiomaDto) {
+  /*async create(createVacantesIdiomaDto: CreateVacantesIdiomaDto) {
     const vacanteIdiomaEntity = this.vacantesIdiomaRepository.create(
       createVacantesIdiomaDto,
     );
@@ -22,6 +25,20 @@ export class VacantesIdiomasService {
 
   findAll() {
     return this.vacantesIdiomaRepository.find({
+      relations: ['idioma', 'vacante'],
+    });
+  }*/
+
+  async create(createVacantesIdiomaDto: CreateVacantesIdiomaDto) {
+    const vacanteIdiomaEntity = this.vacantesIdiomaOracleRepository.create(
+      createVacantesIdiomaDto,
+    );
+    await this.vacantesIdiomaOracleRepository.save(vacanteIdiomaEntity);
+    return vacanteIdiomaEntity;
+  }
+
+  findAll() {
+    return this.vacantesIdiomaOracleRepository.find({
       relations: ['idioma', 'vacante'],
     });
   }

@@ -17,7 +17,7 @@ export class VacantesController {
   }
 
   @Get('empresaId/:empresa')
-  findVacantesOfEmpresa(@Param('empresa') empresaId: string) {
+  findVacantesOfEmpresa(@Param('empresa') empresaId: number) {
     return this.vacantesService.findAllVacantesofEmpresa(empresaId);
   }
 
@@ -27,7 +27,7 @@ export class VacantesController {
   }*/
 
   @Get('vacantes/:id')
-  getVacantes(@Param('id') postulanteId: string) {
+  getVacantes(@Param('id') postulanteId: number) {
     return this.vacantesService.getVacantes(postulanteId);
   }
 }

@@ -12,9 +12,12 @@ export class UserService {
     @InjectRepository(User)
     private usuarioRepository: Repository<User>,
     private readonly jwtService: JwtService,
+
+    @InjectRepository(User, 'oracleConnection')
+    private usuarioOracleRepository: Repository<User>,
   ) {}
 
-  async createUser(dto: UserDto) {
+  /*async createUser(dto: UserDto) {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(dto.password, salt);
 
@@ -61,6 +64,67 @@ export class UserService {
 
   async getPerfilUser(userId:string){
     const perfil = await this.usuarioRepository.findOne({
+      where:{id:userId},
+      relations:['empresa','postulante']
+    })
+
+    if (!perfil) return null;
+
+    if(perfil.postulante){
+      return perfil.postulante
+    }
+    if(perfil.empresa){
+      return perfil.empresa
+    }
+  }*/
+
+  async createUser(dto: UserDto) {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(dto.password, salt);
+
+    try {
+      const userEntity = this.usuarioOracleRepository.create({
+        ...dto,
+        password: hash,
+      });
+
+      await this.usuarioOracleRepository.save(userEntity);
+
+      return {
+        success: true,
+        message: 'Postulante registrado correctamente',
+        user: { id: userEntity.id },
+      };
+    } catch (error) {
+      console.error(error);
+      throw new BadRequestException('No se pudo crear');
+    }
+  }
+
+  async loginUser(dto: UserDto) {
+    const user = await this.usuarioOracleRepository.findOneBy({ email: dto.email });
+    if (!user) {
+      throw new BadRequestException('Credenciales inválidas');
+    }
+
+    const isPasswordValid = bcrypt.compareSync(dto.password, user.password);
+    if (!isPasswordValid) {
+      throw new BadRequestException('Credenciales inválidas');
+    }
+
+    const payload = { sub: user.id, email: user.email };
+    const token = this.jwtService.sign(payload);
+
+    return {
+      success: true,
+      message: 'Inicio de sesión exitoso',
+      user: { id: user.id },
+      token,
+    };
+  }
+
+  async getPerfilUser(userId:number){
+    const perfil = await this.usuarioOracleRepository.findOne({
       where:{id:userId},
       relations:['empresa','postulante']
     })

@@ -15,8 +15,8 @@ import { Match } from 'src/matches/entities/match.entity';
 
 @Entity('empresas')
 export class Empresa {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
   @Column({ type: 'varchar' })
   name_empresa: string;
   @Column({ type: 'varchar', nullable: true })

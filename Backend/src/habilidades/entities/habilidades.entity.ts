@@ -10,8 +10,8 @@ import {
 
 @Entity('habilidades')
 export class Habilidades {
-  @PrimaryGeneratedColumn('uuid')
-  id_habilidad: string;
+  @PrimaryGeneratedColumn()
+  id_habilidad: number;
 
   @Column({ type: 'varchar' })
   nombre_habilidad: string;

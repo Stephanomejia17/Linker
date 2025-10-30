@@ -20,8 +20,8 @@ export enum Niveles {
 
 @Entity('estudios')
 export class Estudio {
-  @PrimaryGeneratedColumn('uuid')
-  id_estudio: string;
+  @PrimaryGeneratedColumn()
+  id_estudio: number;
 
   @Column({ type: 'varchar' })
   titulo: string;

@@ -31,7 +31,7 @@ export class PerfilEmpresa {
     const id = sessionStorage.getItem('userId');
 
     if (id) {
-      this.empresa.getUserNameEmpresa(id).subscribe({
+      this.empresa.getUserNameEmpresa(+id).subscribe({
         next: (data: any) => {
           this.name = `${data.name_empresa}`;
         },

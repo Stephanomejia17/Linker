@@ -11,8 +11,8 @@ import {
 
 @Entity('postulante_habilidades')
 export class PostulanteHabilidades {
-  @PrimaryGeneratedColumn('uuid')
-  id_postulante_habilidad: string;
+  @PrimaryGeneratedColumn()
+  id_postulante_habilidad: number;
 
   @Column({ type: 'varchar' })
   certificado: string;

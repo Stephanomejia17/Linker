@@ -10,9 +10,11 @@ export class HabilidadesService {
   constructor(
     @InjectRepository(Habilidades)
     private habilidadesRepository: Repository<Habilidades>,
+    @InjectRepository(Habilidades, 'oracleConnection')
+    private habilidadesOracleRepository: Repository<Habilidades>,
   ) {}
 
-  create(createHabilidadeDto: CreateHabilidadeDto) {
+  /*create(createHabilidadeDto: CreateHabilidadeDto) {
     const habilidadEntity =
       this.habilidadesRepository.create(createHabilidadeDto);
 
@@ -23,6 +25,19 @@ export class HabilidadesService {
 
   findAll() {
     return this.habilidadesRepository.find();
+  }*/
+
+  create(createHabilidadeDto: CreateHabilidadeDto) {
+    const habilidadEntity =
+      this.habilidadesOracleRepository.create(createHabilidadeDto);
+
+    this.habilidadesOracleRepository.save(habilidadEntity);
+
+    return habilidadEntity;
+  }
+
+  findAll() {
+    return this.habilidadesOracleRepository.find();
   }
 
   findOne(id: number) {

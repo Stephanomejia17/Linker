@@ -26,7 +26,7 @@ export class UserController {
   }
 
   @Get('perfil/:idUser')
-  async getPerfil(@Param('idUser') idUser:string){
+  async getPerfil(@Param('idUser') idUser:number){
     return await this.userService.getPerfilUser(idUser)
   }
 }

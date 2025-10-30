@@ -82,11 +82,12 @@ export class SwipeEmpresa {
       this.current_position = 0;
       return;
     } else if (this.current_position < 0) {
+
       const interaccion: Interaccion = {
       accion_empresa: 'dislike',
-      vacante: sessionStorage.getItem('vacante') || '',
+      vacante: +sessionStorage.getItem('vacante')!,
       postulante: postulante.id,
-      empresa: sessionStorage.getItem('perfilId') || ''
+      empresa: +sessionStorage.getItem('perfilId')!
       };
       console.log(interaccion)
       this.match.onAction(interaccion).subscribe({
@@ -97,9 +98,9 @@ export class SwipeEmpresa {
     } else {
       const interaccion: Interaccion = {
       accion_empresa: 'like',
-      vacante: sessionStorage.getItem('vacante') || '',
+      vacante: +sessionStorage.getItem('vacante')!,
       postulante: postulante.id,
-      empresa: sessionStorage.getItem('perfilId') || ''
+      empresa: +sessionStorage.getItem('perfilId')!
       };
       console.log(interaccion)
       this.match.onAction(interaccion).subscribe({

@@ -10,9 +10,12 @@ export class VacanteHabilidadesService {
   constructor(
     @InjectRepository(VacanteHabilidade)
     private vacanteHabilidadesRepository: Repository<VacanteHabilidade>,
+
+    @InjectRepository(VacanteHabilidade, 'oracleConnection')
+    private vacanteHabilidadesOracleRepository: Repository<VacanteHabilidade>,
   ) {}
 
-  async create(createVacanteHabilidadeDto: CreateVacanteHabilidadeDto) {
+  /*async create(createVacanteHabilidadeDto: CreateVacanteHabilidadeDto) {
     const vacanteHabilidadesEntity = this.vacanteHabilidadesRepository.create(
       createVacanteHabilidadeDto,
     );
@@ -22,6 +25,20 @@ export class VacanteHabilidadesService {
 
   findAll() {
     return this.vacanteHabilidadesRepository.find({
+      relations: ['vacante', 'habilidades'],
+    });
+  }*/
+
+  async create(createVacanteHabilidadeDto: CreateVacanteHabilidadeDto) {
+    const vacanteHabilidadesEntity = this.vacanteHabilidadesOracleRepository.create(
+      createVacanteHabilidadeDto,
+    );
+    await this.vacanteHabilidadesOracleRepository.save(vacanteHabilidadesEntity);
+    return vacanteHabilidadesEntity;
+  }
+
+  findAll() {
+    return this.vacanteHabilidadesOracleRepository.find({
       relations: ['vacante', 'habilidades'],
     });
   }

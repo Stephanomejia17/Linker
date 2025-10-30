@@ -59,11 +59,11 @@ export class PerfilEmpresaCertificados {
     console.log('ID seleccionado:', cert.id_certificado);
   }
 
-  // 📋 Cargar certificados de la empresa
+  //  Cargar certificados de la empresa
   cargarCertificados() {
     console.log('desde cargar certificados', this.idEmpresa)
 
-    this.perfil.getCertificadosOfEmpresa(this.idEmpresa!).subscribe({
+    this.perfil.getCertificadosOfEmpresa(+this.idEmpresa!).subscribe({
       next: (data: CertificadoEmpresa[] )=>{
         this.certificadosOfEmpresa= data
         console.log(this.certificadosOfEmpresa, 'certificados de la empresa')
@@ -80,7 +80,7 @@ export class PerfilEmpresaCertificados {
 
     const data: CrearCertificadoEmpresa = {
       certificado: { id_certificado: this.certificadoSeleccionado?.id_certificado! },
-      empresa: { id: this.idEmpresa! },
+      empresa: { id: +this.idEmpresa! },
       fecha_emision: certificado.fechaEmision,
       fecha_caducidad: certificado.fechaCaducidad,
     };
@@ -91,7 +91,7 @@ export class PerfilEmpresaCertificados {
 
   }
 
-  // 💾 Guardar certificados
+  //  Guardar certificados
   guardarCertificados() {
     /*if (this.nuevoCertificado.invalid) return;
 

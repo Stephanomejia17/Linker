@@ -18,17 +18,17 @@ export class EstudiosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.estudiosService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstudioDto: UpdateEstudioDto) {
+  update(@Param('id') id: number, @Body() updateEstudioDto: UpdateEstudioDto) {
     return this.estudiosService.update(+id, updateEstudioDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.estudiosService.remove(+id);
   }
 }

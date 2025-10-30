@@ -6,8 +6,8 @@ export class CreateInteraccioneDto {
     //interaccion:TipoInteraccion;
     accion_empresa: TipoInteraccion;
     accion_postulante: TipoInteraccion;
-    vacante:string;
-    postulante:string;
-    empresa:string
+    vacante:number;
+    postulante:number;
+    empresa:number
 }
  

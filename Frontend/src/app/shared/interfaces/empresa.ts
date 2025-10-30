@@ -1,5 +1,5 @@
 interface Vacante {
-  id_vacante:string;
+  id_vacante:number;
   titulo: string;
   tipo_trabajo: string;
   modalidad: string;
@@ -12,7 +12,7 @@ interface Vacante {
 }
 
 interface CrearVacante{
-  id_vacante:string;
+  id_vacante:number;
   titulo: string;
   tipo_trabajo: string;
   tipo_modalidad: string;
@@ -24,7 +24,7 @@ interface CrearVacante{
 }
 
 interface CertificadoEmpresa {
-  id_detalles_certificados: string;
+  id_detalles_certificados: number;
   certificado: {
     //id_certificado: string;
     entidad_emisora: string;
@@ -41,28 +41,28 @@ interface CertificadoEmpresa {
 
 interface CrearCertificadoEmpresa {
   certificado: {
-    id_certificado: string;
+    id_certificado: number;
   };
   empresa: {
-    id: string;
+    id: number;
   };
   fecha_emision: string;
   fecha_caducidad: string;
 }
 
 interface Certificado{
-  id_certificado: string;
+  id_certificado: number;
   entidad_emisora: string;
   nombre_certificado: string
 }
 
 interface PerfilEmpresaModel {
-  descripcion: string;
+  descripcion: number;
   vacantes: Vacante[];
   certificados: CertificadoEmpresa[];
 }
 interface Empresa {
-  id_perfil: string;
+  id_perfil: number;
   name_empresa: string;
   NIT: string;
 }

@@ -18,17 +18,17 @@ export class IdiomasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.idiomasService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateIdiomaDto: UpdateIdiomaDto) {
+  update(@Param('id') id: number, @Body() updateIdiomaDto: UpdateIdiomaDto) {
     return this.idiomasService.update(+id, updateIdiomaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.idiomasService.remove(+id);
   }
 }

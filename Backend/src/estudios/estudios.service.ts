@@ -10,9 +10,11 @@ export class EstudiosService {
   constructor(
     @InjectRepository(Estudio)
     private estudiosRepository: Repository<Estudio>,
+    @InjectRepository(Estudio, 'oracleConnection')
+    private estudiosOracleRepository: Repository<Estudio>,
   ) {}
 
-  async create(createEstudioDto: CreateEstudioDto) {
+  /*async create(createEstudioDto: CreateEstudioDto) {
     const estudiosEntity = this.estudiosRepository.create(createEstudioDto);
 
     await this.estudiosRepository.save(estudiosEntity);
@@ -22,6 +24,18 @@ export class EstudiosService {
 
   findAll() {
     return this.estudiosRepository.find();
+  }*/
+
+  async create(createEstudioDto: CreateEstudioDto) {
+    const estudiosEntity = this.estudiosOracleRepository.create(createEstudioDto);
+
+    await this.estudiosOracleRepository.save(estudiosEntity);
+
+    return estudiosEntity;
+  }
+
+  findAll() {
+    return this.estudiosOracleRepository.find();
   }
 
   findOne(id: number) {

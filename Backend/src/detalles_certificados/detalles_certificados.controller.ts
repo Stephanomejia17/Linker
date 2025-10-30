@@ -18,17 +18,17 @@ export class DetallesCertificadosController {
   }
 
   @Get('empresa/:id')
-  findCertificadosForEmpresa(@Param('id') id:string){
+  findCertificadosForEmpresa(@Param('id') id:number){
     return this.detallesCertificadosService.findAllByEmpresa(id)
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDetallesCertificadoDto: UpdateDetallesCertificadoDto) {
+  update(@Param('id') id: number, @Body() updateDetallesCertificadoDto: UpdateDetallesCertificadoDto) {
     return this.detallesCertificadosService.update(+id, updateDetallesCertificadoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.detallesCertificadosService.remove(+id);
   }
 }

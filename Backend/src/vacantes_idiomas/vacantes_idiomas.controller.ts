@@ -18,17 +18,17 @@ export class VacantesIdiomasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.vacantesIdiomasService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVacantesIdiomaDto: UpdateVacantesIdiomaDto) {
+  update(@Param('id') id: number, @Body() updateVacantesIdiomaDto: UpdateVacantesIdiomaDto) {
     return this.vacantesIdiomasService.update(+id, updateVacantesIdiomaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.vacantesIdiomasService.remove(+id);
   }
 }

@@ -18,17 +18,17 @@ export class CertificadosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.certificadosService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCertificadoDto: UpdateCertificadoDto) {
+  update(@Param('id') id: number, @Body() updateCertificadoDto: UpdateCertificadoDto) {
     return this.certificadosService.update(+id, updateCertificadoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.certificadosService.remove(+id);
   }
 }

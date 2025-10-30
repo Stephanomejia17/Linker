@@ -4,8 +4,8 @@ import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('vacante_habilidades')
 export class VacanteHabilidade {
-  @PrimaryGeneratedColumn('uuid')
-  id_vacante_habilidade: string;
+  @PrimaryGeneratedColumn()
+  id_vacante_habilidade: number;
 
   @ManyToOne(() => Vacante, (vacante) => vacante.vacanteHabilidades, {
     onDelete: 'CASCADE',

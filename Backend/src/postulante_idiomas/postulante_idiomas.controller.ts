@@ -18,17 +18,17 @@ export class PostulanteIdiomasController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.postulanteIdiomasService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostulanteIdiomaDto: UpdatePostulanteIdiomaDto) {
+  update(@Param('id') id: number, @Body() updatePostulanteIdiomaDto: UpdatePostulanteIdiomaDto) {
     return this.postulanteIdiomasService.update(+id, updatePostulanteIdiomaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.postulanteIdiomasService.remove(+id);
   }
 }

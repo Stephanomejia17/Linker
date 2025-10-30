@@ -16,19 +16,19 @@ export class Perfil {
   auth = inject(Auth);
   http = inject(HttpClient);
 
-  getIsEmpresa(id: string): Observable<{ isEmpresa: boolean }> {
+  getIsEmpresa(id: number): Observable<{ isEmpresa: boolean }> {
     return this.http.get<{ isEmpresa: boolean }>(`http://localhost:3000/empresa/isEmpresa/${id}`);
   }
 
-  getPostulanteByUserId(idUsuario: string) {
+  getPostulanteByUserId(idUsuario: number) {
     return this.http.get(`http://localhost:3000/postulante/${idUsuario}`);
   }
 
-  getUserNamePostulante(id: string): Observable<PerfilPostulanteResponse> {
+  getUserNamePostulante(id: number): Observable<PerfilPostulanteResponse> {
     return this.http.get<PerfilPostulanteResponse>(`http://localhost:3000/postulante/${id}`);
   }
 
-  getUserNameEmpresa(id: string): Observable<{ name: string }> {
+  getUserNameEmpresa(id: number): Observable<{ name: string }> {
     return this.http.get<{ name: string }>(`http://localhost:3000/empresa/${id}`);
   }
 
@@ -68,7 +68,7 @@ export class Perfil {
     return this.http.post('http://localhost:3000/detalles-certificados', certificado)
   }
 
-  getCertificadosOfEmpresa(idEmpresa:string): Observable<any>{
+  getCertificadosOfEmpresa(idEmpresa:number): Observable<any>{
     return this.http.get(`http://localhost:3000/detalles-certificados/empresa/${idEmpresa}`)
   }
 
@@ -92,11 +92,11 @@ export class Perfil {
     return this.http.post(`http://localhost:3000/postulante-idiomas`, datos);
   }
 
-  actualizarPostulante(id: string, datos: any): Observable<any> {
+  actualizarPostulante(id: number, datos: any): Observable<any> {
     return this.http.patch(`http://localhost:3000/postulante/${id}`, datos);
   }
 
-  guardarPerfilPostulante(idUsuario: string, datosFormulario: any): Observable<any> {
+  guardarPerfilPostulante(idUsuario: number, datosFormulario: any): Observable<any> {
     const actualizarPostulante$ = this.actualizarPostulante(idUsuario, {
       experiencia: datosFormulario.experiencia,
       cv: datosFormulario.cv,

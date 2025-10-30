@@ -26,8 +26,8 @@ export enum TipoModalidad {
 
 @Entity('vacantes')
 export class Vacante {
-  @PrimaryGeneratedColumn('uuid')
-  id_vacante: string;
+  @PrimaryGeneratedColumn()
+  id_vacante: number;
 
   @Column({ type: 'varchar' })
   titulo: string;

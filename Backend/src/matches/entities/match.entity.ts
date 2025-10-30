@@ -14,8 +14,8 @@ import {
 
 @Entity('matches')
 export class Match {
-  @PrimaryGeneratedColumn('uuid')
-  id_match: string;
+  @PrimaryGeneratedColumn()
+  id_match: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   fecha: Date;

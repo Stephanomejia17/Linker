@@ -16,7 +16,7 @@ export class CreateVacanteDto {
   salario: number;
   ubicacion: string;
   // aqui hubieron cambios era empresa:Empresa
-  empresa: string;
-  vacanteHabilidades?: string[];
-  vacantesIdiomas?: string[];
+  empresa: number;
+  vacanteHabilidades?: number[];
+  vacantesIdiomas?: number[];
 }

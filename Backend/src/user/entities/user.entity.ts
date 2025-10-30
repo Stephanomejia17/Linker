@@ -10,8 +10,8 @@ import { Empresa } from 'src/empresa/entities/empresa.entity';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
   @Column({ type: 'varchar' })
   email: string;
   @Column({ type: 'varchar' })

@@ -26,12 +26,12 @@ export class EmpresaController {
   }
 
   @Get(':id')
-  async getEmpresa(@Param('id') id: string) {
+  async getEmpresa(@Param('id') id: number) {
     return this.empresaService.getEmpresaById(id);
   }
 
   @Get('isEmpresa/:id')
-  async isEmpresa(@Param('id') id: string) {
+  async isEmpresa(@Param('id') id: number) {
     return this.empresaService.isEmpresa(id);
   }
 }

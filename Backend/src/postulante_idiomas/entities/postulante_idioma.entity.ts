@@ -11,8 +11,8 @@ import {
 
 @Entity('postulante_idiomas')
 export class PostulanteIdioma {
-  @PrimaryGeneratedColumn('uuid')
-  id_postulante_idiomas: string;
+  @PrimaryGeneratedColumn()
+  id_postulante_idiomas: number;
 
   @Column({ type: 'varchar' })
   certificado: string;

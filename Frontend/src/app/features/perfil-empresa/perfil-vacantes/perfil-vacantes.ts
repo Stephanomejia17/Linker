@@ -155,7 +155,7 @@ export class PerfilVacantes {
   }
 
   // ========= ELIMINAR VACANTE =========
-  eliminarVacante(id_vacante: string) {
+  eliminarVacante(id_vacante: number) {
     if (confirm('¿Seguro que deseas eliminar esta vacante?')) {
       this.vacantes = this.vacantes.filter((v) => v.id_vacante !== id_vacante);
     }

@@ -10,17 +10,30 @@ export class CertificadosService {
   constructor(
     @InjectRepository(Certificado)
     private certificadoRepository: Repository<Certificado>,
+    @InjectRepository(Certificado, 'oracleConnection')
+    private certificadoOracleRepository: Repository<Certificado>,
   ) {}
 
-  create(createCertificadoDto: CreateCertificadoDto) {
+  /*create(createCertificadoDto: CreateCertificadoDto) {
     const certificadoEntity =
       this.certificadoRepository.create(createCertificadoDto);
     this.certificadoRepository.save(certificadoEntity);
     return certificadoEntity;
+  }*/
+
+  create(createCertificadoDto: CreateCertificadoDto) {
+    const certificadoEntity =
+      this.certificadoOracleRepository.create(createCertificadoDto);
+    this.certificadoOracleRepository.save(certificadoEntity);
+    return certificadoEntity;
   }
 
-  findAll() {
+  /*findAll() {
     return this.certificadoRepository.find();
+  }*/
+
+  findAll() {
+    return this.certificadoOracleRepository.find();
   }
 
   findOne(id: number) {

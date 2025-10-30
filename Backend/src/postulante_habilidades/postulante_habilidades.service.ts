@@ -10,9 +10,12 @@ export class PostulanteHabilidadesService {
   constructor(
     @InjectRepository(PostulanteHabilidades)
     private postulanteHabilidadesRepository: Repository<PostulanteHabilidades>,
+
+    @InjectRepository(PostulanteHabilidades, 'oracleConnection')
+    private postulanteHabilidadesOracleRepository: Repository<PostulanteHabilidades>,
   ) {}
 
-  async create(createPostulanteHabilidadeDto: CreatePostulanteHabilidadeDto) {
+  /*async create(createPostulanteHabilidadeDto: CreatePostulanteHabilidadeDto) {
     const postulanteData = createPostulanteHabilidadeDto.postulante as any;
     const habilidadData = createPostulanteHabilidadeDto.habilidades as any;
     
@@ -31,6 +34,29 @@ export class PostulanteHabilidadesService {
 
   findAll() {
     return this.postulanteHabilidadesRepository.find({
+      relations: ['postulante', 'habilidades'],
+    });
+  }*/
+
+  async create(createPostulanteHabilidadeDto: CreatePostulanteHabilidadeDto) {
+    const postulanteData = createPostulanteHabilidadeDto.postulante as any;
+    const habilidadData = createPostulanteHabilidadeDto.habilidades as any;
+    
+    const postulanteId = postulanteData?.id_postulante || postulanteData?.id;
+    const habilidadId = habilidadData?.id_habilidad || habilidadData?.id;
+    
+    const result = await this.postulanteHabilidadesOracleRepository.query(
+      `INSERT INTO postulante_habilidades (id_postulante, id_habilidad, certificado) 
+      VALUES ($1, $2, $3) 
+      RETURNING *`,
+      [postulanteId, habilidadId, createPostulanteHabilidadeDto.certificado]
+    );
+    
+    return result[0];
+  }
+
+  findAll() {
+    return this.postulanteHabilidadesOracleRepository.find({
       relations: ['postulante', 'habilidades'],
     });
   }

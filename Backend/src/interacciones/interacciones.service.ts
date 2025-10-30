@@ -13,9 +13,12 @@ export class InteraccionesService {
     private readonly interaccionRepository: Repository<Interaccion>,
     //private readonly vacantesService : VacantesService,
     private readonly matchService: MatchesService,
+
+    @InjectRepository(Interaccion, 'oracleConnection')
+        private interaccionOracleRepository: Repository<Interaccion>,
   ) {}
 
-  async createInteraction(createInteraccioneDto: CreateInteraccioneDto) {
+  /*async createInteraction(createInteraccioneDto: CreateInteraccioneDto) {
     const { postulante, vacante, accion_empresa, accion_postulante, empresa } =
       createInteraccioneDto;
 
@@ -143,6 +146,175 @@ export class InteraccionesService {
 
   async isFilteredPostulantes(vacanteId: string) {
     const filter = await this.interaccionRepository.find({
+      where: [
+        {
+          accionEmpresa: TipoInteraccion.LIKE,
+          accionPostulante: TipoInteraccion.LIKE,
+          vacante: { id_vacante: vacanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.DISLIKE,
+          accionPostulante: TipoInteraccion.DISLIKE,
+          vacante: { id_vacante: vacanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.LIKE,
+          accionPostulante: TipoInteraccion.DISLIKE,
+          vacante: { id_vacante: vacanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.DISLIKE,
+          accionPostulante: TipoInteraccion.LIKE,
+          vacante: { id_vacante: vacanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.DISLIKE,
+          accionPostulante: TipoInteraccion.NO_INTERACCION,
+          vacante: { id_vacante: vacanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.LIKE,
+          accionPostulante: TipoInteraccion.NO_INTERACCION,
+          vacante: { id_vacante: vacanteId },
+        },
+      ],
+      relations: ['vacante', 'postulante'],
+    });
+
+    const postulantesExcluidos = Array.from(
+      new Set(filter.map((i) => i.postulante.id)),
+    );
+    return postulantesExcluidos;
+  }*/
+
+  async createInteraction(createInteraccioneDto: CreateInteraccioneDto) {
+    const { postulante, vacante, accion_empresa, accion_postulante, empresa } =
+      createInteraccioneDto;
+
+    console.log(postulante);
+    console.log(accion_empresa);
+    console.log(vacante);
+    console.log(accion_postulante);
+    console.log(empresa);
+
+    const interaccionExistente = await this.findOne(vacante, postulante);
+    console.log(interaccionExistente);
+
+    if (!interaccionExistente) {
+      const interaccion = this.interaccionOracleRepository.create({
+        accionEmpresa: accion_empresa,
+        accionPostulante: accion_postulante,
+        vacante: { id_vacante: vacante },
+        postulante: { id: postulante },
+      });
+
+      await this.interaccionOracleRepository.save(interaccion);
+      //await this.isMatch(empresa, vacante, postulante);
+      return interaccion;
+
+    } else {
+      // 2. Aplicar la nueva acción SOLO si está definida en el DTO (es decir, fue enviada)
+      if (accion_empresa !== null) {
+        console.log('es like empresa');
+        interaccionExistente.accionEmpresa = accion_empresa;
+      }
+
+      if (accion_postulante !== null) {
+        interaccionExistente.accionPostulante = accion_postulante;
+      }
+
+      await this.interaccionOracleRepository.save(interaccionExistente);
+      await this.isMatch(empresa, vacante, postulante);
+      return;
+    }
+  }
+
+  async isMatch(empresaId: number, vacanteId: number, postulanteId: number) {
+    const interaccionExistente = await this.findOne(vacanteId, postulanteId);
+    console.log('desde match', interaccionExistente);
+
+    if (interaccionExistente) {
+      if (
+        interaccionExistente.accionEmpresa === 'like' &&
+        interaccionExistente.accionPostulante === 'like'
+      ) {
+        const match: CreateMatchDto = {
+          //empresa: { id: empresaId },
+          vacante: { id_vacante: vacanteId },
+          postulante: { id: postulanteId },
+        };
+        await this.matchService.create(match);
+        console.log('es un match', match);
+      }
+    }else{
+    console.log('no hay match');
+    }
+  }
+
+  async findOne(vacanteId: number, postulanteId: number) {
+    const interaccion = await this.interaccionOracleRepository.findOne({
+      //select:{postulante:{id:true}, vacante:{id_vacante:true}},
+      where: {
+        vacante: { id_vacante: vacanteId },
+        postulante: { id: postulanteId },
+      },
+      //relations:['vacante', 'postulante']
+      loadRelationIds: true,
+    });
+    console.log(interaccion);
+    if (!interaccion) {
+      console.log('no existe');
+    } else {
+      console.log('hay relacion');
+    }
+    return interaccion;
+  }
+
+  async isFilteredVacantes(postulanteId: number) {
+    const filter = await this.interaccionOracleRepository.find({
+      where: [
+        {
+          accionEmpresa: TipoInteraccion.LIKE,
+          accionPostulante: TipoInteraccion.LIKE,
+          postulante: { id: postulanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.DISLIKE,
+          accionPostulante: TipoInteraccion.DISLIKE,
+          postulante: { id: postulanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.LIKE,
+          accionPostulante: TipoInteraccion.DISLIKE,
+          postulante: { id: postulanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.DISLIKE,
+          accionPostulante: TipoInteraccion.LIKE,
+          postulante: { id: postulanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.NO_INTERACCION,
+          accionPostulante: TipoInteraccion.DISLIKE,
+          postulante: { id: postulanteId },
+        },
+        {
+          accionEmpresa: TipoInteraccion.NO_INTERACCION,
+          accionPostulante: TipoInteraccion.LIKE,
+          postulante: { id: postulanteId },
+        },
+      ],
+      relations: ['vacante', 'postulante'],
+    });
+    const vacantesExcluidas = Array.from(
+      new Set(filter.map((i) => i.vacante.id_vacante)),
+    );
+    console.log(vacantesExcluidas);
+    return vacantesExcluidas;
+  }
+
+  async isFilteredPostulantes(vacanteId: number) {
+    const filter = await this.interaccionOracleRepository.find({
       where: [
         {
           accionEmpresa: TipoInteraccion.LIKE,
