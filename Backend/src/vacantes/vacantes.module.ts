@@ -22,6 +22,6 @@ import { InteraccionesModule } from 'src/interacciones/interacciones.module';
   ],
   controllers: [VacantesController],
   providers: [VacantesService],
-  exports: [VacantesService],
+  exports: [VacantesService, TypeOrmModule], 
 })
 export class VacantesModule {}

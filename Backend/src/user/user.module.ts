@@ -5,9 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
+import { ChatModule } from '../chat/chat.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), 
+  imports: [TypeOrmModule.forFeature([User]),
+  ChatModule, 
   ConfigModule.forRoot(), 
     JwtModule.register({
     global: true,

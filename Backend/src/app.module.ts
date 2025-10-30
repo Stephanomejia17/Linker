@@ -19,12 +19,14 @@ import { VacantesModule } from './vacantes/vacantes.module';
 import { VacantesIdiomasModule } from './vacantes_idiomas/vacantes_idiomas.module';
 import { VacanteHabilidadesModule } from './vacante_habilidades/vacante_habilidades.module';
 import { MatchesModule } from './matches/matches.module';
+import { ChatModule } from './chat/chat.module';
 import { InteraccionesModule } from './interacciones/interacciones.module';
 
 @Module({
   imports: [
     AuthModule,
     UserModule,
+    ChatModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
