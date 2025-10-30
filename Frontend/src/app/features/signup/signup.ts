@@ -51,6 +51,7 @@ export class Signup {
 
   onSignUp() {
     let user = this.signupForm.value as User;
+    console.log('USER:', user);
     let postulante = this.postulanteForm.value as PerfilPostulanteModel;
 
     if (this.signupForm.hasError('passwordMismatch')) {

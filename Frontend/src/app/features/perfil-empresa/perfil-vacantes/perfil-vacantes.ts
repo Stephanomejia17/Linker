@@ -5,7 +5,7 @@ import {
   FormGroup,
   FormArray,
   FormControl,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { Perfil } from '../../../shared/services/perfil';
 import { Match } from '../../../shared/services/match';
@@ -20,7 +20,7 @@ import { Match } from '../../../shared/services/match';
 export class PerfilVacantes {
   fb = inject(FormBuilder);
   perfil = inject(Perfil);
-  match = inject(Match)
+  match = inject(Match);
 
   isOpen = false;
   activeTab: 'form' | 'list' = 'form';
@@ -81,10 +81,10 @@ export class PerfilVacantes {
     this.perfil.getHabilidades().subscribe({
       next: (res: Habilidad[]) => {
         this.habilidadesDisponibles = res;
+        console.log(this.habilidadesDisponibles, 'habilidades');
       },
       error: () => console.error('Error al cargar habilidades'),
     });
-    console.log(this.habilidadesDisponibles, 'habilidades')
 
     this.mostrarListaHabilidad[index] = !this.mostrarListaHabilidad[index];
   }
@@ -112,7 +112,7 @@ export class PerfilVacantes {
       },
       error: () => console.error('Error al cargar idiomas'),
     });
-    console.log(this.idiomasDisponibles,'idiomas')
+    console.log(this.idiomasDisponibles, 'idiomas');
 
     this.mostrarListaIdioma[index] = !this.mostrarListaIdioma[index];
   }
@@ -124,34 +124,33 @@ export class PerfilVacantes {
 
   // ========= GUARDAR VACANTE =========
   publicarVacante() {
-  //const vacante: Vacante = this.nuevaVacante.value;
+    //const vacante: Vacante = this.nuevaVacante.value;
 
-   let idEmpresa: string | null = sessionStorage.getItem('perfilId');
+    let idEmpresa: string | null = sessionStorage.getItem('perfilId');
 
     // 1. Manejar el caso de null (previniendo el error de TypeScript ts(2322))
     if (!idEmpresa) {
-        console.error("No se pudo obtener el perfilId de sessionStorage.");
-        // Podrías mostrar un mensaje al usuario o retornar
-        return; 
+      console.error('No se pudo obtener el perfilId de sessionStorage.');
+      // Podrías mostrar un mensaje al usuario o retornar
+      return;
     }
     this.nuevaVacante.get('empresa')?.setValue(idEmpresa);
-    const vacante: CrearVacante= this.nuevaVacante.value;
+    const vacante: CrearVacante = this.nuevaVacante.value;
 
     if (!vacante.vacanteHabilidades?.length) vacante.vacanteHabilidades = [];
     if (!vacante.vacantesIdiomas?.length) vacante.vacantesIdiomas = [];
 
-
     this.perfil.createVacante(vacante).subscribe({
-    next: (res) => {
-      console.log('Vacante guardada correctamente:', res);
-      this.nuevaVacante.reset();
-      this.habilidades.clear();
-      this.idiomas.clear();
-    },
-    error: (err) => {
-      console.error('Error al guardar la vacante:', err);
-    }
-  });
+      next: (res) => {
+        console.log('Vacante guardada correctamente:', res);
+        this.nuevaVacante.reset();
+        this.habilidades.clear();
+        this.idiomas.clear();
+      },
+      error: (err) => {
+        console.error('Error al guardar la vacante:', err);
+      },
+    });
   }
 
   // ========= ELIMINAR VACANTE =========
@@ -161,15 +160,15 @@ export class PerfilVacantes {
     }
   }
 
-  cargarVacantes(){
+  cargarVacantes() {
     this.match.getVacantesForEmpresa().subscribe({
-      next: (data:Vacante[])=>{
-        this.vacantes=data;
+      next: (data: Vacante[]) => {
+        this.vacantes = data;
       },
-      error: (err)=>{
-        console.log('error al cargar vacanres',err)
-      }
+      error: (err) => {
+        console.log('error al cargar vacanres', err);
+      },
     });
-    console.log(this.vacantes)
+    console.log(this.vacantes);
   }
 }

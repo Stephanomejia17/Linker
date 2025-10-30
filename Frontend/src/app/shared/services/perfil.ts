@@ -35,7 +35,9 @@ export class Perfil {
   }
 
   getHabilidades(): Observable<Habilidad[]> {
-    return this.http.get<Habilidad[]>('http://localhost:3000/habilidades');
+    const response = this.http.get<Habilidad[]>('http://localhost:3000/habilidades');
+    console.log('API HABILIDADES: ', response);
+    return response;
   }
 
   getIdiomas(): Observable<any> {

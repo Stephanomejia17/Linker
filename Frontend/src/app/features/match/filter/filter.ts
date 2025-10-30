@@ -67,4 +67,14 @@ export class Filter {
     this.idiomas.push(this.fb.control(''));
     this.mostrarListaIdioma.push(false);
   }
+
+  aplicarFiltros() {
+    const idsSeleccionados: number[] = this.idiomas.value.filter((id: any) => id !== '');
+    console.log('✅ IDs de idiomas seleccionados:', idsSeleccionados);
+
+    this.filter.enviarIdiomasSeleccionados(idsSeleccionados).subscribe({
+      next: (res) => console.log('✅ Filtros enviados correctamente:', res),
+      error: (err) => console.error('❌ Error al enviar filtros:', err),
+    });
+  }
 }

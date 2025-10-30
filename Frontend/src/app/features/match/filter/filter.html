@@ -17,7 +17,10 @@
     </div>
     }
 
-    <button type="button" class="btn btn-danger" (click)="eliminarSelectIdioma(index)">−</button>
+    <button type="button" class="btn btn-danger btn-delete" (click)="eliminarSelectIdioma(index)">
+      −
+    </button>
   </div>
   }
+  <button (click)="aplicarFiltros()">Aplicar filtros</button>
 </section>

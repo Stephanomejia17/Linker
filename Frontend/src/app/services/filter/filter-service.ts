@@ -19,4 +19,12 @@ export class FilterService {
   getHabilidades() {
     this.http.get(`http://localhost:3000/habilidades`);
   }
+
+  enviarIdiomasSeleccionados(ids: number[]) {
+    const params = new URLSearchParams();
+    const postulanteID = sessionStorage.getItem('perfilId');
+    params.set('postulanteId', postulanteID!.toString());
+    params.set('idiomas', ids.join(','));
+    return this.http.get(`http://localhost:3000/vacantes/filtrar?${params.toString()}`);
+  }
 }
