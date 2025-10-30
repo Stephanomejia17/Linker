@@ -25,5 +25,6 @@ import { InteraccionesModule } from 'src/interacciones/interacciones.module';
   ],
   controllers: [PostulanteController],
   providers: [PostulanteService],
+  exports: [TypeOrmModule], 
 })
 export class PostulanteModule {}

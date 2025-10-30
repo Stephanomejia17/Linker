@@ -12,13 +12,21 @@ export class PostulanteHabilidadesService {
     private postulanteHabilidadesRepository: Repository<PostulanteHabilidades>,
   ) {}
 
-  create(createPostulanteHabilidadeDto: CreatePostulanteHabilidadeDto) {
-    const postulanteHabilidadesEntity =
-      this.postulanteHabilidadesRepository.create(
-        createPostulanteHabilidadeDto,
-      );
-    this.postulanteHabilidadesRepository.save(postulanteHabilidadesEntity);
-    return postulanteHabilidadesEntity;
+  async create(createPostulanteHabilidadeDto: CreatePostulanteHabilidadeDto) {
+    const postulanteData = createPostulanteHabilidadeDto.postulante as any;
+    const habilidadData = createPostulanteHabilidadeDto.habilidades as any;
+    
+    const postulanteId = postulanteData?.id_postulante || postulanteData?.id;
+    const habilidadId = habilidadData?.id_habilidad || habilidadData?.id;
+    
+    const result = await this.postulanteHabilidadesRepository.query(
+      `INSERT INTO postulante_habilidades (id_postulante, id_habilidad, certificado) 
+      VALUES ($1, $2, $3) 
+      RETURNING *`,
+      [postulanteId, habilidadId, createPostulanteHabilidadeDto.certificado]
+    );
+    
+    return result[0];
   }
 
   findAll() {

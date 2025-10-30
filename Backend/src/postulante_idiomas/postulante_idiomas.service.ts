@@ -19,13 +19,20 @@ export class PostulanteIdiomasService {
   ) {}
 
   async create(createPostulanteIdiomaDto: CreatePostulanteIdiomaDto) {
-    const postulanteIdiomaEntity = this.postulanteIdiomaRepository.create(
-      createPostulanteIdiomaDto,
+    const postulanteData = createPostulanteIdiomaDto.postulante as any;
+    const idiomaData = createPostulanteIdiomaDto.idioma as any;
+    
+    const postulanteId = postulanteData?.id_postulante || postulanteData?.id;
+    const idiomaId = idiomaData?.id_idioma || idiomaData?.id;
+    
+    const result = await this.postulanteIdiomaRepository.query(
+      `INSERT INTO postulante_idiomas (id_postulante, id_idioma, certificado) 
+      VALUES ($1, $2, $3) 
+      RETURNING *`,
+      [postulanteId, idiomaId, createPostulanteIdiomaDto.certificado]
     );
-
-    await this.postulanteIdiomaRepository.save(postulanteIdiomaEntity);
-
-    return postulanteIdiomaEntity;
+    
+    return result[0];
   }
 
   findAll() {

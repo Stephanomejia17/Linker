@@ -78,6 +78,22 @@ export class PostulanteService {
     return postulantes;
   }
 
+  async updatePostulante(idUsuario: string, dto: any) {
+    const postulante = await this.postulanteRepository.findOne({ where: { id: idUsuario } });
+    if (!postulante) {
+      throw new NotFoundException(`Postulante no encontrado`);
+    }
+
+    if (dto.experiencia  !== undefined) {
+    postulante.años_experiencia = dto.experiencia;
+  }
+  
+  if (dto.cv  !== undefined) {
+    postulante.curriculum = dto.cv;
+  }
+    return await this.postulanteRepository.save(postulante);
+  }
+
   /*async getPostulantesNoInteraction(empresaId:string){  
     console.log('hola desde sevice',empresaId)
 

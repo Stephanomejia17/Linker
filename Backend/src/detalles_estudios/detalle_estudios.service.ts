@@ -11,13 +11,22 @@ export class DetalleEstudiosService {
     @InjectRepository(DetalleEstudio)
     private detalleEstudioRepository: Repository<DetalleEstudio>,
   ) {}
-  async create(
-    createDetalleEstudioDto: CreateDetalleEstudioDto,
-  ): Promise<DetalleEstudio> {
-    const detalleEstudioEntity = this.detalleEstudioRepository.create(
-      createDetalleEstudioDto,
+  
+  async create(createDetalleEstudioDto: CreateDetalleEstudioDto): Promise<DetalleEstudio> {
+    const postulanteData = createDetalleEstudioDto.postulante as any;
+    const estudioData = createDetalleEstudioDto.estudio as any;
+    
+    const postulanteId = postulanteData?.id_postulante || postulanteData?.id;
+    const estudioId = estudioData?.id_estudio || estudioData?.id;
+    
+    const result = await this.detalleEstudioRepository.query(
+      `INSERT INTO detalles_estudios (id_postulante, id_estudio, certificado) 
+      VALUES ($1, $2, $3) 
+      RETURNING *`,
+      [postulanteId, estudioId, createDetalleEstudioDto.certificado]
     );
-    return await this.detalleEstudioRepository.save(detalleEstudioEntity);
+    
+    return result[0];
   }
 
   findAll() {

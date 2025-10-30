@@ -35,4 +35,12 @@ export class PostulanteController {
     return this.postulanteService.getPostulantes(vacanteId);
   }
 
+  @Patch(':id')
+  async updatePostulante(
+    @Param('id') id: string,
+    @Body() createPostulanteDto: CreatePostulanteDto,
+  ) {
+    return this.postulanteService.updatePostulante(id, createPostulanteDto);
+  }
+
 }
