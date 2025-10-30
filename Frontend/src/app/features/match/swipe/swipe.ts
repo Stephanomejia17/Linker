@@ -16,20 +16,19 @@ export class Swipe {
   profile = inject(Perfil);
   match = inject(Match);
   auth = inject(Auth);
-  alerts = inject(Alerts)
+  alerts = inject(Alerts);
 
   userType = this.auth.getUserType();
 
-  list: Vacante[] =[];
+  list: Vacante[] = [];
   start = 0;
   current_position = 0;
   isDragging = false;
 
   ngOnInit(): void {
     console.log('Swipe Component Initialized');
-    console.log(this.list)
+    console.log(this.list);
   }
-
 
   @ViewChildren('card') cardElement!: QueryList<ElementRef<HTMLDivElement>>;
 
@@ -53,7 +52,7 @@ export class Swipe {
     }deg)`;
   }
 
-  onPointerUp(vacante:Vacante) {
+  onPointerUp(vacante: Vacante) {
     if (!this.isDragging) return;
     const card = this.cardElement.first.nativeElement;
     //console.log(card)
@@ -65,29 +64,28 @@ export class Swipe {
       this.current_position = 0;
       return;
     } else if (this.current_position < 0) {
-
       const interaccion: Interaccion = {
-      accion_postulante: 'dislike',
-      vacante: vacante.id_vacante,
-      postulante: sessionStorage.getItem('perfilId') || '',
-      empresa: vacante.empresa.id_perfil
+        accion_postulante: 'dislike',
+        vacante: vacante.id_vacante,
+        postulante: sessionStorage.getItem('perfilId') || '',
+        empresa: vacante.empresa.id_perfil,
       };
-      console.log(interaccion)
+      console.log(interaccion);
 
       this.match.onAction(interaccion).subscribe({
-      next: () => console.log('Dislike enviado:', interaccion),
-      error: (err) => console.error('Error al enviar dislike:', err)
+        next: () => console.log('Dislike enviado:', interaccion),
+        error: (err) => console.error('Error al enviar dislike:', err),
       });
     } else {
       const interaccion: Interaccion = {
-      accion_postulante: 'like',
-      vacante: vacante.id_vacante,
-      postulante: sessionStorage.getItem('perfilId') || '',
-      empresa: vacante.empresa.id_perfil
+        accion_postulante: 'like',
+        vacante: vacante.id_vacante,
+        postulante: sessionStorage.getItem('perfilId') || '',
+        empresa: vacante.empresa.id_perfil,
       };
       this.match.onAction(interaccion).subscribe({
-      next: () => console.log('like enviado:', interaccion),
-      error: (err) => console.error('Error al enviar like:', err)
+        next: () => console.log('like enviado:', interaccion),
+        error: (err) => console.error('Error al enviar like:', err),
       });
     }
     this.list.shift(); // Elimina la carta actual
@@ -97,16 +95,32 @@ export class Swipe {
   }
 
   getCards() {
-      this.match.getVacantes().subscribe({
-        next: (data: Vacante[]) => {
-          this.list = data;
-          console.log(this.list);
-        },
-        error: (err: any) => {
-          console.log(err);
-          this.alerts.info('No hay mas vacantes disponibles por el momento')
-        },
-      });
+    // this.match.getVacantes().subscribe({
+    //   next: (data: Vacante[]) => {
+    //     this.list = data;
+    //     console.log('VACANTES:', this.list);
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err);
+    //     this.alerts.info('No hay mas vacantes disponibles por el momento');
+    //   },
+    // });
+
+    const idsString = sessionStorage.getItem('idIdiomas');
+    const ids: number[] = idsString ? idsString.split(',').map((id) => Number(id)) : [];
+
+    this.filter.enviarIdiomasSeleccionados(ids).subscribe({
+      next: (data: { vacantes: Vacante[] }) => {
+        // Por si acaso data viene como objeto
+        console.log(typeof data);
+        this.list = Array.isArray(data.vacantes) ? data.vacantes : [];
+        console.log('VACANTES FILTRO: ', this.list);
+      },
+      error: (err: any) => {
+        console.log(err);
+        this.alerts.info('No hay mas vacantes disponibles por el momento');
+      },
+    });
   }
 
   filterActivated() {

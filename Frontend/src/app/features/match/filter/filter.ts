@@ -72,6 +72,8 @@ export class Filter {
     const idsSeleccionados: number[] = this.idiomas.value.filter((id: any) => id !== '');
     console.log('✅ IDs de idiomas seleccionados:', idsSeleccionados);
 
+    sessionStorage.setItem('idIdiomas', idsSeleccionados.toString());
+
     this.filter.enviarIdiomasSeleccionados(idsSeleccionados).subscribe({
       next: (res) => console.log('✅ Filtros enviados correctamente:', res),
       error: (err) => console.error('❌ Error al enviar filtros:', err),

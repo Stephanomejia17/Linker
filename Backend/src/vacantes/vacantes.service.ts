@@ -125,44 +125,77 @@ export class VacantesService {
     return vacantes;
   }
 
-  async filtrarVacantes(postulanteId: number, idiomas: number[]) {
-    const connection = await oracledb.getConnection({
-      user: 'XE_LINKER_2',
-      password: 'admin',
-      connectString:
-        '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=FREEPDB1)))',
-    });
+  async filtrarVacantes(
+    postulanteId: number,
+    idiomas: number[],
+  ): Promise<Vacante[]> {
+    let connection;
+    try {
+      connection = await oracledb.getConnection({
+        user: 'XE_LINKER_2',
+        password: 'admin',
+        connectString:
+          '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=FREEPDB1)))',
+      });
 
-    // Creamos el bloque PL/SQL y pasamos los idiomas como lista
-    const result = await connection.execute(
-      `
+      const result = await connection.execute(
+        `
     DECLARE
       v_idiomas SYS.ODCINUMBERLIST := SYS.ODCINUMBERLIST();
     BEGIN
-      -- Llenar la lista de idiomas manualmente
-      FOR i IN 1..:num_idiomas LOOP
-        v_idiomas.EXTEND;
-        v_idiomas(i) := :idiomas(i);
-      END LOOP;
+      -- Llenar la lista de idiomas solo si hay
+      IF :num_idiomas > 0 THEN
+        FOR i IN 1..:num_idiomas LOOP
+          v_idiomas.EXTEND;
+          v_idiomas(i) := :idiomas(i);
+        END LOOP;
+      END IF;
 
       OPEN :cursor FOR
         SELECT * FROM TABLE(XE_LINKER_2.PKG_FILTROS.FILTRAR_VACANTES(:postulante_id, v_idiomas));
     END;
     `,
-      {
-        postulante_id: postulanteId,
-        num_idiomas: idiomas.length,
-        idiomas: { dir: oracledb.BIND_IN, type: oracledb.NUMBER, val: idiomas },
-        cursor: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR },
-      },
-      { outFormat: oracledb.OUT_FORMAT_OBJECT },
-    );
+        {
+          postulante_id: postulanteId,
+          num_idiomas: idiomas.length,
+          idiomas: {
+            dir: oracledb.BIND_IN,
+            type: oracledb.NUMBER,
+            val: idiomas,
+          },
+          cursor: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR },
+        },
+        { outFormat: oracledb.OUT_FORMAT_OBJECT },
+      );
 
-    const resultSet = result.outBinds.cursor;
-    const rows = await resultSet.getRows(); // obtiene todos los resultados
-    await resultSet.close();
-    await connection.close();
-    console.log('ROWS: ', rows);
-    return rows;
+      const resultSet = result.outBinds.cursor;
+      let rows = await resultSet.getRows();
+      await resultSet.close();
+
+      // Asegurarse de que rows sea un array
+      if (!Array.isArray(rows)) {
+        rows = [];
+      }
+
+      const vacantes: Vacante[] = rows.map((r: any) => ({
+        id_vacante: r.ID_VACANTE,
+        titulo: r.TITULO,
+        tipo_trabajo: r.TIPO_TRABAJO,
+        modalidad: r.MODALIDAD,
+        salario: r.SALARIO,
+        ubicacion: r.UBICACION,
+        empresa: {
+          id: r.ID_EMPRESA || 0,
+          name_empresa: r.NAME_EMPRESA || '',
+        },
+        vacantesIdiomas: [], // opcional
+        vacanteHabilidades: [], // opcional
+      }));
+
+      console.log('VACANTES BACKEND: ', vacantes);
+      return vacantes;
+    } finally {
+      if (connection) await connection.close();
+    }
   }
 }
