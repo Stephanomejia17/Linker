@@ -42,4 +42,20 @@ export class VacantesController {
   getVacantes(@Param('id') postulanteId: number) {
     return this.vacantesService.getVacantes(postulanteId);
   }
+
+  @Get('filtrar')
+  async filtrarVacantes(
+    @Query('postulanteId') postulanteId: number,
+    @Query('idiomas') idiomas: string,
+  ) {
+    // Convierte la lista de IDs de idiomas separados por coma a números
+    const listaIdiomas = idiomas.split(',').map((id) => Number(id.trim()));
+
+    const vacantes = await this.vacantesService.filtrarVacantes(
+      postulanteId,
+      listaIdiomas,
+    );
+
+    return { vacantes };
+  }
 }

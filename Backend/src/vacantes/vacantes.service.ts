@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Vacante } from './entities/vacante.entity';
 import { In, Not, Repository } from 'typeorm';
 import { InteraccionesService } from 'src/interacciones/interacciones.service';
+import oracledb from 'oracledb';
 
 @Injectable()
 export class VacantesService {
@@ -122,5 +123,46 @@ export class VacantesService {
       take: 5,
     });
     return vacantes;
+  }
+
+  async filtrarVacantes(postulanteId: number, idiomas: number[]) {
+    const connection = await oracledb.getConnection({
+      user: 'XE_LINKER_2',
+      password: 'admin',
+      connectString:
+        '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=FREEPDB1)))',
+    });
+
+    // Creamos el bloque PL/SQL y pasamos los idiomas como lista
+    const result = await connection.execute(
+      `
+    DECLARE
+      v_idiomas SYS.ODCINUMBERLIST := SYS.ODCINUMBERLIST();
+    BEGIN
+      -- Llenar la lista de idiomas manualmente
+      FOR i IN 1..:num_idiomas LOOP
+        v_idiomas.EXTEND;
+        v_idiomas(i) := :idiomas(i);
+      END LOOP;
+
+      OPEN :cursor FOR
+        SELECT * FROM TABLE(XE_LINKER_2.PKG_FILTROS.FILTRAR_VACANTES(:postulante_id, v_idiomas));
+    END;
+    `,
+      {
+        postulante_id: postulanteId,
+        num_idiomas: idiomas.length,
+        idiomas: { dir: oracledb.BIND_IN, type: oracledb.NUMBER, val: idiomas },
+        cursor: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR },
+      },
+      { outFormat: oracledb.OUT_FORMAT_OBJECT },
+    );
+
+    const resultSet = result.outBinds.cursor;
+    const rows = await resultSet.getRows(); // obtiene todos los resultados
+    await resultSet.close();
+    await connection.close();
+    console.log('ROWS: ', rows);
+    return rows;
   }
 }
