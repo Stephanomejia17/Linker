@@ -8,6 +8,7 @@ import { InteraccionesService } from 'src/interacciones/interacciones.service';
 
 @Injectable()
 export class VacantesService {
+  private idiomasSeleccionados: number[] = [];
   constructor(
     @InjectRepository(Vacante, 'postgresConnection')
     private vacanteRepository: Repository<Vacante>,

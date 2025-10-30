@@ -11,6 +11,18 @@ export class VacantesController {
     return this.vacantesService.create(createVacanteDto);
   }
 
+  // vacantes.controller.ts
+  // @Post('recibirId')
+  // recibirId(@Body() body: { idiomas: number[] }) {
+  //   console.log('✅ IDs recibidos:', body.idiomas);
+  //   this.vacantesService.guardarIdiomasSeleccionados(body.idiomas);
+
+  //   return {
+  //     message: 'IDs recibidos y almacenados correctamente',
+  //     data: body.idiomas,
+  //   };
+  // }
+
   @Get()
   findAll() {
     return this.vacantesService.findAll();
