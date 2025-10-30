@@ -27,8 +27,10 @@ export class HabilidadesService {
     return habilidadEntity;
   }
 
-  findAll() {
-    return this.habilidadesOracleRepository.find();
+  async findAll() {
+    const response = await this.habilidadesOracleRepository.find();
+    console.log('🧠 HABILIDADES DESDE ORACLE:', response);
+    return response;
   }
 
   findAllOracle() {
