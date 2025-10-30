@@ -24,10 +24,36 @@ interface CrearVacante{
 }
 
 interface CertificadoEmpresa {
-  id_certificado: string;
-  id_empresa: string;  //revisar
+  id_detalles_certificados: string;
+  certificado: {
+    //id_certificado: string;
+    entidad_emisora: string;
+    nombre_certificado: string;
+  };
+  fecha_emision: string;
+  fecha_caducidad: string;
+  /*id_certificado: string;
+  id_empresa: string;  
   fechaEmision: string;
-  fechaCaducidad: string;
+  fechaCaducidad: string;*/
+  
+}
+
+interface CrearCertificadoEmpresa {
+  certificado: {
+    id_certificado: string;
+  };
+  empresa: {
+    id: string;
+  };
+  fecha_emision: string;
+  fecha_caducidad: string;
+}
+
+interface Certificado{
+  id_certificado: string;
+  entidad_emisora: string;
+  nombre_certificado: string
 }
 
 interface PerfilEmpresaModel {

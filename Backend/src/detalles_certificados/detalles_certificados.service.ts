@@ -27,9 +27,9 @@ export class DetallesCertificadosService {
     });
   }
 
-  findOne(id: number) {
+  /*findOne(id: number) {
     return `This action returns a #${id} detallesCertificado`;
-  }
+  }*/
 
   update(
     id: number,
@@ -41,4 +41,12 @@ export class DetallesCertificadosService {
   remove(id: number) {
     return `This action removes a #${id} detallesCertificado`;
   }
+
+  async findAllByEmpresa(id_empresa: string) {
+  return await this.detallesCertificadoRepository.find({
+    where: { empresa: { id: id_empresa } },
+    relations: ['certificado'], 
+  });
+}
+
 }

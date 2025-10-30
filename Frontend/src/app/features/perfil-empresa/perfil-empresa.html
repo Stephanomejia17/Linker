@@ -1,23 +1,18 @@
 <section>
-  <div class="perfil-container">
-    <form [formGroup]="empresaForm">
-     <!--- <h2>PERFIL EMPRESA</h2>-->
 
+  <div class="columna-izquierda">
+    <div class="perfil-container">
       <div class="perfil-header">
         <img src="assets/img/match-user-icon.webp" class="foto" />
-        <span class="nombre">{{ name }} </span>
+        <span class="nombre">{{ name }}</span>
       </div>
       <hr />
+    </div>
+  </div>
 
-      <div class="campo descripcion-empresa">
-        <div class="mini-titulo">
-          <img src="assets/img/icono-lapiz.png" class="icon" />
-          <label class="descripcion">Descripción de la empresa</label>
-        </div>
-        <textarea placeholder="Descripción de la empresa" formControlName="descripcion"></textarea>
-      </div>
 
-      <app-perfil-vacantes></app-perfil-vacantes>
-    </form>
+  <div class="columna-derecha">
+    <app-perfil-vacantes></app-perfil-vacantes>
+    <app-perfil-empresa-certificados></app-perfil-empresa-certificados>
   </div>
 </section>

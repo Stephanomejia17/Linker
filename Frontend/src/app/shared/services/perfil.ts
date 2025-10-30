@@ -42,6 +42,18 @@ export class Perfil {
     return this.http.get('http://localhost:3000/idiomas');
   }
 
+  getCerticados():Observable<any>{
+    return this.http.get('http://localhost:3000/certificados')
+  }
+
+  createCertificado(certificado: CrearCertificadoEmpresa): Observable<any>{
+    return this.http.post('http://localhost:3000/detalles-certificados', certificado)
+  }
+
+  getCertificadosOfEmpresa(idEmpresa:string): Observable<any>{
+    return this.http.get(`http://localhost:3000/detalles-certificados/empresa/${idEmpresa}`)
+  }
+
 
 
   /*guardarPerfil(perfil: PerfilPostulanteModel| PerfilEmpresaModel) {

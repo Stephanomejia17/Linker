@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { Alerts } from '../../shared/services/alerts';
 import { Perfil } from '../../shared/services/perfil';
 import { PerfilVacantes } from './perfil-vacantes/perfil-vacantes';
+import { PerfilEmpresaCertificados } from "./perfil-empresa-certificados/perfil-empresa-certificados";
 
 @Component({
   selector: 'app-perfil-empresa',
   standalone: true,
-  imports: [NgFor, NgIf, ReactiveFormsModule,PerfilVacantes],
+  imports: [ReactiveFormsModule, PerfilVacantes, PerfilEmpresaCertificados],
   templateUrl: './perfil-empresa.html',
   styleUrl: './perfil-empresa.css',
 })

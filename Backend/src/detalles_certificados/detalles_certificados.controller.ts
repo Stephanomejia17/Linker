@@ -17,9 +17,9 @@ export class DetallesCertificadosController {
     return this.detallesCertificadosService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.detallesCertificadosService.findOne(+id);
+  @Get('empresa/:id')
+  findCertificadosForEmpresa(@Param('id') id:string){
+    return this.detallesCertificadosService.findAllByEmpresa(id)
   }
 
   @Patch(':id')
