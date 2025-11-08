@@ -56,7 +56,10 @@ jobs:
                   push: true
                   tags: stephano21/linker-frontend:latest
 
-            - name: Deploy with docker-compose
-              run: |
-                  docker compose -f docker-compose.yml up -d --build
+            - name: Deploy with docker compose
+              working-directory: ${{ github.workspace }}
+              run: docker compose -f docker-compose.yml up -d --build
+                  
+                  
+
 
