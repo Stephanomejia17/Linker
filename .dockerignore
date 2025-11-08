@@ -1,0 +1,36 @@
+# Node modules y dependencias locales
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Archivos de entorno locales
+.env
+.env.local
+.env.*.local
+
+# Logs y caches
+logs
+*.log
+*.tsbuildinfo
+dist
+tmp
+.DS_Store
+
+# Configuración de IDEs
+.vscode
+.idea
+*.sublime-workspace
+*.sublime-project
+
+# Git
+.git
+.gitignore
+
+# Archivos del sistema
+*.swp
+*.bak
+*.tmp
+
+# Docker
+Dockerfile
+docker-compose.yml
