@@ -34,15 +34,18 @@ Para desplegar el sistema localmente utilizando Minikube, sigue estos pasos:
 2. **Construir las imágenes Docker**:
 
     ```bash
-    docker build -t linker-backend ./Backend
-    docker build -t linker-frontend ./Frontend
+    cd Backend/
+    docker build -t stephano21/linker-backend:latest .
+    cd ../Frontend/
+    docker build -t stephano21/linker-frontend:latest .
+    cd ..
     ```
 
-3. **Cargar imágenes en Minikube**:
+3. **Aplicar los manifiestos de Kubernetes**:
 
     ```bash
-    minikube image load linker-backend
-    minikube image load linker-frontend
+    kubectl apply -f k8s/backend.yaml
+    kubectl apply -f k8s/frontend.yaml
     ```
 
 4. **Aplicar los manifiestos de Kubernetes** (asegúrate de tener los archivos YAML en una carpeta `k8s/`):
@@ -51,17 +54,24 @@ Para desplegar el sistema localmente utilizando Minikube, sigue estos pasos:
     kubectl apply -f k8s/
     ```
 
-5. **Exponer los servicios**:
+5. **Verificar que los pods estén corriendo**:
 
-    - Backend: `minikube service backend-service`
-    - Frontend: `minikube service frontend-service`
-    - PgAdmin: `minikube service pgadmin-service`
+    ```bash
+    kubectl get pods
+    kubectl get svc
+    ```
 
-6. **Acceder a la aplicación**:
-    - Frontend: Utiliza la URL proporcionada por Minikube (generalmente http://localhost:puerto)
-    - PgAdmin: http://localhost:puerto_pgadmin
+6. **Exponer los servicios a tu máquina local (port-forward)**:
+    ```bash
+    kubectl port-forward svc/linker-backend 31000:3000 &
+    kubectl port-forward svc/linker-frontend 30080:80 &
+    ```
 
-Nota: Asegúrate de configurar las variables de entorno en los pods de Kubernetes según sea necesario.
+Nota: Puedes interactuar con la base de datos con este comando
+
+```bash
+kubectl exec -it postgres-7844c4c57c-bpm4t -- psql -U linker -d linkerdb
+```
 
 ## Docker Compose
 
@@ -97,6 +107,7 @@ services:
         restart: always
 
     backend:
+        image: stephano21/linker-backend:latest
         container_name: backendAppLinker
         depends_on:
             - db
@@ -112,6 +123,7 @@ services:
         restart: always
 
     frontend:
+        image: stephano21/linker-frontend:latest
         container_name: frontendAppLinker
         build: ./Frontend
         ports:

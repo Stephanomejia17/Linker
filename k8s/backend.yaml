@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: linker-backend
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: linker-backend
+    template:
+        metadata:
+            labels:
+                app: linker-backend
+        spec:
+            containers:
+                - name: linker-backend
+                  image: stephano21/linker-backend:latest
+                  imagePullPolicy: Always
+                  ports:
+                      - containerPort: 3000
+                  env:
+                      - name: DB_HOST
+                        value: "postgres"
+                      - name: DB_PORT
+                        value: "5432"
+                      - name: DB_USER
+                        value: "linker"
+                      - name: DB_PASSWORD
+                        value: "linker"
+                      - name: DB_NAME
+                        value: "linkerdb"
+                      - name: CORS_ORIGIN
+                        value: "*"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: linker-backend
+spec:
+    type: NodePort # Cambiado de ClusterIP a NodePort
+    selector:
+        app: linker-backend
+    ports:
+        - port: 3000 # puerto interno en el cluster
+          targetPort: 3000
+          nodePort: 31000 # puerto fijo para tu Mac
+

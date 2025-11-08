@@ -27,6 +27,7 @@ services:
         restart: always
 
     backend:
+        image: stephano21/linker-backend:latest
         container_name: backendAppLinker
         depends_on:
             - db
@@ -42,6 +43,7 @@ services:
         restart: always
 
     frontend:
+        image: stephano21/linker-frontend:latest
         container_name: frontendAppLinker
         build: ./Frontend
         ports:
