@@ -28,7 +28,7 @@ Para desplegar el sistema localmente utilizando Minikube, sigue estos pasos:
 1. **Iniciar Minikube**:
 
     ```bash
-    minikube start
+    minikube start driver=docker
     ```
 
 2. **Construir las imágenes Docker**:
