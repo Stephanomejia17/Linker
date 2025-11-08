@@ -13,20 +13,23 @@ export class ChatService {
   }
 
   async createStreamUser(id: string, name: string, image?: string) {
-    try {
-      await this.serverClient.upsertUser({
-        id,
-        name,
-        image: image || `https://getstream.io/random_png/?id=${id}`,
-      });
-      return { success: true };
-    } catch (error) {
-      console.error('Error al crear usuario en Stream:', error);
-      return { success: false };
-    }
+    // try {
+    //   await this.serverClient.upsertUser({
+    //     id,
+    //     name,
+    //     image: image || `https://getstream.io/random_png/?id=${id}`,
+    //   });
+    //   return { success: true };
+    // } catch (error) {
+    //   console.error('Error al crear usuario en Stream:', error);
+    //   return { success: false };
+    // }
+
+    return { success: true };
   }
 
   async generateUserToken(userId: string) {
-    return this.serverClient.createToken(userId);
+    // return this.serverClient.createToken(userId);
+    return 'TOKEN-TOKEN-TOKEN';
   }
 }

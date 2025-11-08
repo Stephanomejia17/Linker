@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+    db:
+        image: postgres:15
+        container_name: db_postgresLinker
+        environment:
+            POSTGRES_USER: linker
+            POSTGRES_PASSWORD: linker
+            POSTGRES_DB: linkerdb
+        ports:
+            - "5433:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        restart: always
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: pgadmin_linker
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@linker.com
+            PGADMIN_DEFAULT_PASSWORD: admin
+        ports:
+            - "5050:80"
+        depends_on:
+            - db
+        restart: always
+
+    backend:
+        container_name: backendAppLinker
+        depends_on:
+            - db
+        build: ./Backend
+        ports:
+            - "3000:3000"
+        environment:
+            DB_HOST: db
+            DB_PORT: 5432
+            DB_USER: linker
+            DB_PASSWORD: linker
+            DB_NAME: linkerdb
+        restart: always
+
+    frontend:
+        container_name: frontendAppLinker
+        build: ./Frontend
+        ports:
+            - "8090:80"
+        depends_on:
+            - backend
+        restart: always
+
+volumes:
+    postgres_data:

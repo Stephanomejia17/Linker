@@ -47,8 +47,8 @@ export class Perfil {
     });
   }
 
-  createVacante(vacante:CrearVacante): Observable<any> {
-    console.log(vacante,'desde service')
+  createVacante(vacante: CrearVacante): Observable<any> {
+    console.log(vacante, 'desde service');
     return this.http.post('http://localhost:3000/vacantes', vacante);
   }
 
@@ -56,20 +56,20 @@ export class Perfil {
     return this.http.get<Habilidad[]>('http://localhost:3000/habilidades');
   }
 
-  getIdiomas():Observable<any>{
+  getIdiomas(): Observable<any> {
     return this.http.get('http://localhost:3000/idiomas');
   }
 
-  getCerticados():Observable<any>{
-    return this.http.get('http://localhost:3000/certificados')
+  getCerticados(): Observable<any> {
+    return this.http.get('http://localhost:3000/certificados');
   }
 
-  createCertificado(certificado: CrearCertificadoEmpresa): Observable<any>{
-    return this.http.post('http://localhost:3000/detalles-certificados', certificado)
+  createCertificado(certificado: CrearCertificadoEmpresa): Observable<any> {
+    return this.http.post('http://localhost:3000/detalles-certificados', certificado);
   }
 
-  getCertificadosOfEmpresa(idEmpresa:string): Observable<any>{
-    return this.http.get(`http://localhost:3000/detalles-certificados/empresa/${idEmpresa}`)
+  getCertificadosOfEmpresa(idEmpresa: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/detalles-certificados/empresa/${idEmpresa}`);
   }
 
   crearEstudio(datos: any): Observable<any> {
@@ -101,7 +101,7 @@ export class Perfil {
       experiencia: datosFormulario.experiencia,
       cv: datosFormulario.cv,
     });
-    
+
     const detalleEstudios$ = datosFormulario.estudios.map((estudio: any) => {
       const estudioPayload = {
         titulo: estudio.titulo,
@@ -118,7 +118,7 @@ export class Perfil {
           const detallePayload = {
             postulante: { id_postulante: idUsuario },
             estudio: { id_estudio: idEstudio },
-            certificado: estudio.certificado
+            certificado: estudio.certificado,
           };
 
           return this.crearDetalleEstudios(detallePayload);
@@ -130,17 +130,17 @@ export class Perfil {
       const habilidadPayload = {
         postulante: { id_postulante: idUsuario },
         habilidades: { id_habilidad: habilidad.id },
-        certificado: habilidad.certificado, 
+        certificado: habilidad.certificado,
       };
 
       return this.crearPostulanteHabilidad(habilidadPayload);
     });
-    
+
     const postulanteIdiomas$ = datosFormulario.idiomas.map((idioma: any) => {
       const idiomaPayload = {
         postulante: { id_postulante: idUsuario },
         idioma: { id_idioma: idioma.id },
-        certificado: idioma.certificado , 
+        certificado: idioma.certificado,
       };
 
       return this.crearPostulanteIdioma(idiomaPayload);
@@ -148,11 +148,7 @@ export class Perfil {
 
     return actualizarPostulante$.pipe(
       switchMap(() =>
-        forkJoin([
-          ...detalleEstudios$,
-          ...postulanteHabilidades$,
-          ...postulanteIdiomas$,
-        ])
+        forkJoin([...detalleEstudios$, ...postulanteHabilidades$, ...postulanteIdiomas$])
       )
     );
   }
