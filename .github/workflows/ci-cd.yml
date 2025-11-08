@@ -3,10 +3,10 @@ name: CI/CD Linker App
 on:
     push:
         branches:
-            - main
+            - gestion_configuracion
     pull_request:
         branches:
-            - main
+            - gestion_configuracion
 
 jobs:
     build-and-deploy:
