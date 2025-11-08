@@ -90,7 +90,10 @@ export class PerfilVacantes {
   }
 
   seleccionarHabilidad(index: number, habilidad: Habilidad) {
-    this.habilidades.at(index).setValue(habilidad.id_habilidad);
+    this.habilidades.at(index).setValue({
+    id_habilidad: habilidad.id_habilidad,
+    nombre_habilidad: habilidad.nombre_habilidad
+  });
     this.mostrarListaHabilidad[index] = false;
   }
 
@@ -118,7 +121,10 @@ export class PerfilVacantes {
   }
 
   seleccionarIdioma(index: number, idioma: Idioma) {
-    this.idiomas.at(index).setValue(idioma.id_idioma);
+    this.idiomas.at(index).setValue({
+    id_idioma: idioma.id_idioma,
+    nombre: idioma.nombre
+  });
     this.mostrarListaIdioma[index] = false;
   }
 
@@ -140,6 +146,13 @@ export class PerfilVacantes {
     if (!vacante.vacanteHabilidades?.length) vacante.vacanteHabilidades = [];
     if (!vacante.vacantesIdiomas?.length) vacante.vacantesIdiomas = [];
 
+    vacante.vacanteHabilidades = vacante.vacanteHabilidades.map(
+      (h: any) => h.id_habilidad
+    );
+
+    vacante.vacantesIdiomas = vacante.vacantesIdiomas.map(
+      (i: any) => i.id_idioma
+    );
 
     this.perfil.createVacante(vacante).subscribe({
     next: (res) => {

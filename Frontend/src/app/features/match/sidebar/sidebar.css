@@ -214,7 +214,7 @@
 }
 
 .message-wrapper.me .message {
-  background: linear-gradient(135deg, #0078ff 0%, #0056cc 100%);
+  background: #0078ff;
   color: white;
   border-bottom-right-radius: 4px;
 }

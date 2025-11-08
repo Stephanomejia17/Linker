@@ -11,7 +11,6 @@
 
   @if (isOpen) {
   <div class="panel-content">
-    <!-- 🧭 Tabs -->
     <div class="tabs-container">
       <button
         (click)="setActiveTab('form')"
@@ -33,7 +32,6 @@
       </button>
     </div>
 
-    <!-- ✍️ Formulario -->
     @if (activeTab === 'form') {
     <form [formGroup]="nuevaVacante" (ngSubmit)="publicarVacante()">
       <div class="form-content">
@@ -77,7 +75,6 @@
           </select>
         </div>
 
-        <!-- 🎯 Habilidades -->
         <div class="habilidades-container">
           <h3>Habilidades requeridas</h3>
 
@@ -88,7 +85,7 @@
               class="dropdown-button"
               (click)="toggleListaHabilidad(i)"
             >
-              {{ h.value || 'Seleccione una habilidad' }}
+              {{ h.value?.nombre_habilidad || 'Seleccione una habilidad' }}
             </button>
 
             @if (mostrarListaHabilidad[i]) {
@@ -131,7 +128,7 @@
               class="dropdown-button"
               (click)="toggleListaIdioma(index)"
             >
-              {{ i.value || 'Seleccione un idioma' }}
+              {{ i.value?.nombre || 'Seleccione un idioma' }}
             </button>
 
             @if (mostrarListaIdioma[index]) {
