@@ -56,10 +56,12 @@ jobs:
                   push: true
                   tags: stephano21/linker-frontend:latest
 
+            - name: Mostrar archivos del workspace
+              run: |
+                  echo "Directorio actual: $(pwd)"
+                  ls -la
+                  ls -la ${{ github.workspace }}
+
             - name: Deploy with docker compose
               working-directory: ${{ github.workspace }}
               run: docker compose -f docker-compose.yml up -d --build
-                  
-                  
-
-
