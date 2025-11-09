@@ -1,0 +1,37 @@
+{
+	"dashboard": {
+		"id": null,
+		"uid": "backend",
+		"title": "Backend Metrics",
+		"tags": ["backend", "api"],
+		"timezone": "browser",
+		"schemaVersion": 30,
+		"version": 1,
+		"panels": [
+			{
+				"type": "graph",
+				"title": "Request Duration",
+				"targets": [
+					{
+						"expr": "http_request_duration_seconds_sum / http_request_duration_seconds_count",
+						"refId": "A",
+						"legendFormat": "{{method}} {{route}}"
+					}
+				],
+				"gridPos": { "x": 0, "y": 0, "w": 24, "h": 9 }
+			},
+			{
+				"type": "graph",
+				"title": "Request Count",
+				"targets": [
+					{
+						"expr": "http_requests_total",
+						"refId": "B",
+						"legendFormat": "{{method}} {{route}}"
+					}
+				],
+				"gridPos": { "x": 0, "y": 9, "w": 24, "h": 9 }
+			}
+		]
+	}
+}

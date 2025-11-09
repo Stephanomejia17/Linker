@@ -69,12 +69,21 @@ Para desplegar el sistema localmente utilizando Minikube, sigue estos pasos:
     ```bash
     http://127.0.0.1:30080
     ```
+8. **Métricas**:
+    ```bash
+    docker run -d --name=grafana -p 3001:3000 grafana/grafana:latest
+    ```
+    usuario: admin
+    contraseña: admin
 
 Nota: Puedes interactuar con la base de datos con este comando
 
 ```bash
 kubectl exec -it db-<POD-ID> -- psql -U linker -d linkerdb
 ```
+
+Prometheus: `bash http://localhost:9090`
+Grafana: `bash http://localhost:3002`
 
 ## Docker Compose
 
