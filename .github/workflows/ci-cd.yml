@@ -74,9 +74,8 @@ jobs:
                   ls -la
                   ls -la ${{ github.workspace }}
 
-            - name: Deploy to Kubernetes
+            - name: Deploy with Docker Compose
               working-directory: ${{ github.workspace }}
               run: |
-                  kubectl apply -f ./kube
-                  kubectl get pods
-                  kubectl get svc
+                  docker compose -f docker-compose.yaml up -d --build
+                  docker compose ps
