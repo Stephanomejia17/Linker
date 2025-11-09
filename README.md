@@ -182,10 +182,7 @@ docker-compose up --build
 
 -   **Imágenes en DockerHub**:
 
-    -   Backend: [https://hub.docker.com/r/linker/backend](https://hub.docker.com/r/linker/backend)
-    -   Frontend: [https://hub.docker.com/r/linker/frontend](https://hub.docker.com/r/linker/frontend)
-    -   Base de Datos: [https://hub.docker.com/\_/postgres](https://hub.docker.com/_/postgres)
+    -   Backend: [https://hub.docker.com/stephano21/backend](https://hub.docker.com/repository/docker/stephano21/linker-backend/general)
+    -   Frontend: [https://hub.docker.com/stephano21/frontend](https://hub.docker.com/repository/docker/stephano21/linker-frontend/general)
 
--   **Documentación Técnica**: [https://docs.linker.com](https://docs.linker.com)
-
--   **Pipeline (GitHub Actions)**: [https://github.com/linker-project/linker/actions](https://github.com/linker-project/linker/actions)
+-   **Pipeline (GitHub Actions)**: [https://github.com/Stephanomejia17/Linker/actions](https://github.com/Stephanomejia17/Linker/actions)
