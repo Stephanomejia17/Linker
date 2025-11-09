@@ -131,7 +131,7 @@ services:
             DB_PORT: 5432
             DB_USER: linker
             DB_PASSWORD: linker
-            DB_DATABASE: linkerdb # CAMBIO
+            DB_DATABASE: linkerdb
         restart: always
 
     frontend:
