@@ -131,7 +131,7 @@ services:
             DB_PORT: 5432
             DB_USER: linker
             DB_PASSWORD: linker
-            DB_NAME: linkerdb
+            DB_DATABASE: linkerdb # CAMBIO
         restart: always
 
     frontend:
@@ -143,9 +143,33 @@ services:
         depends_on:
             - backend
         restart: always
+    prometheus:
+        image: prom/prometheus:latest
+        container_name: prometheus_linker
+        volumes:
+            - ./monitoring/prometheus:/etc/prometheus
+        ports:
+            - "9090:9090"
+        depends_on:
+            - backend
+
+    grafana:
+        image: grafana/grafana:latest
+        container_name: grafana_linker
+        ports:
+            - "3002:3000"
+        volumes:
+            - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+            - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+        environment:
+            GF_SECURITY_ADMIN_USER: admin
+            GF_SECURITY_ADMIN_PASSWORD: admin
+        depends_on:
+            - prometheus
 
 volumes:
     postgres_data:
+    grafana_data:
 ```
 
 Para ejecutar con Docker Compose:
