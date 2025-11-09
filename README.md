@@ -73,7 +73,7 @@ Para desplegar el sistema localmente utilizando Minikube, sigue estos pasos:
 Nota: Puedes interactuar con la base de datos con este comando
 
 ```bash
-kubectl exec -it postgres-7844c4c57c-bpm4t -- psql -U linker -d linkerdb
+kubectl exec -it db-<POD-ID> -- psql -U linker -d linkerdb
 ```
 
 ## Docker Compose
