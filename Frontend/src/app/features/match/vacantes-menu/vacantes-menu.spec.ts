@@ -2,18 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PerfilPostulante } from './perfil-postulante';
+import { VacantesMenu } from './vacantes-menu';
 
-describe('PerfilPostulante', () => {
-  let component: PerfilPostulante;
-  let fixture: ComponentFixture<PerfilPostulante>;
+describe('VacantesMenu', () => {
+  let component: VacantesMenu;
+  let fixture: ComponentFixture<VacantesMenu>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PerfilPostulante, HttpClientTestingModule, RouterTestingModule],
+      imports: [VacantesMenu, HttpClientTestingModule, RouterTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PerfilPostulante);
+    fixture = TestBed.createComponent(VacantesMenu);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,18 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PerfilPostulante } from './perfil-postulante';
+import { PerfilEmpresaCertificados } from './perfil-empresa-certificados';
 
-describe('PerfilPostulante', () => {
-  let component: PerfilPostulante;
-  let fixture: ComponentFixture<PerfilPostulante>;
+describe('PerfilEmpresaCertificados', () => {
+  let component: PerfilEmpresaCertificados;
+  let fixture: ComponentFixture<PerfilEmpresaCertificados>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PerfilPostulante, HttpClientTestingModule, RouterTestingModule],
+      imports: [PerfilEmpresaCertificados, HttpClientTestingModule, RouterTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PerfilPostulante);
+    fixture = TestBed.createComponent(PerfilEmpresaCertificados);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

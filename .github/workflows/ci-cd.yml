@@ -40,6 +40,18 @@ jobs:
                   username: ${{ secrets.DOCKER_USERNAME }}
                   password: ${{ secrets.DOCKER_PASSWORD }}
 
+            - name: Run Backend unit tests
+              working-directory: ./Backend
+              run: |
+                  npm install
+                  npm test
+
+            - name: Run Frontend unit tests
+              working-directory: ./Frontend
+              run: |
+                  npm install
+                  npm test -- --watch=false --browsers=ChromeHeadless
+
             - name: Build and push Backend Docker image
               uses: docker/build-push-action@v5
               with:

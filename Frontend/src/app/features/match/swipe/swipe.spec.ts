@@ -2,18 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PerfilPostulante } from './perfil-postulante';
+import { Swipe } from './swipe';
 
-describe('PerfilPostulante', () => {
-  let component: PerfilPostulante;
-  let fixture: ComponentFixture<PerfilPostulante>;
+describe('Swipe', () => {
+  let component: Swipe;
+  let fixture: ComponentFixture<Swipe>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PerfilPostulante, HttpClientTestingModule, RouterTestingModule],
+      imports: [Swipe, HttpClientTestingModule, RouterTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PerfilPostulante);
+    fixture = TestBed.createComponent(Swipe);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

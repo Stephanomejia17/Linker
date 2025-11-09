@@ -35,18 +35,20 @@ export class DetallesCertificadosService {
     id: number,
     updateDetallesCertificadoDto: UpdateDetallesCertificadoDto,
   ) {
-    return `This action updates a #${id} detallesCertificado`;
+    return this.detallesCertificadoRepository.update(
+      id,
+      updateDetallesCertificadoDto,
+    );
   }
 
   remove(id: number) {
-    return `This action removes a #${id} detallesCertificado`;
+    return this.detallesCertificadoRepository.delete(id);
   }
 
   async findAllByEmpresa(id_empresa: string) {
-  return await this.detallesCertificadoRepository.find({
-    where: { empresa: { id: id_empresa } },
-    relations: ['certificado'], 
-  });
-}
-
+    return await this.detallesCertificadoRepository.find({
+      where: { empresa: { id: id_empresa } },
+      relations: ['certificado'],
+    });
+  }
 }

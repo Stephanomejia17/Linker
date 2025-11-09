@@ -24,14 +24,21 @@ export class CertificadosService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} certificado`;
+    return this.certificadoRepository.findOne({
+      where: { id_certificado: id.toString() },
+    });
   }
 
   update(id: number, updateCertificadoDto: UpdateCertificadoDto) {
-    return `This action updates a #${id} certificado`;
+    return this.certificadoRepository.update(
+      { id_certificado: id.toString() },
+      updateCertificadoDto,
+    );
   }
 
   remove(id: number) {
-    return `This action removes a #${id} certificado`;
+    return this.certificadoRepository.delete({
+      id_certificado: id.toString(),
+    });
   }
 }
