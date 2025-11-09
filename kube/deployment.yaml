@@ -15,7 +15,7 @@ spec:
             containers:
                 - name: linker-backend
                   image: stephano21/linker-backend:latest
-                  imagePullPolicy: Always
+                  imagePullPolicy: Never
                   ports:
                       - containerPort: 3000
                   envFrom:
@@ -42,7 +42,7 @@ spec:
             containers:
                 - name: linker-frontend
                   image: stephano21/linker-frontend:latest
-                  imagePullPolicy: Always
+                  imagePullPolicy: Never
                   ports:
                       - containerPort: 80
 
@@ -50,7 +50,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: postgres
+    name: db
 spec:
     replicas: 1
     selector:

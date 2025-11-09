@@ -4,6 +4,9 @@ metadata:
     name: linker-config
 data:
     CORS_ORIGIN: "*"
-    DB_HOST: "postgres"
+    DB_HOST: "db"
     DB_PORT: "5432"
-    DB_NAME: "linkerdb"
+    DB_DATABASE: "linkerdb"
+    DB_USER: "linker"
+    DB_PASSWORD: "linker"
+    JWT_SECRET: "12345"

@@ -31,7 +31,13 @@ Para desplegar el sistema localmente utilizando Minikube, sigue estos pasos:
     minikube start driver=docker
     ```
 
-2. **Construir las imágenes Docker**:
+2. **Apuntar Docker al entorno Minikube**
+
+    ```bash
+    eval $(minikube docker-env)
+    ```
+
+3. **Construir las imágenes Docker**:
 
     ```bash
     cd Backend/
@@ -41,17 +47,10 @@ Para desplegar el sistema localmente utilizando Minikube, sigue estos pasos:
     cd ..
     ```
 
-3. **Aplicar los manifiestos de Kubernetes**:
+4. **Aplicar los manifiestos de Kubernetes** (asegúrate de tener los archivos YAML en una carpeta `kube/`):
 
     ```bash
-    kubectl apply -f k8s/backend.yaml
-    kubectl apply -f k8s/frontend.yaml
-    ```
-
-4. **Aplicar los manifiestos de Kubernetes** (asegúrate de tener los archivos YAML en una carpeta `k8s/`):
-
-    ```bash
-    kubectl apply -f k8s/
+    kubectl apply -f kube/
     ```
 
 5. **Verificar que los pods estén corriendo**:
@@ -65,6 +64,10 @@ Para desplegar el sistema localmente utilizando Minikube, sigue estos pasos:
     ```bash
     kubectl port-forward svc/linker-backend 31000:3000 &
     kubectl port-forward svc/linker-frontend 30080:80 &
+    ```
+7. **Conexión por navegador**:
+    ```bash
+    http://127.0.0.1:30080
     ```
 
 Nota: Puedes interactuar con la base de datos con este comando
