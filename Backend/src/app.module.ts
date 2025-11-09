@@ -21,6 +21,7 @@ import { VacanteHabilidadesModule } from './vacante_habilidades/vacante_habilida
 import { MatchesModule } from './matches/matches.module';
 import { ChatModule } from './chat/chat.module';
 import { InteraccionesModule } from './interacciones/interacciones.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 @Module({
   imports: [
@@ -54,6 +55,10 @@ import { InteraccionesModule } from './interacciones/interacciones.module';
     VacanteHabilidadesModule,
     MatchesModule,
     InteraccionesModule,
+    PrometheusModule.register({
+      path: '/metrics',
+      defaultMetrics: { enabled: true },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
